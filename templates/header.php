@@ -51,6 +51,7 @@
                     <div class="bag-item">
                         <img src="../icon/basket.png">
                         <p>Корзина</p>
+                        <span id="basket_count">1</span>
                     </div>
                 </a>
             </div>

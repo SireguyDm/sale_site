@@ -13,7 +13,7 @@
 
 <div class="article-section">
     <div class="middle-zag">
-        <span>
+        <span id="data-id" data-id="<?php echo $products->id ?>">
             <?php echo $products->title ?>  
         </span>
     </div>
@@ -87,4 +87,5 @@
 </div>
 
 <script src="../js/product.js"></script>
+<script src="../js/add_to_basket.js"></script>
 <?php include('../templates/footer.php')?>

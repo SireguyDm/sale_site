@@ -68,7 +68,18 @@ button {
     width: 64px;
     height: 64px;
     font-family: "Roboto Condensed", sans-serif;
-    margin: 15px 10px; }
+    margin: 15px 10px;
+    -webkit-transition: all 0.15s;
+    -o-transition: all 0.15s;
+    transition: all 0.15s; }
+    .logo a:hover {
+      -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      transform: scale(1.05); }
+    .logo a:active {
+      -webkit-transform: scale(0.99);
+      -ms-transform: scale(0.99);
+      transform: scale(0.99); }
   .logo p {
     font-size: 36px;
     color: #26a1e4;
@@ -149,14 +160,48 @@ button {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-flow: column;
-    flex-flow: column; }
+    flex-flow: column;
+    position: relative; }
   .bag img {
     width: 52px;
-    height: 52px; }
+    height: 52px;
+    -webkit-transition: all 0.15s;
+    -o-transition: all 0.15s;
+    transition: all 0.15s; }
+    .bag img:hover {
+      -webkit-transform: scale(1.12);
+      -ms-transform: scale(1.12);
+      transform: scale(1.12); }
+    .bag img:active {
+      -webkit-transform: scale(0.99);
+      -ms-transform: scale(0.99);
+      transform: scale(0.99); }
   .bag p {
-    margin: 5px 0;
-    font-size: 15px;
-    color: rgba(51, 51, 51, 0.9); }
+    font-size: 16px;
+    color: rgba(51, 51, 51, 0.85);
+    font-weight: 600;
+    line-height: 1.3em;
+    margin: 5px 0; }
+  .bag #basket_count {
+    position: absolute;
+    background: red;
+    width: 33px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 50%;
+    height: 33px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    right: 34px;
+    top: -2px;
+    color: white;
+    font-weight: 900;
+    font-size: 18px; }
 
 .menu {
   display: -webkit-box;
@@ -592,6 +637,9 @@ button {
     justify-content: space-around;
     padding: 45px 0 0 0; }
   .footer-contact .about_us {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px 0 0 80px;
     margin-top: 15px; }
   .footer-contact .footer-item {
     -ms-flex-preferred-size: 50%;
