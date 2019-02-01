@@ -9,8 +9,6 @@
     include('../controllers/header.php')
 ?>
 
-
-
 <div class="article-section">
     <div class="middle-zag">
         <span id="data-id" data-id="<?php echo $products->id ?>">

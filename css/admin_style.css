@@ -136,3 +136,52 @@
 
 .admin-category-item {
   margin-bottom: 60px; }
+
+.form-auth {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 200px; }
+
+.admin-users .admin-users-item {
+  margin-bottom: 30px; }
+  .admin-users .admin-users-item .item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 5px 0; }
+    .admin-users .admin-users-item .item .info-zag {
+      font-size: 18px;
+      margin: 0 15px 0 0; }
+    .admin-users .admin-users-item .item .info {
+      font-size: 21px;
+      font-weight: 700;
+      font-family: inherit;
+      margin-bottom: 2px; }
+  .admin-users .admin-users-item img {
+    border: none; }
+  .admin-users .admin-users-item .user_change_box {
+    display: none; }
+
+.admin-btn:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05); }
+
+.admin-btn:active {
+  -webkit-transform: scale(0.99);
+  -ms-transform: scale(0.99);
+  transform: scale(0.99); }
+
+.admin_category_change {
+  display: none; }

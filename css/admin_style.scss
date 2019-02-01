@@ -103,3 +103,47 @@
 .admin-category-item{
     margin-bottom: 60px;
 }
+.form-auth{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+.admin-users{
+    .admin-users-item{
+        margin-bottom: 30px;
+        .item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0;
+            .info-zag{
+                font-size: 18px;
+                margin: 0 15px 0 0;
+            }
+            .info{
+                font-size: 21px;
+                font-weight: 700;
+                font-family: inherit;
+                margin-bottom: 2px;
+            }
+        }
+        img{
+            border: none;
+        }
+        .user_change_box{
+            display: none;
+        }
+    }
+}
+.admin-btn{
+    &:hover{
+        transform: scale(1.05);
+    }
+    &:active{
+        transform: scale(0.99);
+    }
+}
+.admin_category_change{
+    display: none;
+}

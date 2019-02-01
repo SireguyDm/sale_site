@@ -3,6 +3,10 @@
 session_set_cookie_params(180);
 session_start();
 
+ 
+$_SESSION['proba'] = $_REQUEST['proba'];
+var_dump($_SESSION['proba']);
+
 //if( !isset($_SESSION['products_id']) ) { 
 //    $_SESSION['products_id'] = array();
 //}

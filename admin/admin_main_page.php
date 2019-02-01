@@ -1,4 +1,4 @@
-<?php include('../templates/admin_header.php') ?>
+<?php include('../controllers/admin_header.php') ?>
 
     <h1 class="text-center mt-4 mb-4">Заказы</h1>
 
