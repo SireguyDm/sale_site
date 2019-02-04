@@ -20,7 +20,45 @@
     
     <hr class="basket-hr">
     
-    <!--                                 ТОВАР 1-->
+    
+    <?php
+    
+    foreach($basket_products as $product){
+        if ($product != null){
+            echo 
+            '
+                <div class="basket-product" data-id="'.$product->id.'">
+                    <div class="basket-product-item-left">
+                        <div class="basket-product-img-div">
+                            <img src="../pics/tovar/'.$product->img.'/'.$product->img.'1.jpg">
+                        </div>
+                        <div class="basket-product-description">
+                            <p class="basket-product-name">'.$product->title.'</p>
+                            <p class="basket-product-article">Рюкзак</p>
+                        </div>
+                    </div>
+                    <div class="basket-product-item-right">
+                        <div class="basket-product-count">
+                            <p class="basket-cutom-text">'.$_SESSION['cart'][$product->id]['count'].'</p>
+                            <div class="basket-product-btns">
+                                <button class="btn-plus">+</button>
+                                <button class="btn-minus">-</button>
+                            </div>
+                        </div>
+                        <p class="basket-cutom-text" data-cost="'.$product->cost.'">'.$product->cost.' руб.</p>
+                        <button class="basket-btn-delete">&#10006;</button>
+                    </div>
+                </div>
+            ';
+        }
+        
+    }
+        
+    ?>
+    
+    
+<!--
+                                     ТОВАР 1
     <div class="basket-product">
         <div class="basket-product-item-left">
             <div class="basket-product-img-div">
@@ -43,6 +81,9 @@
             <button class="basket-btn-delete">&#10006;</button>
         </div>
     </div>
+-->
+    
+    
     
     
     <hr class="basket-hr">
@@ -145,4 +186,6 @@
 
 </div>
 
+
+<script src="../js/basket.js"></script>
 <?php include('../templates/footer.php')?>

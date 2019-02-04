@@ -1,14 +1,16 @@
 $(document).ready(function(){
     
     $('#add_article').click(function(){
-        var proba = $('#data-id').attr('data-id');
+        var basket_product_id = $('#data-id').attr('data-id');
         
         $.post(
-          "../controllers/header.php",
+          "../controllers/add_to_basket.php",
           {
-            proba: proba,
-          }   
+            basket_product_id: basket_product_id,
+          }
         );
+        
+        
     });
     
 });

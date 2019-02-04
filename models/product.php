@@ -53,8 +53,10 @@ class Product
     }
 }
 
-// $products = new Product(2);
-// $products = Product::getAll(3);
+// $products = new Product(1);
+// $products = Product::getAll();
 // echo '<pre>';
 // var_dump($products);
+
+
 
