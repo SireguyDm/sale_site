@@ -13,6 +13,7 @@ $basket_products = [];
 $product = '';
 
 var_dump($_SESSION['cart']);
+
 //var_dump($_SESSION['cart'][1]['basket_product_id']);
 //$_SESSION['cart'][1]['basket_product_id'] = 1;
 //$_SESSION['cart'][2]['basket_product_id'] = 2;

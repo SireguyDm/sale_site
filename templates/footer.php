@@ -1,7 +1,7 @@
     </div>
     <div class="communicate" id="communicate-target">
         <div class="communicate-wrapper">
-            <p>ОСТАЛИСЬ ВОПРОСЫ? ПРОСТО ПОЗВОНИТЕ НАМ!</p>
+            <p>ОСТАЛИСЬ ВОПРОСЫ? МЫ ПЕРЕЗВОНИМ ВАМ!</p>
             <button>Связаться</button>
         </div>
     </div>

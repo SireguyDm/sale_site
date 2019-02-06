@@ -21,24 +21,27 @@ $(document).ready(function(){
         var all_count = $(this).parent().prev('.basket-cutom-text'); 
         var count = all_count.text();
         
-        var cost_text = $(this).parent().parent().next('.basket-cutom-text');
-        var summ = $(this).parent().parent().next('.basket-cutom-text').data("cost");
+        var cost = $(this).parent().parent().next('.basket-cutom-text').data("cost");
+        var summ_text = $(this).parent().parent().next('.basket-cutom-text');
+        
         
         if (count < 30){
             count++;
         }
         all_count.text(count);
         
-        all_summ = summ * count;
-        cost_text.text(all_summ +' руб.');
+        var summ = count * cost;
+        summ_text.text(summ +' руб.');
         
         $.post(
           "../controllers/add_to_basket.php",
           {
+            basket_summ: summ,
             basket_count: count,
             basket_id: product_id,
           }
         );
+        
     });
     
     $('.btn-minus').click(function(){
@@ -47,8 +50,8 @@ $(document).ready(function(){
         var all_count = $(this).parent().prev('.basket-cutom-text');
         var count = all_count.text();
         
-        var cost_text = $(this).parent().parent().next('.basket-cutom-text');
-        var summ = $(this).parent().parent().next('.basket-cutom-text').data("cost");
+        var cost = $(this).parent().parent().next('.basket-cutom-text').data("cost");
+        var summ_text = $(this).parent().parent().next('.basket-cutom-text');
     
         
         if (count > 1){
@@ -56,17 +59,20 @@ $(document).ready(function(){
         }
         all_count.text(count);
         
-        all_summ = summ * count;
-        cost_text.text(all_summ +' руб.');
+        var summ = count * cost;
+        summ_text.text(summ +' руб.');
 
         $.post(
           "../controllers/add_to_basket.php",
           {
+            basket_summ: summ,
             basket_count: count,
             basket_id: product_id,
           }
         );
+        
     });
+    
     
     
 });

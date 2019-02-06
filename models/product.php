@@ -51,6 +51,7 @@ class Product
 
         return $products;
     }
+    
 }
 
 // $products = new Product(1);

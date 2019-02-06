@@ -45,15 +45,13 @@
                                 <button class="btn-minus">-</button>
                             </div>
                         </div>
-                        <p class="basket-cutom-text" data-cost="'.$product->cost.'">'.$product->cost.' руб.</p>
+                        <p class="basket-cutom-text basket_p_cost" data-cost="'.$_SESSION['cart'][$product->id]['const_cost'].'">'.$_SESSION['cart'][$product->id]['cost'].' руб.</p>
                         <button class="basket-btn-delete">&#10006;</button>
                     </div>
                 </div>
             ';
         }
-        
-    }
-        
+    } 
     ?>
     
     
@@ -93,7 +91,7 @@
 <div class="basket-itog">
     <div>
         <p class="basket-cutom-text">Итого:</p>
-        <p class="basket-cutom-text" id="basket-itogsumm">13500 руб.</p>
+        <p class="basket-cutom-text" id="basket-itogsumm">0 руб.</p>
     </div>
 </div>
 
@@ -166,15 +164,15 @@
 <div class="basket-itog-summ">
     <div class="basket-itog-summ-item">
         <p class="basket-itog-summ-item-left">Стоимость:</p>
-        <p class="basket-itog-summ-item-right">12500 руб.</p>
+        <p class="basket-itog-summ-item-right" id="products_summ">0 руб.</p>
     </div>
     <div class="basket-itog-summ-item">
         <p class="basket-itog-summ-item-left">Доставка:</p>
-        <p class="basket-itog-summ-item-right">500 руб.</p>
+        <p class="basket-itog-summ-item-right" data-delivery="500" id="form_delivery">500 руб.</p>
     </div>
     <div class="basket-itog-summ-item">
         <p class="basket-itog-summ-item-left basket-itog-color">Итого:</p>
-        <p class="basket-itog-summ-item-right basket-itog-color">13000 руб.</p>
+        <p class="basket-itog-summ-item-right basket-itog-color" id="itog_summ">500 руб.</p>
     </div>
 </div>
 
@@ -187,5 +185,6 @@
 </div>
 
 
-<script src="../js/basket.js"></script>
+<script src="../js/basket_products.js"></script>
+<script src="../js/basket_form.js"></script>
 <?php include('../templates/footer.php')?>
