@@ -5,6 +5,14 @@
             <button>Связаться</button>
         </div>
     </div>
+    
+    <form action="../php/tel_create.php" method="post">
+        <h2>Введите ваш телефон</h2>
+        <input type="tel" name="tel">
+        <input type="text" name="user_name">
+        <button type="submit">Отправить</button>
+    </form>
+    
     <footer>
         <div class="footer-contact">
             <div class="footer-wrapper">

@@ -36,7 +36,25 @@ class Category
         return $categories;
     }
     
+    public function update($id=false, $title=false)
+    {
+        global $mysqli;
+        
+        $query = "UPDATE categories SET title = '$title' WHERE category_id=$id";
+        $result = $mysqli->query($query);
+
+        if($result) {
+            $categories = new self($id);
+            return $categories;
+        } else {
+            return false;
+        }
+    }
+    
 }
 
+
+//$category = new Category(3);
+//$category->update(3, 'привет');
 // $category = new Category(2);
 // var_dump($category);
