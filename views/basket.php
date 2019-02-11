@@ -39,7 +39,7 @@
                     </div>
                     <div class="basket-product-item-right">
                         <div class="basket-product-count">
-                            <p class="basket-cutom-text">'.$_SESSION['cart'][$product->id]['count'].'</p>
+                            <p class="basket-cutom-text" data-count="'.$_SESSION['cart'][$product->id]['count'].'">'.$_SESSION['cart'][$product->id]['count'].'</p>
                             <div class="basket-product-btns">
                                 <button class="btn-plus">+</button>
                                 <button class="btn-minus">-</button>
@@ -114,38 +114,38 @@
     <div class="basket-form-fio basket-two-in-row">
         <div class="basket-two-in-row-item">
             <p class="form-text">Имя</p>
-            <input type="text" class="basket-form-input">
+            <input type="text" class="basket-form-input" id="order-name">
         </div>
         <div class="basket-two-in-row-item">
             <p class="form-text">Фамилия</p>
-            <input type="text" class="basket-form-input">
+            <input type="text" class="basket-form-input" id="order-second-name">
         </div>
     </div>
 
     <div class="basket-form-adress">
         <p class="form-text">Адресс</p>
-        <input type="text" class="basket-form-input">
+        <input type="text" class="basket-form-input" id="order-adress">
     </div>
 
     <div class="basket-two-in-row">
         <div class="basket-two-in-row-item">
             <p class="form-text">Город</p>
-            <input type="text" class="basket-form-input">
+            <input type="text" class="basket-form-input" id="order-city">
         </div>
         <div class="basket-two-in-row-item">
             <p class="form-text">Домофон</p>
-            <input type="text" class="basket-form-input">
+            <input type="text" class="basket-form-input" id="order-domofon">
         </div>
     </div>
 
     <div class="basket-two-in-row">
         <div class="basket-two-in-row-item">
             <p class="form-text">Телефон</p>
-            <input type="text" class="basket-form-input">
+            <input type="tel" class="basket-form-input" id="order-tel">
         </div>
         <div class="basket-two-in-row-item">
             <p class="form-text">E-mail</p>
-            <input type="text" class="basket-form-input">
+            <input type="text" class="basket-form-input" id="order-email">
         </div>
     </div>
 </form>
@@ -179,12 +179,13 @@
 <div class="basket-oplata">
 
     <div class="basket-oplata-btn">
-        <button>Заказать</button>
+        <button id="order">Заказать</button>
     </div>
 
 </div>
 
 
 <script src="../js/basket_products.js"></script>
+<script src="../js/create_order.js"></script>
 <script src="../js/basket_form.js"></script>
 <?php include('../templates/footer.php')?>

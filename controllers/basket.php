@@ -27,7 +27,7 @@ foreach ($_SESSION['cart'] as $product_id){
 }
 
 if (count($basket_products) === 0){
-    header('Location: ../views/error.php');
+    header('Location: ../controllers/empty_basket.php');
 }
 
 //var_dump($basket_products);

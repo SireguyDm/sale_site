@@ -9,4 +9,8 @@ $(document).ready(function() {
         $(this).children('.catalog-choice-item-back').css('display', 'none');
     });
     
+    $('#call-back-activator').click(function(){
+        $('.call-back-window').css('display', 'block');
+    });
+    
 });

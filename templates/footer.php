@@ -2,16 +2,39 @@
     <div class="communicate" id="communicate-target">
         <div class="communicate-wrapper">
             <p>ОСТАЛИСЬ ВОПРОСЫ? МЫ ПЕРЕЗВОНИМ ВАМ!</p>
-            <button>Связаться</button>
+            <button id="call-back-activator">Связаться</button>
         </div>
     </div>
     
-    <form action="../php/tel_create.php" method="post">
-        <h2>Введите ваш телефон</h2>
-        <input type="tel" name="tel">
-        <input type="text" name="user_name">
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="call-back-window">
+        <form class="call-back-form">
+            <div class="call-back-zag">
+                <h2>Остались вопросы?</h2>
+                <p>Оставьте ваш номер, и мы перезвоним вам прямо сейчас!</p>
+            </div>
+            <div class="form-input">
+                <div class="form-item">
+                    <img src="../icon/man-user.png">
+                    <input id="form-name" type="text" name="user_name" placeholder="Ваше имя">
+                </div>
+                <div class="form-item">
+                    <img src="../icon/smartphone-call.png">
+                    <input id="form-tel" type="tel" name="tel" placeholder="Ваш телефон">
+                </div>     
+            </div>
+            <button id="form-submit">Заказать звонок</button>
+            <div class="form-close"></div>
+            <img src="../icon/call-center.png" class="form-icon">
+        </form>
+        <div class="form-succes">
+            <img src="../icon/succes.png">
+            <h2>Ваша заявка успешно отправлена</h2>
+            <p>В ближайшее время мы с вами свяжемся</p>
+        </div>
+        <script src="../js/call_back.js"></script>
+    </div>
+    
+    
     
     <footer>
         <div class="footer-contact">

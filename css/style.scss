@@ -617,6 +617,7 @@ button{
     .offers-item{
         height: 410px;
         margin: 15px 17px 35px;
+        box-sizing: border-box;
         flex-basis: (100%-12%) / $catalog-items-in-row;
         img{
             width: 100%-15%;
@@ -958,3 +959,169 @@ button{
         margin-left: 17px;
     }
 }
+.call-back-window{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 560px;
+    max-height: 310px;
+    border-radius: 7px;
+    background: rgb(59, 194, 245);
+    border: 1px solid rgba(101, 90, 90, 0.12);
+    display: none;
+}
+.call-back-form{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 30px 20px 0px 20px;
+    text-align: center;
+    .call-back-zag{
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+        align-items: center;
+        text-align: center;
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.3em;
+        margin-bottom: 10px;
+        font-family: 'Roboto Condensed', sans-serif;
+        color: white;
+        p{
+            margin: 10px 0 3px 0;
+        }
+    }
+    .form-input{
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+        align-items: center;
+        input{
+            width: 220px;
+            @include custom_text(18px, 0.9);
+            box-sizing: border-box;
+            padding: 0 11px;
+            height: 38px;
+            border-radius: 3px;
+            border: 1px solid rgba(51, 51, 51, 0.25);
+            
+            position: relative;
+        }
+    }
+    .form-item{
+        display: flex;
+        align-items: center;
+        margin: 3px 0 20px 0;
+        img{
+            width: 40px;
+            height: 38px;
+            box-sizing: border-box;
+            background: rgba(91, 91, 91, 0.99);
+            padding: 8px;
+        }
+    }
+    .form-close{
+        background: url(../icon/access-denied.png) center center / contain no-repeat;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 9px;
+        right: 9px;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+        &:hover{
+            transform: scale(1.12);
+        }
+        &:active{
+            transform: scale(0.99);
+        }
+    }
+    .form-icon{
+        width: 95px;
+        height: 95px;
+        position: absolute;
+        left: -10px;
+        top: -45px;
+    }
+    button{
+        border: 1px solid white;
+        width: 180px;
+        height: 40px;
+        background: rgb(65, 199, 250);
+        color: white;
+        font-size: 16px;
+        font-family: 'Roboto Condensed', sans-serif;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-top: 5px;
+        &:hover{
+            transform: scale(1.03);
+        }
+        &:active{
+            transform: scale(0.99);
+        }
+    }
+}
+
+.form-succes{
+    width: 100%;
+    height: 100%;
+    background: #7adf61;
+    align-items: center;
+    flex-flow: column;
+    box-sizing: border-box;
+    padding: 30px;
+    display: none;
+    img{
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+    }
+    h2{
+        color: white;
+        letter-spacing: 2px;
+        margin: 10px 0;
+        font-size: 29px;
+        font-weight: 800;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+    p{
+        color: white;
+        font-size: 23px;
+        margin: 5px 0;
+        font-weight: 800;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+}
+.call-back-error{
+    position: relative;
+    &::before{
+        content: "";
+        position: absolute;
+        color: #ec3e3e;
+        bottom: -19px;
+        font-family: Myriad Pro;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 14px;
+        left: 10px;
+    }
+    &::after{
+        content: "*";
+        position: absolute;
+        color: red;
+        bottom: -21px;
+        font-family: Myriad Pro;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 15px;
+    }
+}
+
