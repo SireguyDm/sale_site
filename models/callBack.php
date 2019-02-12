@@ -54,10 +54,33 @@ class CallBack
             return false;
         }
     }
+    
+    public function delete($id)
+    {
+        global $mysqli;
+        
+        $query = "DELETE FROM call_back WHERE call_id = $id";
+        $result = $mysqli->query($query);
+        
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
-
-//$call_back = CallBack::add('Сергей', '89999999999', '2018-01-19');
-//$call_back = CallBack::getAll();
+//Получение определнного звонка
 //$call_back = new CallBack(1);
-//var_dump($call_back);
+
+//Получение всех звонков
+//$call_back = CallBack::getAll();
+
+//Добавление звонка
+//$call_back = CallBack::add('Сергей', '89999999999', '2018-01-19');
+
+//Удаление звонка
+//$call_back = CallBack::delete(5);
+
+// echo '<pre>';
+// var_dump($call_back);

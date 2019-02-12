@@ -36,7 +36,7 @@ class Category
         return $categories;
     }
     
-    public function update($id=false, $title=false)
+    public function update($id, $title)
     {
         global $mysqli;
         
@@ -44,8 +44,7 @@ class Category
         $result = $mysqli->query($query);
 
         if($result) {
-            $categories = new self($id);
-            return $categories;
+            return true;
         } else {
             return false;
         }
@@ -53,8 +52,14 @@ class Category
     
 }
 
+//Получение всех категорий
+//$category = Category::getAll();
 
-//$category = new Category(3);
-//$category->update(3, 'привет');
-// $category = new Category(2);
-// var_dump($category);
+//Получение определенной категории
+//$category = new Category(1);
+
+//Обновление категории
+//$category = Category::update(1, 'Часы');
+
+//echo '<pre>';
+//var_dump($category);

@@ -50,8 +50,90 @@ class Description
         return $descriptions;
     }
     
+    public function update($id, $zag=false, $p1=false, $p2=false, $color=false, $size=false, $material=false, $country=false)
+    {   
+        $condition = [];
+        if($zag != false) {
+            $condition[] = "zag='$zag'";
+        }
+        if($p1 != false) {
+            $condition[] = "p1='$p1'";
+        }
+        if($p2 != false) {
+            $condition[] = "p2='$p2'";
+        }
+        if($color != false) {
+            $condition[] = "color='$color'";
+        }
+        if($size != false) {
+            $condition[] = "size='$size'";
+        }
+        if($material != false) {
+            $condition[] = "material='$material'";
+        }
+        if($country != false) {
+            $condition[] = "country='$country'";
+        }
+
+        $condition = implode(",", $condition);
+
+        global $mysqli;
+
+        $query = "UPDATE description SET $condition WHERE product_id=$id";
+        
+        $result = $mysqli->query($query);
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function delete($id)
+    {
+        global $mysqli;
+        
+        $query = "DELETE FROM description WHERE product_id = $id";
+        $result = $mysqli->query($query);
+        
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function add($zag=null, $p1=null, $p2=null, $color=null, $size=null, $material=null, $country=null, $product_id)
+    {
+        global $mysqli;
+
+        $query = "INSERT INTO description (description_zag, description_p1, description_p2, color, size, material, country, product_id) VALUES ('$zag', '$p1', '$p2', '$color', '$size', '$material', '$country', '$product_id')";
+        
+        $result = $mysqli->query($query);
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
-//$descriptions = Description::getAll();
+//Получение определенного описания
 //$descriptions = new Description(1);
+
+//Получение всех описаний
+//$descriptions = Description::getAll();
+
+//Обновление описания
+//$descriptions = Description::update(1, false, false, false, false, false, 'Хлопок', false);
+
+//Удаление описания 
+//$descriptions = Description::delete(6);
+
+//Добавление описания
+//$descriptions = Description::add('null', 'null', 'null', 'null', 'null', 'null', 'null', 6);
+
+//echo '<pre>';
 //var_dump($descriptions);
