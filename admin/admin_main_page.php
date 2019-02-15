@@ -42,8 +42,14 @@
             <div class="text-center mt-4 order_status" >
                     <p>Изменить статус: </p>
                     <select name="status" id="">
-                        <option value="">Ожидает</option>
-                        <option value="">Доставлен</option>
+                       <?php
+                            foreach($statuses as $status){
+                                echo 
+                                '
+                                <option value="'.$status->status_title.'">'.$status->status_title.'</option>
+                                ';
+                            }
+                        ?>
                     </select>
                     <button>Сохранить</button>
             </div>
