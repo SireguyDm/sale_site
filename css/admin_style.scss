@@ -147,3 +147,9 @@
 .admin_category_change{
     display: none;
 }
+.status-item{
+    align-items: center;
+    button{
+        cursor: pointer;
+    }
+}

@@ -49,6 +49,29 @@ class Order
             o.status_id = s.status_id AND
             o.order_id = $id
         ";
+//        
+//        $query = "
+//            SELECT             
+//                o.order_id,
+//                o.first_name,
+//                o.second_name,
+//                o.tel,
+//                o.email,
+//                o.city,
+//                o.domofon,
+//                p.title,
+//                p.cost,
+//                b.product_count,
+//                b.all_summ,
+//                s.status_title 
+//            FROM orders o 
+//            INNER JOIN basket b ON o.order_id = b.order_id 
+//            INNER JOIN products p ON b.product_id = p.product_id
+//            INNER JOIN status s ON o.status_id = s.status_id
+//            WHERE o.order_id = $id
+//            ";
+            
+            
         $result = $mysqli->query($query);
         
         $order_data = $result->fetch_assoc();
@@ -75,31 +98,7 @@ class Order
     {
         global $mysqli;
         
-        $query = "
-        SELECT 
-            o.order_id,
-            o.first_name,
-            o.second_name,
-            o.tel,
-            o.email,
-            o.city,
-            o.domofon,
-            p.title,
-            p.cost,
-            b.product_count,
-            b.all_summ,
-            s.status_title
-        FROM 
-            basket b, 
-            products p, 
-            orders o,
-            status s
-        WHERE 
-            o.order_id = b.order_id AND
-            p.product_id = b.product_id AND
-            o.status_id = s.status_id AND
-            o.order_id = $id
-        ";
+        $query = "SELECT b.order_id FROM basket b WHERE b.order_id = $id";
         $result = $mysqli->query($query);
         
         $orders = [];

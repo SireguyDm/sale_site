@@ -35,7 +35,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="../controllers/admin_main_page.php">Заказы <span class="badge badge-pill badge-success">22</span></a>
-                        <a class="dropdown-item" href="#">Обратный звонок <span class="badge badge-pill badge-success">2</span></a>
+                        <a class="dropdown-item" href="../controllers/admin_callback.php">Обратный звонок <span class="badge badge-pill badge-success">2</span></a>
                         <a class="dropdown-item" href="#">Пользователи</a>
                         <a class="dropdown-item" href="#">Заказы ( архив ) <span class="badge badge-pill badge-success">22</span></a>
                         <a class="dropdown-item" href="#">Статистика</a>
@@ -49,6 +49,7 @@
                         <a class="dropdown-item" href="../controllers/admin_category.php">Категории</a>
                         <a class="dropdown-item" href="#">Товар</a>
                         <a class="dropdown-item" href="../controllers/admin_users.php">Пользователи</a>
+                        <a class="dropdown-item" href="../controllers/admin_status.php">Статусы</a>
                     </div>
                 </li>
             </ul>
