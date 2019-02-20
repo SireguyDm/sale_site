@@ -4,6 +4,7 @@
 
 <div class="status">
     
+<!--
     <div class="status-item d-flex justify-content-center">
         <h3 class="text-center mt-4 mb-4">Ожидает</h3>
         <div class="btn-group ml-4">
@@ -21,6 +22,7 @@
           </div>
         </div>
     </div>
+-->
 
 </div>
 
@@ -71,5 +73,5 @@
 </div>
 
 
-
+<script src="../js/adminCrud/status.js"></script>
 <?php include('../templates/admin_footer.php') ?>

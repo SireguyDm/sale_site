@@ -36,5 +36,5 @@
 -->
 </div>
 
-<script src="../js/admin_category.js"></script>
+<script src="../js/adminCrud/category.js"></script>
 <?php include('../templates/admin_footer.php') ?>

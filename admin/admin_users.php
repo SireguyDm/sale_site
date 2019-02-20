@@ -97,4 +97,5 @@
 </div>
 
 <script src="../js/admin_users.js"></script> 
+<script src="../js/adminCrud/users.js"></script> 
 <?php include('../templates/admin_footer.php') ?>

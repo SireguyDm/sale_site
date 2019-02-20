@@ -2,13 +2,12 @@
 
 require_once '../models/callBack.php';
 
-$tel = $_REQUEST['tel'];
-$user_name = $_REQUEST['user_name'];
-$date_created = '';
+$tel = (((isset($_REQUEST['tel'])) && $_REQUEST['tel'] !== "")?$_REQUEST['tel']:false);
+$user_name = (((isset($_REQUEST['user_name'])) && $_REQUEST['user_name'] !== "")?$_REQUEST['user_name']:false);
+$date = date("G.i: d.m.Y");
 
-var_dump($tel);
-var_dump($user_name);
-
-$call_back = CallBack::add($user_name, $tel, '2018-01-19');
+if ($tel != false && $user_name != false){
+    $call_back = CallBack::add($user_name, $tel, $date);
+}
 
 header('Location: ../controllers/main_page.php');

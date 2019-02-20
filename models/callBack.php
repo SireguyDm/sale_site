@@ -8,7 +8,7 @@ class CallBack
     public $id;
     public $user_name;
     public $tel;
-    public $date_created;
+    public $date;
     
     public function __construct($id)
     {
@@ -22,7 +22,7 @@ class CallBack
         $this->id = $callback_data['call_id'];
         $this->user_name = $callback_data['user_name'];
         $this->tel = $callback_data['user_tel'];
-        $this->date_created = $callback_data['date_created'];
+        $this->date = $callback_data['date'];
     }
     
     public static function getAll()
@@ -40,12 +40,12 @@ class CallBack
         return $calls_back;
     }
     
-    public function add($user_name, $tel, $date_created)
+    public function add($user_name, $tel, $date)
     {
         global $mysqli;
 
-        $query = "INSERT INTO call_back (user_name, user_tel, date_created)
-                  VALUES ('$user_name', '$tel', $date_created)";
+        $query = "INSERT INTO call_back (user_name, user_tel, date)
+                  VALUES ('$user_name', '$tel', '$date')";
         $result = $mysqli->query($query);
 
         if($result) {
