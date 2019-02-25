@@ -11,6 +11,7 @@ class Order
     public $second_name;
     public $tel;
     public $email;
+    public $adress;
     public $city;
     public $domofon;
     
@@ -31,6 +32,7 @@ class Order
             o.second_name,
             o.tel,
             o.email,
+            o.adress,
             o.city,
             o.domofon,
             p.title,
@@ -81,6 +83,7 @@ class Order
         $this->second_name = $order_data['second_name'];
         $this->tel = $order_data['tel'];
         $this->email = $order_data['email'];
+        $this->adress = $order_data['adress'];
         $this->city = $order_data['city'];
         $this->domofon = $order_data['domofon'];
         

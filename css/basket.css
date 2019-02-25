@@ -431,6 +431,9 @@
   -ms-transform: scale(0.98);
   transform: scale(0.98); }
 
+.basket .offers .middle-zag {
+  margin: 40px 0 30px; }
+
 .empty_basket {
   font-family: Myriad Pro;
   font-size: 27px;

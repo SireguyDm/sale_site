@@ -2,22 +2,11 @@
 
 <h1 class="text-center mt-4 mb-4">Обратные звонки</h1>
 
-<div class="callback">
-    
-<!--
-     <div class="alert alert-success" role="alert" id="admin_basket">
-            <h4 class="alert-heading admin_time text-center">29.01.2019: 22:40</h4>
-            <p class="text-center h4" id="user_name">Сергей <span id="user-f">Дмитренко</span></p>
-            <p class="h5 admin_basket_row mt-3 text-center">Телефон: <span>8(910)446-66-51</span></p>
-            <div class="d-flex justify-content-center mt-3">
-                <button type="button" class="btn btn-danger proba">Удалить</button>
-            </div> 
-    </div>
--->
-</div>
+<h3 class="text-center mt-3 mb-3 d-flex justify-content-center">Очистить звонки <button class="btn btn-danger ml-4" id="deleteAll" data-all="all">Удалить</button></h3>
 
+<div class="callback"></div>
 
-<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-modalId="">
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-prodid="false">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,7 +24,6 @@
     </div>
   </div>
 </div>
-
 
 <script src="../js/adminCrud/callBack.js"></script>
 <?php include('../templates/admin_footer.php') ?>

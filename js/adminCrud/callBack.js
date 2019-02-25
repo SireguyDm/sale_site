@@ -1,31 +1,41 @@
 $(document).ready(function(){
-    
-    
+
     var call_id = false; 
     GetProducts(call_id);
     
-    $('.btn-delete').click(function(){
+    $(document).on('click', '.delete', function () {
+        
         openClose();
         
-        var id = $(this).parent().parent('.admin_basket').data('id');
-        $('#DeleteModal').data('modalId', id);
-        console.log(id); 
+        var id = $(this).parent('.btn-box').parent('#admin_basket').data('id');
+        $('#DeleteModal').attr('data-prodid', id);
     });
     
-    $('#modal_send').click(function(){
+    $('#deleteAll').click(function(){
         
-        var call_id = $('#DeleteModal').data('modalId');
+        openClose();
+        
+        var id = $(this).data('all');
+        $('#DeleteModal').attr('data-prodid', id);
+    });
+    
+    $(document).on('click', '#modal_send', function () {
+        
+        var call_id = $('#DeleteModal').data('prodid');
         GetProducts(call_id);
         
+        $('#DeleteModal').attr('data-prodid', false);
         openClose();
+        
+        location.reload();
     });
     
-    $('.modal_close').click(function(){
-        $('#DeleteModal').data('modalId', '');
+    $(document).on('click', '.modal_close', function () {
+        
+        $('#DeleteModal').attr('data-prodid', false);
         openClose();
     });
-    
-    
+
 });
 
 function GetProducts(call_id) {
@@ -37,12 +47,12 @@ function GetProducts(call_id) {
         
         callBack.forEach(function (call) {
             $('.callback').append(
-            '<div class="alert alert-success" role="alert" id="admin_basket" data-id="'+ call['id'] +'">' +
+            '<div class="alert mb-3 alert-success" role="alert" id="admin_basket" data-id="'+ call['id'] +'">' +
                 '<h4 class="alert-heading admin_time text-center">'+ call['date'] +'</h4>'+
                 '<p class="text-center h4" id="user_name">'+ call['user_name'] +'</p>'+
                 '<p class="h5 admin_basket_row mt-3 text-center">Телефон: <span>'+ call['tel'] +'</span></p>' +
-                '<div class="d-flex justify-content-center mt-3">'+
-                    '<button type="button" class="btn btn-danger btn-delete" >Удалить</button>'+
+                '<div class="d-flex justify-content-center mt-3 btn-box">'+
+                    '<button type="button" class="btn btn-danger delete" >Удалить</button>'+
                 '</div>'+ 
             '</div>'
             )
@@ -55,5 +65,8 @@ function openClose(){
     if (modal.css('display') == 'none' && modal.css('opacity') == '0'){
         modal.css('display', 'block');
         modal.css('opacity', '1');
+    } else {
+        modal.css('display', 'none');
+        modal.css('opacity', '0');
     }
 }

@@ -36,8 +36,11 @@ class Product
 
         $conditions = "";
         $tables = "products p";
-
-        if ($category_id !== false) {
+        
+        if ($category_id === 'sale'){
+            $conditions = "AND p.old_cost > 0";
+        }
+        if ($category_id !== false && $category_id !== 'sale') {
             $conditions .= " AND p.category_id=$category_id";
         }
 
@@ -121,7 +124,7 @@ class Product
 // $products = new Product(1);
 
 //Вывести все товары
-// $products = Product::getAll();
+// $products = Product::getAll('sale');
 
 // Добавление товара
 //$products = Product::add('Avei85', '3500', '4500', 'avei7', '1');

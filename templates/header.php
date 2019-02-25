@@ -65,7 +65,7 @@
                 </div>
                 <div class="menu-other">
                     <a href="../controllers/main_page.php #delivery-target">Доставка</a>
-                    <a href="../controllers/main_page.php #sale-offers">Акции</a>
+                    <a href="../controllers/catalog.php?category_id=sale">Акции</a>
                     <a href="../controllers/main_page.php #communicate-target">Контакты</a>
                 </div>
             </div>

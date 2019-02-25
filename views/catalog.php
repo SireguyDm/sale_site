@@ -4,7 +4,7 @@
     <div class="middle-zag">
         <span>
             <?php 
-                echo $category->title; 
+                echo $title; 
             ?>
         </span>
     </div>
