@@ -31,5 +31,5 @@
    </div>
 </div>
 
-
+<script src="../js/adminCrud/products.js"></script>
 <?php include('../templates/admin_footer.php') ?>
