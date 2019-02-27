@@ -1,7 +1,5 @@
 $(document).ready(function(){
     
-    $(document).ready(function(){
-    
     //Product
     var product_id = $('#data-id').data('id');
     var title = false;
@@ -21,7 +19,7 @@ $(document).ready(function(){
     //Действие
     var action = false;
     
-    getCategory(product_id, false, false, false, false, false, false, false, false, false, false, false, false);
+    getProduct(product_id, false, false, false, false, false, false, false, false, false, false, false, false);
      
     $(document).on('click', '.btn-change', function () {
         
@@ -93,9 +91,9 @@ $(document).ready(function(){
 //    });
 });
 
-function getCategory(category_id, category_title){
+function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action){
     
-    $.post('../php/admin_get_category.php', {
+    $.post('../php/admin_get_productcart.php', {
         product_id,
         title,
         cost,

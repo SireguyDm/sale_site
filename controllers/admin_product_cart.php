@@ -17,4 +17,4 @@ $title = $products->title;
 require_once '../models/description.php';
 $descriptions = new Description($product);
 
-require_once '../views/product.php';
+require_once '../admin/admin_product_cart.php';

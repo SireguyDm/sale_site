@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 25 2019 г., 20:17
+-- Время создания: Фев 27 2019 г., 20:32
 -- Версия сервера: 10.1.36-MariaDB
 -- Версия PHP: 7.2.10
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- База данных: `shopser`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `basket`
+--
+
+CREATE TABLE `basket` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_count` int(11) NOT NULL DEFAULT '1',
+  `all_summ` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `basket`
+--
+
+INSERT INTO `basket` (`order_id`, `product_id`, `product_count`, `all_summ`) VALUES
+(1, 6, 1, 10000),
+(1, 1, 2, 10000);
 
 -- --------------------------------------------------------
 
@@ -90,6 +111,31 @@ INSERT INTO `description` (`description_id`, `description_zag`, `description_p1`
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL DEFAULT '1',
+  `first_name` varchar(128) NOT NULL,
+  `second_name` varchar(128) NOT NULL,
+  `tel` varchar(16) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `adress` varchar(255) NOT NULL,
+  `city` varchar(64) NOT NULL,
+  `domofon` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `status_id`, `first_name`, `second_name`, `tel`, `email`, `adress`, `city`, `domofon`) VALUES
+(1, 1, 'Sergey', 'Dmitrenko', '89104466651', 'privet@yandex.ru', 'Ул. Рязанский проспект, 85к2 , кв.47', 'Москва', '47к8910');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `products`
 --
 
@@ -111,9 +157,61 @@ INSERT INTO `products` (`product_id`, `title`, `cost`, `old_cost`, `img`, `categ
 (3, 'Avei-7', 2000, 2500, 'avei7', 2),
 (6, 'Avei85', 3500, 4500, 'avei7', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `status`
+--
+
+CREATE TABLE `status` (
+  `status_id` int(11) NOT NULL,
+  `status_title` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `status`
+--
+
+INSERT INTO `status` (`status_id`, `status_title`) VALUES
+(1, 'Ожидает'),
+(2, 'В пути'),
+(3, 'Доставлен'),
+(4, 'Отмена'),
+(9, 'Потерян');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `login` varchar(64) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `role` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`user_id`, `login`, `pass`, `name`, `role`) VALUES
+(1, 'admin', '123', 'Sireguy', 1),
+(2, 'valadmin', '123', 'Валентина', 1),
+(3, 'sergeyadmin', '321', 'Сергей', 1);
+
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `basket`
+--
+ALTER TABLE `basket`
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Индексы таблицы `call_back`
@@ -135,11 +233,30 @@ ALTER TABLE `description`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `status_id` (`status_id`);
+
+--
 -- Индексы таблицы `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `category_id` (`category_id`);
+
+--
+-- Индексы таблицы `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`status_id`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -164,20 +281,51 @@ ALTER TABLE `description`
   MODIFY `description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT для таблицы `status`
+--
+ALTER TABLE `status`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `basket`
+--
+ALTER TABLE `basket`
+  ADD CONSTRAINT `basket_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `basket_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 
 --
 -- Ограничения внешнего ключа таблицы `description`
 --
 ALTER TABLE `description`
   ADD CONSTRAINT `description_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+
+--
+-- Ограничения внешнего ключа таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
 -- Ограничения внешнего ключа таблицы `products`

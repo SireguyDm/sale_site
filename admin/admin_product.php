@@ -4,30 +4,6 @@
 
 <div class="product container">
     <div class="row">
-        <div class="col-lg-3 col-md-4 col-6 product-item">
-          <a href="#" class="container">
-              <img src="../pics/tovar/golo/golo1.jpg" class="img-fluid" alt="Адаптивные изображения">
-              <h3>Голо - рюказк</h3>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-6 product-item">
-          <a href="#" class="container">
-              <img src="../pics/tovar/golo/golo1.jpg" class="img-fluid" alt="Адаптивные изображения">
-              <h3>Голо - рюказк</h3>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-6 product-item">
-          <a href="#" class="container">
-              <img src="../pics/tovar/golo/golo1.jpg" class="img-fluid" alt="Адаптивные изображения">
-              <h3>Голо - рюказк</h3>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-6 product-item">
-          <a href="#" class="container">
-              <img src="../pics/tovar/golo/golo1.jpg" class="img-fluid" alt="Адаптивные изображения">
-              <h3>Голо - рюказк</h3>
-          </a>
-        </div>
    </div>
 </div>
 
