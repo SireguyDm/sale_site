@@ -10,7 +10,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Изменение пользователя</h5>
+        <h5 class="modal-title" id="UserTitle">Изменение пользователя</h5>
         <button type="button" class="close change_modal_close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -47,7 +47,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Вы уверены?</h5>
+        <h5 class="modal-title" id="DeleteTitle">Вы уверены?</h5>
         <button type="button" class="close del_modal_close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

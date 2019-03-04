@@ -5,7 +5,6 @@ $status_title = (((isset($_REQUEST['status_title'])) && $_REQUEST['status_title'
 $action = (((isset($_REQUEST['action'])) && $_REQUEST['action'] !== "")?$_REQUEST['action']:false);
 
 require_once '../models/status.php';
-$data = Status::getAll();
 
 if ($action !== false && $action === 'delete' && $status_id !== false){
     $status = Status::delete($status_id);
@@ -14,5 +13,7 @@ if ($action !== false && $action === 'delete' && $status_id !== false){
 } elseif ($action !== false && $action === 'add' && $status_id == 'add' && $status_title !== false){
     $status = Status::add($status_title);
 }
+
+$data = Status::getAll();
 
 echo json_encode($data);

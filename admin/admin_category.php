@@ -8,7 +8,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Ожидает</h5>
+        <h5 class="modal-title" id="CategoryTitle">Изменение категории</h5>
         <button type="button" class="close modal_close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,6 +19,17 @@
                 <span class="input-group-text">Введите название</span>
               </div>
               <input type="text" class="form-control" id="category_title" data-id="">
+            </div>
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Выберите статус</span>
+              </div>
+              <div class="dropdown ml-4">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="CategoryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-categoryId="false">
+                        Категория
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2" id="StatusList"></div>
+              </div>
             </div>
       </div>
       <div class="modal-footer">

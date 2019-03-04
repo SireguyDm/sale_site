@@ -20,6 +20,7 @@
                <div class="catalog-choice">
                    <?php 
                         foreach ($categories as $category){
+                            if ($category->status === 'active'){
                             echo
                             '
                                 <div class="catalog-choice-item">
@@ -27,6 +28,7 @@
                                     <p>'.$category->title.'</p>
                                 </div>
                             ';
+                            }
                         }
                     
                    ?>

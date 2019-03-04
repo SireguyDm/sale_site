@@ -10,6 +10,7 @@
      
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin_style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
     
     <script src="../js/jquery-3.3.1.js"></script>
     
@@ -47,7 +48,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="../controllers/admin_category.php">Категории</a>
-                        <a class="dropdown-item" href="#">Товар</a>
+                        <a class="dropdown-item" href="../controllers/admin_products.php">Товары</a>
                         <a class="dropdown-item" href="../controllers/admin_users.php">Пользователи</a>
                         <a class="dropdown-item" href="../controllers/admin_status.php">Статусы</a>
                     </div>

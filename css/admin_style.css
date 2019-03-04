@@ -206,7 +206,10 @@
   -ms-flex-align: center;
   align-items: center;
   padding: 20px 10px;
-  border-radius: 10px; }
+  border-radius: 10px;
+  font-weight: 700; }
+  .product .product-item img {
+    height: 260px; }
   .product .product-item:hover {
     -webkit-transform: scale(1.02);
     -ms-transform: scale(1.02);
@@ -219,33 +222,24 @@
     -ms-transform: scale(0.99);
     transform: scale(0.99); }
   .product .product-item h3 {
+    font-weight: 700;
     font-size: 20px;
-    text-align: center; }
+    text-align: center;
+    margin-top: 10px; }
+  .product .product-item .product-cost {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333333; }
+  .product .product-item .product-oldcost {
+    margin: 0;
+    font-size: 16px;
+    color: red; }
 
-.btn-change {
-  position: relative;
-  pointer-events: none; }
-  .btn-change::before {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    top: -3px;
-    background: url(../icon/writing.png) center center/contain no-repeat;
-    right: -40px;
-    cursor: pointer;
-    pointer-events: all; }
+#ProductChange {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 190px;
+  display: none; }
 
-.btn-delete {
-  position: relative;
-  pointer-events: none; }
-  .btn-delete::after {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    top: -3px;
-    background: url(../icon/delete-button.png) center center/contain no-repeat;
-    right: -70px;
-    cursor: pointer;
-    pointer-events: all; }
+.countInput {
+  max-width: 40px; }

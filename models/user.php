@@ -112,6 +112,7 @@ class User
 //Добавление пользователя
 //$user = User::add('Сергей', 'proba', '1234', '1');
 
+
 //Обновление пользователя
 //$user = User::update(1, false, false, '123', false);
 

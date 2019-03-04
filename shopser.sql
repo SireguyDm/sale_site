@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 27 2019 г., 20:32
+-- Время создания: Мар 04 2019 г., 20:35
 -- Версия сервера: 10.1.36-MariaDB
 -- Версия PHP: 7.2.10
 
@@ -71,17 +71,19 @@ INSERT INTO `call_back` (`call_id`, `user_name`, `user_tel`, `date`) VALUES
 
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
-  `title` varchar(64) NOT NULL
+  `title` varchar(64) NOT NULL,
+  `status` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `categories`
 --
 
-INSERT INTO `categories` (`category_id`, `title`) VALUES
-(1, 'Часы'),
-(2, 'Наушники'),
-(3, 'Рюкзаки');
+INSERT INTO `categories` (`category_id`, `title`, `status`) VALUES
+(1, 'Часы', 'active'),
+(2, 'Наушники', 'active'),
+(3, 'Рюкзаки', 'active'),
+(4, 'Без категории', 'none');
 
 -- --------------------------------------------------------
 
@@ -91,7 +93,7 @@ INSERT INTO `categories` (`category_id`, `title`) VALUES
 
 CREATE TABLE `description` (
   `description_id` int(11) NOT NULL,
-  `description_zag` varchar(128) NOT NULL,
+  `description_zag` varchar(128) DEFAULT NULL,
   `description_p1` varchar(512) DEFAULT NULL,
   `description_p2` varchar(512) DEFAULT NULL,
   `color` varchar(128) DEFAULT NULL,
@@ -106,7 +108,10 @@ CREATE TABLE `description` (
 --
 
 INSERT INTO `description` (`description_id`, `description_zag`, `description_p1`, `description_p2`, `color`, `size`, `material`, `country`, `product_id`) VALUES
-(1, 'Женский голографический рюкзак геометрический', 'Он выделит Вас из толпы людей и подчеркнет Вашу индивидуальность. Рюкзак-сумка геометрической формы с голограммой и пластинами-отражателями, меняет цвет в темноте при отражении света от фар, вспышек, на дискотеке.', 'Он выделит Вас из толпы людей и подчеркнет Вашу индивидуальность.', 'темный, с эффектом 3D.', '42 (ширина) x 32 (высота) x 14 (глубина).', 'Хлопок', 'Китай.', 1);
+(1, 'Женский голографический рюкзак геометрический', 'Он выделит Вас из толпы людей и подчеркнет Вашу индивидуальность. Рюкзак-сумка геометрической формы с голограммой и пластинами-отражателями, меняет цвет в темноте при отражении света от фар, вспышек, на дискотеке.', 'Он выделит Вас из толпы людей и подчеркнет Вашу индивидуальность.', '3D эффект', '42 (ширина) x 32 (высота) x 14 (глубина).', 'Хлопок', 'Китай', 1),
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3),
+(3, 'sss', NULL, NULL, NULL, NULL, NULL, NULL, 6),
+(16, 'null', 'null', 'null', 'null', 'null', 'null', 'null', 29);
 
 -- --------------------------------------------------------
 
@@ -153,9 +158,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `title`, `cost`, `old_cost`, `img`, `category_id`) VALUES
-(1, 'Голо-рюкзак', 1650, 0, 'golo', 3),
+(1, 'Голографический рюкзак', 3500, 4500, 'golo', 3),
 (3, 'Avei-7', 2000, 2500, 'avei7', 2),
-(6, 'Avei85', 3500, 4500, 'avei7', 1);
+(6, 'Avei85', 3500, 4500, 'avei7', 1),
+(29, 'Новый товар', 0, 0, 'default', 4);
 
 -- --------------------------------------------------------
 
@@ -198,9 +204,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `login`, `pass`, `name`, `role`) VALUES
-(1, 'admin', '123', 'Sireguy', 1),
-(2, 'valadmin', '123', 'Валентина', 1),
-(3, 'sergeyadmin', '321', 'Сергей', 1);
+(11, 'admin', '123', 'Сергей', 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -272,13 +276,13 @@ ALTER TABLE `call_back`
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `description`
 --
 ALTER TABLE `description`
-  MODIFY `description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `description_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
@@ -290,7 +294,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT для таблицы `status`
@@ -302,7 +306,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

@@ -50,17 +50,17 @@ class Description
         return $descriptions;
     }
     
-    public function update($id, $zag=false, $p1=false, $p2=false, $color=false, $size=false, $material=false, $country=false)
+    public function update($product_id, $zag=false, $p1=false, $p2=false, $color=false, $size=false, $material=false, $country=false)
     {   
         $condition = [];
         if($zag != false) {
-            $condition[] = "zag='$zag'";
+            $condition[] = "description_zag='$zag'";
         }
         if($p1 != false) {
-            $condition[] = "p1='$p1'";
+            $condition[] = "description_p1='$p1'";
         }
         if($p2 != false) {
-            $condition[] = "p2='$p2'";
+            $condition[] = "description_p2='$p2'";
         }
         if($color != false) {
             $condition[] = "color='$color'";
@@ -79,7 +79,7 @@ class Description
 
         global $mysqli;
 
-        $query = "UPDATE description SET $condition WHERE product_id=$id";
+        $query = "UPDATE description SET $condition WHERE product_id=$product_id";
         
         $result = $mysqli->query($query);
 
@@ -127,7 +127,7 @@ class Description
 //$descriptions = Description::getAll();
 
 //Обновление описания
-//$descriptions = Description::update(1, false, false, false, false, false, 'Хлопок', false);
+//$descriptions = Description::update(6, false, false, false, false, false, false, false);
 
 //Удаление описания 
 //$descriptions = Description::delete(6);

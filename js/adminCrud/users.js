@@ -1,45 +1,62 @@
 $(document).ready(function(){
     
-    var user_id = '';
-    var user_name = '';
-    var user_login = '';
-    var user_pass = '';
-    var action = '';
+    var user_id = false;
+    var user_name = false;
+    var user_login = false;
+    var user_pass = false;
+    var action = false;
         
     getUsers(user_id, user_name, user_login, user_pass, action);
     
+    //Действия при нажатии на кнопку Изменить
     $(document).on('click', '.change', function () {
         
         openClose('#ChangeModal');
         
         var id = $(this).data('id');
+        var name = $(this).parent().parent().prev().prev().prev('#name').children('.info').text();
+        var login = $(this).parent().parent().prev().prev('#login').children('.info').text();
+        var pass = $(this).parent().parent().prev('#pass').children('.info').text();
+        
+        $('#user_name').val(name);
+        $('#user_login').val(login);
+        $('#user_pass').val(pass);
         
         $('#ChangeModal').attr('data-userid', id);
         $('#ChangeModal').attr('data-action', 'change');
     });
     
+    //Действия при нажатии на кнопку Удалить
     $(document).on('click', '.delete', function () {
         
         openClose('#DeleteModal');
         
         var id = $(this).data('id');
+        var login = $(this).parent().parent().prev().prev('#login').children('.info').text()
+        
+        $('#DeleteTitle').text('Удалить пользователя ' + login + ' ?')
         $('#DeleteModal').attr('data-userid', id);
     });
     
+    //Действия при нажатии на кнопку Добавить
     $('#Add').click(function(){
         
         openClose('#ChangeModal');
         
-        $('#ChangeModal').attr('data-userid', 'add');
+        $('#UserTitle').text('Добавление нового пользователя')
+        $('#ChangeModal').attr('data-userid', false);
         $('#ChangeModal').attr('data-action', 'add');
     });
     
+    //Закрытие формы удаления
     $(document).on('click', '.del_modal_close', function () {
         
+        $('#DeleteTitle').text('Вы уверены?')
         $('#DeleteModal').attr('data-userid', false);
         openClose('#DeleteModal');
     });
     
+    //Закрытие формы добавления и изменения
     $(document).on('click', '.change_modal_close', function () {
         
         $('#ChangeModal').attr('data-userid', false);
@@ -53,28 +70,27 @@ $(document).ready(function(){
         var user_name = $('#user_name').val();
         var user_login = $('#user_login').val();
         var user_pass = $('#user_pass').val();
-        var action = $('#ChangeModal').data('action');
+        var action = $('#ChangeModal').attr('data-action');
         
+        $('.admin-users').empty();
         getUsers(user_id, user_name, user_login, user_pass, action);
         
         $('#ChangeModal').attr('data-userid', false);
         $('#ChangeModal').attr('data-action', false);
         openClose('#ChangeModal');
-        
-        location.reload();
     });
     
     //Удаление
     $('#modal_send').click(function(){
         
         var user_id = $('#DeleteModal').data('userid');
+        action = 'delete';
         
+        $('.admin-users').empty();
         getUsers(user_id, user_name, user_login, user_pass, action);
         
         $('#DeleteModal').attr('data-userid', false);
         openClose('#DeleteModal');
-        
-        location.reload();
     });
 });
 
@@ -109,11 +125,11 @@ function getUsers(user_id, user_name, user_login, user_pass, action) {
                         '<p class="info">'+ user['pass'] +'</p>'+
                     '</div>'+
                     '<div class="btn-group col-lg-12 col-xl-1 item">'+
-                      '<button class="btn btn-secondary btn-sm dropdown-toggle admin-btn user-change" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Действия</button>' +
-                      '<div class="dropdown-menu">'+
-                         '<button type="button" class="dropdown-item change" data-id="'+ user['id'] +'">Изменить</button>'+
-                         '<button type="button" class="dropdown-item delete" data-id="'+ user['id'] +'">Удалить</button>'+
-                      '</div>'+
+                        '<button class="btn btn-secondary btn-sm dropdown-toggle admin-btn user-change" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Действия</button>' +
+                            '<div class="dropdown-menu">'+
+                                '<button type="button" class="dropdown-item change" data-id="'+ user['id'] +'">Изменить</button>'+
+                                '<button type="button" class="dropdown-item delete" data-id="'+ user['id'] +'">Удалить</button>'+
+                            '</div>'+
                     '</div>'+
                 '</div>'+
             '</div>'   
