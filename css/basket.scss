@@ -146,6 +146,7 @@
     text-align: center;
     outline: none;
     box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.15);
+    user-select: none;
 }
 .basket-product-btns button:hover{
     transform: scale(1.05);
@@ -329,7 +330,7 @@
 .basket{
     .offers{
         .middle-zag{
-            margin: 40px 0 30px;
+            margin: 65px 0 30px;
         }
     }
     
