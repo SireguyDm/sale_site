@@ -1,23 +1,29 @@
 $(document).ready(function(){
     
-    $('#order-tel').bind("change keyup input click", function() {
-        if (this.value.match(/[^0-9]/g)) {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        }
-    });
+    $('#order-tel').mask("+7 (999) 999-99-99");
     
     $('#order').click(function(){
         
-        var name = $('#order-name').val();
-        var secondName = $('#order-second-name').val();
-        var adress = $('#order-adress').val();
-        var city = $('#order-city').val();
-        var domofon = $('#order-domofon').val();
-        var tel = $('#order-tel').val();
-        var email = $('#order-email').val();
+        $('#order-name').val() !== '' ? name = $('#order-name').val() : name = false;
+        $('#order-second-name').val() !== '' ? secondName = $('#order-second-name').val() : secondName = false;
+        $('#order-adress').val() !== '' ? adress = $('#order-adress').val() : adress = false;
+        $('#order-city').val() !== '' ? city = $('#order-city').val() : city = false;
+        $('#order-domofon').val() !== '' ? domofon = $('#order-domofon').val() : domofon = false;
+        $('#order-email').val() !== '' ? email = $('#order-email').val() : email = false;
+        $('#order-tel').val() !== '' ? tel = $('#order-tel').val() : tel = false;
+        $('#itog_summ').data('itog') !== '' ? itog = $('#itog_summ').data('itog') : itog = false;
+
+        if (tel != false){
+            tel = tel.replace(/\s+/g, '');
+            tel = tel.replace(/-/g, '');
+            tel = tel.replace('+', '');
+            tel = tel.replace(')', '');
+            tel = tel.replace('(', '');
+        }
         
         var basket = [];
         var product = [];
+        
         $('.basket-product').each(function(){
             var product_id = $(this).data('id');
             var product_count = $(this).children('.basket-product-item-right').children('.basket-product-count').children('.basket-cutom-text').data('count');
@@ -25,50 +31,79 @@ $(document).ready(function(){
             product.push({id: product_id, count: product_count});
             basket.push(product[0]);
             product = [];
-        });
+        });  
         
-//        $.each(basket, function(product, value){
-//            console.log(value.cost);
-//        });
-               
-        if (name && city && adress && tel.length >= 7){
-            $.post(
-              "../php/create_order.php",
-              {
-                basket,
-                first_name: name,
-                second_name: secondName,
-                adress,
-                city,
-                domofon,
-                tel,
-                email
-              }            
-            )
+        if (name != 'false' && tel != false && adress != false && city != false){
+            createOrder(name, secondName, adress, city, domofon, email, tel, basket, itog);
         } else {
             
-            if (!name){
+            if (name === 'false'){
                 $('#order-name').parent('.basket-two-in-row-item').addClass('basket-error');
                 $('#order-name').parent('.basket-two-in-row-item').addClass('error-name');
+                focusToForm();
+                
+            } else {
+                $('#order-name').parent('.basket-two-in-row-item').removeClass('basket-error');
+                $('#order-name').parent('.basket-two-in-row-item').removeClass('error-name');
             }
-            
-            if (!adress){
+
+            if (adress == false){
                 $('#order-adress').parent('.basket-form-adress').addClass('basket-error');
                 $('#order-adress').parent('.basket-form-adress').addClass('error-adress');
+                focusToForm();
+                
+            } else {
+                $('#order-adress').parent('.basket-form-adress').removeClass('basket-error');
+                $('#order-adress').parent('.basket-form-adress').removeClass('error-adress');
             }
-            
-            if (!city){
+
+            if (city == false){
                 $('#order-city').parent('.basket-two-in-row-item').addClass('basket-error');
                 $('#order-city').parent('.basket-two-in-row-item').addClass('error-city');
+                focusToForm();
+                
+            } else {
+                $('#order-city').parent('.basket-two-in-row-item').removeClass('basket-error');
+                $('#order-city').parent('.basket-two-in-row-item').removeClass('error-city');
             }
-            
-            if (!tel){
+
+            if (tel == false){
                 $('#order-tel').parent('.basket-two-in-row-item').addClass('basket-error');
                 $('#order-tel').parent('.basket-two-in-row-item').addClass('error-tel');
+                focusToForm();
+                
+            } else {
+                $('#order-tel').parent('.basket-two-in-row-item').removeClass('basket-error');
+                $('#order-tel').parent('.basket-two-in-row-item').removeClass('error-tel');
             }
-    
         }
-           
+        
+    
     });
     
 });
+
+function createOrder(name, secondName, adress, city, domofon, email, tel, basket, itog){
+    $.post('../php/create_order.php', {
+        name,
+        secondName,
+        adress,
+        city,
+        domofon,
+        email,
+        tel,
+        basket,
+        itog
+    }, function (data) {
+        var answer = JSON.parse(data);
+        
+        $('#order').text(answer);
+    });
+};
+
+//Фокус на input
+function focusToForm(){
+    $('html body').animate({
+        scrollTop: $('#form-zag').offset().top
+    }, 200);
+}

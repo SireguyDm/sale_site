@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
 
     <script src="../js/jquery-3.3.1.js"></script>
+    <script src="../js/jquery.maskedinput.min.js"></script>
     <script src="../js/main.js"></script>
 
 </head>

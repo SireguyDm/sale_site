@@ -91,7 +91,7 @@ function getProduct(product_id, count, action){
                 '</div>' +
                 '<div class="basket-product-item-right">' +
                     '<div class="basket-product-count">' +
-                        '<p class="basket-cutom-text">'+ product['count'] +'</p>' +
+                        '<p class="basket-cutom-text" data-count="'+ product['count'] +'">'+ product['count'] +'</p>' +
                         '<div class="basket-product-btns">' +
                             '<button class="btn-plus">+</button>' +
                             '<button class="btn-minus">-</button>' +
@@ -114,6 +114,7 @@ function getProduct(product_id, count, action){
             var delivery = $('#form_delivery').data('delivery');
             summ += delivery;
             $('#itog_summ').text(summ + ' руб.');
+            $('#itog_summ').attr('data-itog', summ);
             
             
         }); 

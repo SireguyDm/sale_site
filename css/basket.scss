@@ -394,3 +394,14 @@
         content: "Введите правильный номер";
     }
 }
+.required{
+    position: relative;
+    &::before{
+        content: "*";
+        position: absolute;
+        color: rgba(51, 51, 51, 0.6);
+        left: -11px;
+        bottom: 7px;
+        font-size: 18px;
+    }
+}
