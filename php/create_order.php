@@ -12,8 +12,27 @@ $itog = (((isset($_REQUEST['itog'])) && $_REQUEST['itog'] !== "")?$_REQUEST['ito
 
 if ($name != false && $adress != false && $adress != false && $tel != false){
     
+    require_once '../models/order.php';
     
-    $data = 'Да';
+    $rand_text = '01234567890qwertyuiopasdfghjklzxcvbnm';
+    $indificator = substr(str_shuffle($rand_text), 1, 10);
+    
+    $indificator_validation = Order::searchByIndificator($indificator);
+    
+    if ($indificator_validation === null){
+        
+        $new_order = Order::add(1, $name, $secondName, $tel, $email, $adress, $city, $domofon, $indificator);
+        $order_id = Order::searchByIndificator($indificator);
+        
+        require_once '../models/basket.php';
+        foreach ($basket as $product){
+            $basket = Basket::add($order_id, $product['id'], $product['count'], $itog);
+        }
+    }
+    
+    
+    $data = 'Заказ создан';
     echo json_encode($data);
 }
+
 

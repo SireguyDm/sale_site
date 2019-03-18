@@ -31,7 +31,7 @@ $(document).ready(function(){
             product.push({id: product_id, count: product_count});
             basket.push(product[0]);
             product = [];
-        });  
+        }); 
         
         if (name != 'false' && tel != false && adress != false && city != false){
             createOrder(name, secondName, adress, city, domofon, email, tel, basket, itog);

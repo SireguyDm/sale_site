@@ -17,7 +17,7 @@
 .admin_time {
   font-size: 30px; }
 
-#admin_basket > p > span:not(#user-f) {
+.user-info > p > span:not(#user-f) {
   color: red; }
 
 #product_cost, #product_color, #product_name {

@@ -6,7 +6,7 @@ class Order
 {
     
     public $id;
-    public $status;
+    public $status_id;
     public $first_name;
     public $second_name;
     public $tel;
@@ -15,11 +15,9 @@ class Order
     public $city;
     public $domofon;
     
-    public $title;
-    public $cost;
+    public $status_title;
     
-    public $product_count;
-    public $all_summ;
+    public $indificator;
     
     public function __construct($id)
     {
@@ -35,44 +33,16 @@ class Order
             o.adress,
             o.city,
             o.domofon,
-            p.title,
-            p.cost,
-            b.product_count,
-            b.all_summ,
+            o.indificator,
+            o.status_id,
             s.status_title
         FROM 
-            basket b, 
-            products p, 
             orders o,
             status s
         WHERE 
-            o.order_id = b.order_id AND
-            p.product_id = b.product_id AND
             o.status_id = s.status_id AND
             o.order_id = $id
-        ";
-//        
-//        $query = "
-//            SELECT             
-//                o.order_id,
-//                o.first_name,
-//                o.second_name,
-//                o.tel,
-//                o.email,
-//                o.city,
-//                o.domofon,
-//                p.title,
-//                p.cost,
-//                b.product_count,
-//                b.all_summ,
-//                s.status_title 
-//            FROM orders o 
-//            INNER JOIN basket b ON o.order_id = b.order_id 
-//            INNER JOIN products p ON b.product_id = p.product_id
-//            INNER JOIN status s ON o.status_id = s.status_id
-//            WHERE o.order_id = $id
-//            ";
-            
+        ";  
             
         $result = $mysqli->query($query);
         
@@ -86,22 +56,17 @@ class Order
         $this->adress = $order_data['adress'];
         $this->city = $order_data['city'];
         $this->domofon = $order_data['domofon'];
-        
-        $this->title = $order_data['title'];
-        $this->cost = $order_data['cost'];
-        
-        $this->product_count = $order_data['product_count'];
-        $this->all_summ = $order_data['all_summ'];
-        
-        $this->status = $order_data['status_title'];
+        $this->indificator = $order_data['indificator'];
+        $this->status_id = $order_data['status_id'];
+        $this->status_title = $order_data['status_title'];
         
     }
     
-    public static function getAll($id)
+    public static function getAll()
     {
         global $mysqli;
         
-        $query = "SELECT b.order_id FROM basket b WHERE b.order_id = $id";
+        $query = "SELECT order_id FROM orders";
         $result = $mysqli->query($query);
         
         $orders = [];
@@ -112,6 +77,103 @@ class Order
         return $orders;
     }
     
+    public function update($order_id, $status_id = false, $first_name = false, $second_name = false, $tel = false, $email = false, $adress = false, $city = false, $domofon = false, $indificator = false)
+    {   
+        
+        $condition = [];
+        if($status_id != false) {
+            $condition[] = "status_id='$status_id'";
+        }
+        if($first_name != false) {
+            $condition[] = "first_name='$first_name'";
+        }
+        if($second_name != false) {
+            $condition[] = "second_name='$second_name'";
+        }
+        if($tel != false) {
+            $condition[] = "tel='$tel'";
+        }
+        if($email != false) {
+            $condition[] = "email='$email'";
+        }
+        if($adress != false) {
+            $condition[] = "adress='$adress'";
+        }
+        if($city != false) {
+            $condition[] = "city='$city'";
+        }
+        if($domofon != false) {
+            $condition[] = "domofon='$domofon'";
+        }
+        if($indificator != false) {
+            $condition[] = "indificator='$indificator'";
+        }
+        
+        
+        $condition = implode(",", $condition);
+
+        global $mysqli;
+
+        $query = "UPDATE orders SET $condition WHERE order_id=$order_id";
+        
+        $result = $mysqli->query($query);
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function add($status_id = null, $first_name = null, $second_name = null, $tel = null, $email = null, $adress = null, $city = null, $domofon = null, $indificator=null)
+    {
+        global $mysqli;
+
+        $query = "INSERT INTO orders (status_id, first_name, second_name, tel, email, adress, city, domofon, indificator) VALUES ('$status_id', '$first_name', '$second_name', '$tel', '$email', '$adress', '$city', '$domofon', '$indificator')";
+        
+        $result = $mysqli->query($query);
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function delete($id)
+    {
+        global $mysqli;
+        
+        $query = "DELETE FROM orders WHERE order_id = $id";
+        $result = $mysqli->query($query);
+        
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function searchByIndificator($indificator)
+    {
+        global $mysqli;
+        
+        $query = "
+        SELECT 
+            order_id
+        FROM 
+            orders
+        WHERE 
+            indificator = '$indificator'
+        ";  
+            
+        $result = $mysqli->query($query);
+        
+        $order_data = $result->fetch_assoc();
+        $order_id = $order_data['order_id'];
+        
+        return $order_id;
+    }
     
 }
 
@@ -119,7 +181,20 @@ class Order
 //$order = new Order(1);
 
 //Получение всех заказов
-$order = Order::getAll(1);
+//$order = Order::getAll();
 
- echo '<pre>';
- var_dump($order);
+//Обновление заказа
+//$order = Order::update(1, 2, false, false, false, false, false, false, false);
+
+//Добавление заказа
+//$order = Order::add(1, 'Сергей', 'ПРобный', '891999249129', 'Какой-то', 'МОсква', 'MOscow', '84k9189');
+
+//Удаление заказа
+//$order = Order::delete(3);
+//(не удаляет связанные с корзиной)
+
+//Поиск order_id по индификатору
+//$order = Order::searchByIndificator(123);
+
+// echo '<pre>';
+// var_dump($order);
