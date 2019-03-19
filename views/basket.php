@@ -51,7 +51,7 @@
 <form class="basket-form">
     <div class="basket-form-fio basket-two-in-row">
         <div class="basket-two-in-row-item">
-            <p class="form-text required">Имя</p>
+            <p class="form-text required">Имя (обязательно)</p>
             <input type="text" class="basket-form-input" id="order-name">
         </div>
         <div class="basket-two-in-row-item">
@@ -61,13 +61,13 @@
     </div>
 
     <div class="basket-form-adress">
-        <p class="form-text required">Адресс</p>
+        <p class="form-text required">Адресс (обязательно)</p>
         <input type="text" class="basket-form-input" id="order-adress">
     </div>
 
     <div class="basket-two-in-row">
         <div class="basket-two-in-row-item">
-            <p class="form-text required">Город</p>
+            <p class="form-text required">Город (обязательно)</p>
             <input type="text" class="basket-form-input" id="order-city">
         </div>
         <div class="basket-two-in-row-item">
@@ -77,7 +77,7 @@
     </div>
     <div class="basket-two-in-row">
         <div class="basket-two-in-row-item">
-            <p class="form-text required">Телефон</p>
+            <p class="form-text required">Телефон (обязательно)</p>
             <input type="tel" class="basket-form-input" id="order-tel" placeholder="+7 (___) ___-__-__">
         </div>
         <div class="basket-two-in-row-item">

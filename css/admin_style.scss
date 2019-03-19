@@ -1,3 +1,10 @@
+@mixin custom_text($text_size, $opacity){
+    font-size: $text_size;
+    color: rgba(51, 51, 51, $opacity);
+    font-weight: 600;
+    line-height: 1.3em;
+}
+
 .admin_nav_p{
     color: white;
     margin: 0;
@@ -198,33 +205,110 @@
 .countInput{
     max-width: 40px;
 }
-//.btn-change{
-//    position: relative;
-//    pointer-events: none;
-//    &::before{
-//        content: '';
-//        position: absolute;
-//        width: 19px;
-//        height: 19px;
-//        top: -7px;
-//        background: url(../icon/writing.png) center center/contain no-repeat;
-//        right: -21px;
-//        cursor: pointer;
-//        pointer-events: all;
-//    }
-//}
-//.btn-delete{
-//    position: relative;
-//    pointer-events: none;
-//    &::after{
-//        content: '';
-//        position: absolute;
-//        width: 19px;
-//        height: 19px;
-//        top: -8px;
-//        background: url(../icon/delete-button.png) center center/contain no-repeat;
-//        right: -46px;
-//        cursor: pointer;
-//        pointer-events: all;
-//    }
-//}
+.filter{
+    margin: 20px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    .sort-zag, .view-zag{
+        border: 1px rgba(51, 51, 51, 0.25) solid;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .sort{
+        position: relative;
+        margin: 5px 10px 5px;
+        .sort-select{
+            display: flex;
+            align-items: center;
+        }
+        .sort-item, .sort-zag{
+            @include custom_text(15px, 0.9);
+            width: 220px;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            box-sizing: border-box;
+            padding: 0 3px 0 10px;
+            cursor: pointer;
+            &:hover{
+                background: rgb(247, 247, 247);
+            }
+            img{
+                box-sizing: border-box;
+                padding: 2px;
+                width: 18px;
+                height: 20px;
+                margin-right: 7px;
+            }
+        }
+    }
+    .view-sort{
+        position: relative;
+        margin: 5px 10px 5px;
+        .view-zag, .view-item{
+            @include custom_text(15px, 0.9);
+            width: 210px;
+            height: 30px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0 0 0 10px;
+            &:hover{
+                background: rgb(246, 246, 246);
+            }
+            #menu-arrow{
+                margin-right: 6px;
+            }
+            img{
+                box-sizing: border-box;
+                padding: 2px;
+                width: 18px;
+                height: 22px;
+            }
+        }
+    }
+    .search{
+        display: flex;
+        align-items: center;
+        height: 30px;
+        margin: 5px 10px 5px;
+        label{
+            @include custom_text(15px, 0.9);
+            margin: 0 7px 0 0;
+        }
+        input{
+            box-sizing: border-box;
+            padding-left: 3px;
+            @include custom_text(15px, 0.9);
+            border: 1px solid rgba(51, 51, 51, 0.28);
+            border-radius: 7px;
+            padding: 5px;
+            outline: none;
+        }
+    }
+    .sort-menu, .view-menu{
+        position: absolute;
+        top: 30px;
+        display: none;
+        background: white;
+        border-left: 1px solid rgba(51, 51, 51, 0.15);
+        border-right: 1px solid rgba(51, 51, 51, 0.15);
+        border-bottom: 1px solid rgba(51, 51, 51, 0.15);
+        border-bottom-right-radius: 7px;
+        border-bottom-left-radius: 7px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 20px 0px rgba(51, 51, 51, 0.1);
+    }
+    #menu-arrow{
+        margin: 0 3px 0 13px;
+    }
+    .menu-arrow-active{
+        transform: scaleY(-1);
+    }
+}
