@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 04 2019 г., 20:35
--- Версия сервера: 10.1.36-MariaDB
--- Версия PHP: 7.2.10
+-- Время создания: Мар 19 2019 г., 11:49
+-- Версия сервера: 10.1.37-MariaDB
+-- Версия PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `basket` (
+  `basket_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_count` int(11) NOT NULL DEFAULT '1',
@@ -39,9 +40,14 @@ CREATE TABLE `basket` (
 -- Дамп данных таблицы `basket`
 --
 
-INSERT INTO `basket` (`order_id`, `product_id`, `product_count`, `all_summ`) VALUES
-(1, 6, 1, 10000),
-(1, 1, 2, 10000);
+INSERT INTO `basket` (`basket_id`, `order_id`, `product_id`, `product_count`, `all_summ`) VALUES
+(1, 1, 6, 1, 10000),
+(2, 1, 1, 2, 10000),
+(3, 2, 3, 2, 6000),
+(4, 2, 6, 1, 6000),
+(5, 1, 3, 2, 12000),
+(6, 10, 3, 1, 6500),
+(7, 10, 1, 1, 6500);
 
 -- --------------------------------------------------------
 
@@ -128,15 +134,25 @@ CREATE TABLE `orders` (
   `email` varchar(64) NOT NULL,
   `adress` varchar(255) NOT NULL,
   `city` varchar(64) NOT NULL,
-  `domofon` varchar(32) NOT NULL
+  `domofon` varchar(32) NOT NULL,
+  `indificator` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `status_id`, `first_name`, `second_name`, `tel`, `email`, `adress`, `city`, `domofon`) VALUES
-(1, 1, 'Sergey', 'Dmitrenko', '89104466651', 'privet@yandex.ru', 'Ул. Рязанский проспект, 85к2 , кв.47', 'Москва', '47к8910');
+INSERT INTO `orders` (`order_id`, `status_id`, `first_name`, `second_name`, `tel`, `email`, `adress`, `city`, `domofon`, `indificator`) VALUES
+(1, 2, 'Sergey', 'Dmitrenko', '89104466651', 'privet@yandex.ru', 'Ул. Рязанский проспект, 85к2 , кв.47', 'Москва', '47к8910', ''),
+(2, 1, 'Иван', 'Аносов', '89167642909', 'ivanos@yandex.ru', 'Метро пролетраский проспект', 'Москва', '89к0990', ''),
+(3, 1, 'Sergey', 'Proba', '', '', '', '', '', ''),
+(4, 1, 'Сергей', 'false', '71241241241', 'false', 'аываы', 'фваыв', 'false', ''),
+(5, 1, 'Сергей', 'false', '71241241241', 'false', 'аываы', 'фваыв', 'false', ''),
+(6, 1, 'Сергй', 'false', '71241241241', 'false', 'аываы', 'фваыв', 'false', '123'),
+(7, 1, 'Сергей', 'ПРобный', '891999249129', 'Какой-то', 'МОсква', 'MOscow', '84k9189', ''),
+(8, 1, 'Сергей', 'ПРобный', '891999249129', 'Какой-то', 'МОсква', 'MOscow', '84k9189', ''),
+(9, 1, 'Сергей', 'Дмитренко', '79104466651', 'proba@yandex.ru', 'sdfsdf', 'dsfsdfs', 'false', '29vapf3n4c'),
+(10, 1, 'Мария', 'Ивановна', '74872929847', 'proba@yandex.ru', 'Ул пушкина дом колотушкина', 'Москва', '47к9298', 'l6ei3kzdxv');
 
 -- --------------------------------------------------------
 
@@ -214,6 +230,7 @@ INSERT INTO `users` (`user_id`, `login`, `pass`, `name`, `role`) VALUES
 -- Индексы таблицы `basket`
 --
 ALTER TABLE `basket`
+  ADD PRIMARY KEY (`basket_id`),
   ADD KEY `product_id` (`product_id`),
   ADD KEY `order_id` (`order_id`);
 
@@ -267,6 +284,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `basket`
+--
+ALTER TABLE `basket`
+  MODIFY `basket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT для таблицы `call_back`
 --
 ALTER TABLE `call_back`
@@ -288,7 +311,7 @@ ALTER TABLE `description`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
