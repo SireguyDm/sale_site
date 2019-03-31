@@ -10,6 +10,8 @@ $tel = (((isset($_REQUEST['tel'])) && $_REQUEST['tel'] !== "")?$_REQUEST['tel']:
 $basket = (((isset($_REQUEST['basket'])) && $_REQUEST['basket'] !== "")?$_REQUEST['basket']:false);
 $itog = (((isset($_REQUEST['itog'])) && $_REQUEST['itog'] !== "")?$_REQUEST['itog']:false);
 
+date_default_timezone_set('Europe/Moscow');
+
 if ($name != false && $adress != false && $adress != false && $tel != false){
     
     require_once '../models/order.php';
@@ -21,12 +23,12 @@ if ($name != false && $adress != false && $adress != false && $tel != false){
     
     if ($indificator_validation === null){
         
-        $new_order = Order::add(1, $name, $secondName, $tel, $email, $adress, $city, $domofon, $indificator);
+        $new_order = Order::add(1, $name, $secondName, $tel, $email, $adress, $city, $domofon, $indificator, date("Y-m-d H-i-s"));
         $order_id = Order::searchByIndificator($indificator);
         
         require_once '../models/basket.php';
         foreach ($basket as $product){
-            $basket = Basket::add($order_id, $product['id'], $product['count'], $itog);
+            $basket = Basket::add($order_id, $product['id'], $product['count'], $product['p_summ'], $itog);
         }
     }
     

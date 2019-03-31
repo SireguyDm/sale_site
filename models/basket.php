@@ -9,6 +9,7 @@ class Basket
     public $order_id;
     public $product_id;
     public $product_count;
+    public $product_summ;
     public $all_summ;
     public $product_title;
     public $product_cost;
@@ -23,6 +24,7 @@ class Basket
             b.order_id,
             b.product_id,
             b.product_count,
+            b.product_summ,
             b.all_summ,
             p.title,
             p.cost
@@ -42,6 +44,7 @@ class Basket
         $this->order_id = $basket_data['order_id'];
         $this->product_id = $basket_data['product_id'];
         $this->product_count = $basket_data['product_count'];
+        $this->product_summ = $basket_data['product_summ'];
         $this->all_summ = $basket_data['all_summ'];
         $this->product_title = $basket_data['title'];
         $this->product_cost = $basket_data['cost'];
@@ -63,11 +66,11 @@ class Basket
         return $basket;
     }
     
-    public function add($order_id, $product_id = null, $product_count = null, $all_summ = null)
+    public function add($order_id, $product_id = null, $product_count = null, $product_summ = null, $all_summ = null)
     {
         global $mysqli;
 
-        $query = "INSERT INTO basket (order_id, product_id, product_count, all_summ) VALUES ('$order_id', '$product_id', '$product_count', '$all_summ')";
+        $query = "INSERT INTO basket (order_id, product_id, product_count, product_summ, all_summ) VALUES ('$order_id', '$product_id', '$product_count', '$product_summ', '$all_summ')";
         
         $result = $mysqli->query($query);
 
@@ -165,7 +168,7 @@ class Basket
 //$basket = Basket::getAllProducts();
 
 //Добавление товара в корзину
-//$basket = Basket::add(3, 6, 2, 12000);
+//$basket = Basket::add(3, 6, 2, 7000, 12000);
 
 //Обновление одного товара из корзины
 //$basket = Basket::update(25, false, false, false, 12050);

@@ -114,13 +114,10 @@
 </div>
 
 <div class="basket-oplata">
-
     <div class="basket-oplata-btn">
         <button id="order">Заказать</button>
     </div>
-
 </div>
-
 
 <script src="../js/basket_products.js"></script>
 <script src="../js/create_order.js"></script>

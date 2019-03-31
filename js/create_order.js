@@ -11,7 +11,7 @@ $(document).ready(function(){
         $('#order-domofon').val() !== '' ? domofon = $('#order-domofon').val() : domofon = false;
         $('#order-email').val() !== '' ? email = $('#order-email').val() : email = false;
         $('#order-tel').val() !== '' ? tel = $('#order-tel').val() : tel = false;
-        $('#itog_summ').data('itog') !== '' ? itog = $('#itog_summ').data('itog') : itog = false;
+        $('#products_summ').data('summ') !== '' ? itog = $('#products_summ').data('summ') : itog = false;
 
         if (tel != false){
             tel = tel.replace(/\s+/g, '');
@@ -27,8 +27,10 @@ $(document).ready(function(){
         $('.basket-product').each(function(){
             var product_id = $(this).data('id');
             var product_count = $(this).children('.basket-product-item-right').children('.basket-product-count').children('.basket-cutom-text').data('count');
+            var product_summ = $(this).children('.basket-product-item-right').children('.basket_p_cost').attr('data-productSumm');
+            product_summ = parseInt(product_summ);
             
-            product.push({id: product_id, count: product_count});
+            product.push({id: product_id, count: product_count, p_summ: product_summ});
             basket.push(product[0]);
             product = [];
         }); 
@@ -76,9 +78,8 @@ $(document).ready(function(){
                 $('#order-tel').parent('.basket-two-in-row-item').removeClass('basket-error');
                 $('#order-tel').parent('.basket-two-in-row-item').removeClass('error-tel');
             }
-        }
+        };
         
-    
     });
     
 });

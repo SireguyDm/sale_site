@@ -11,6 +11,8 @@ class Product
     public $img;
     public $category_id;
     
+    public static $limit_products = 12;
+    
     public function __construct($id)
     {
         global $mysqli;
@@ -30,7 +32,7 @@ class Product
         }
     }
 
-    public static function getAll($category_id = false)
+    public static function getAll($category_id = false, $sort = false, $page = false)
     {
         global $mysqli;
 
@@ -43,8 +45,33 @@ class Product
         if ($category_id !== false && $category_id !== 'sale') {
             $conditions .= " AND p.category_id=$category_id";
         }
+        
+        if($sort !== false){
+            if($sort == 'desc'){
+                $conditions .= " ORDER BY cost DESC";
+            }
+            if($sort == 'avc'){
+                $conditions .= " ORDER BY cost";
+            }
+        }
+        
+        $query = "SELECT COUNT(*) as count FROM $tables WHERE 1 $conditions";
+        $result = $mysqli->query($query);
+        $count_data = $result->fetch_assoc();
+        
+        if ($page !== false){
+            --$page;
 
-        $query = "SELECT p.product_id FROM $tables WHERE 1 $conditions";
+            $limit = " LIMIT " . ($page * self::$limit_products) . ", " . self::$limit_products;  
+        } else {
+            $limit = "";
+        }
+
+        if ($count_data['count'] < ($page * self::$limit_products)){
+            return false;
+        }
+
+        $query = "SELECT p.product_id FROM $tables WHERE 1 $conditions $limit";
         $result = $mysqli->query($query);
 
         $products = [];
@@ -52,7 +79,10 @@ class Product
             $products[] = new self($product_data['product_id']);
         }
 
-        return $products;
+        return [
+            'products' => $products,
+            'count' => $count_data['count']
+        ];
     }
     
     public function add($title, $cost, $old_cost, $img, $category_id)
@@ -124,7 +154,7 @@ class Product
 // $products = new Product(1);
 
 //Вывести все товары
-// $products = Product::getAll('sale');
+// $products = Product::getAll(false, false, 1);
 
 // Добавление товара
 //$products = Product::add('Avei85', '3500', '4500', 'avei7', '1');
@@ -137,5 +167,3 @@ class Product
 
 // echo '<pre>';
 // var_dump($products);
-
-

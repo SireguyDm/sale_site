@@ -52,7 +52,13 @@
                     <div class="bag-item">
                         <img src="../icon/basket.png">
                         <p>Корзина</p>
-                        <span id="basket_count">1</span>
+                        <?php 
+                            if (isset($_COOKIE['basket_count'])){
+                                if ($basket_count != 0){
+                                    echo '<span id="basket_count">'.$basket_count.'</span>';
+                                }
+                            }
+                        ?>
                     </div>
                 </a>
             </div>
@@ -65,9 +71,14 @@
                     <a href="../controllers/catalog.php?category_id=3">Рюкзаки</a>
                 </div>
                 <div class="menu-other">
-                    <a href="../controllers/main_page.php #delivery-target">Доставка</a>
+                    <a href id="menu-delivery">Доставка</a>
                     <a href="../controllers/catalog.php?category_id=sale">Акции</a>
-                    <a href="../controllers/main_page.php #communicate-target">Контакты</a>
+                    <a href id="menu-contacts">Контакты</a>
+                </div>
+                <div class="menu-search">
+                    <input type="text" maxlength="64"  autocomplete="off" placeholder="Поиск" id="search-input">
+                    <span class="search-btn"></span>
+                    <div class="search-list"></div>
                 </div>
             </div>
         </nav>

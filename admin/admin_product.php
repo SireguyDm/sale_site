@@ -1,11 +1,60 @@
 <?php include('../controllers/admin_header.php') ?>
 
-<div class="d-flex justify-content-center mt-4">
+<div id="action-box">
     <button class="btn btn-success" id="Add">Добавить товар</button>
+    <button class="btn btn-danger ml-2" id="delete">Удалить товар</button>
+</div>
+
+<div id="delete-box">
+    <button class="btn btn-danger" id="delete-selected">Удалить выбранные</button>
+    <button class="btn btn-success ml-2" id="delete-cancel">Отменить</button>
 </div>
 
 
-<h1 class="text-center mt-4 mb-4">Все товары</h1>
+<div class="filter product_filter">
+        <div class="sort">
+            <div class="sort-zag" data-display="false">
+                <div class="sort-select">
+                    Показать все
+                </div>
+                <img src="../icon/sort-down-arrow.png" id="menu-arrow">
+            </div>
+            <div class="sort-menu">
+                <div class="sort-item" id="date-desc" data-display="desc">
+                    <img src="../icon/sort_down.png">
+                    По цене
+                </div>
+                <div class="sort-item" id="date-avc" data-display="avc"> 
+                   <img src="../icon/sort_up.png">
+                    По цене
+                </div>
+                <div class="sort-item" id="date-desc" data-display="false">
+                    Показать все
+                </div>
+            </div>
+        </div>
+        <div class="view">
+           <div class="view-zag" data-categoryId="">
+               <span id="view-zag-title">Категория</span>
+               <img src="../icon/sort-down-arrow.png" id="menu-arrow">
+           </div>
+           <div class="view-menu">
+                <div class="view-item" data-categoryId="">Показать все</div>
+                <?php 
+                    foreach($categories as $category){
+                        echo '<div class="view-item" data-categoryId="'.$category->id.'">'.$category->title.'</div>';
+                    } 
+                ?>
+           </div>
+        </div>
+        <div class="search">
+            <label for="search">Поиск</label>
+            <input type="text" id="search" placeholder="Введите название">
+        </div>
+    </div>
+
+<h1 class="text-center mt-4 mb-1">Все товары</h1>
+<h2 class="text-center mt-1 mb-4">Найдено: <span id="productCount">0</span></h2>
 
 <div class="product container">
     <div class="row">
@@ -21,6 +70,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            
             <div class="modal-body">
                 <div class="input-group flex-nowrap mb-3">
                     <div class="input-group-prepend mr-4">
@@ -41,5 +91,8 @@
     </div>
 </div>
 
+<div class="pagination"></div>
+    
+<script src="../js/pagintaion.js"></script>
 <script src="../js/adminCrud/products.js"></script>
 <?php include('../templates/admin_footer.php') ?>

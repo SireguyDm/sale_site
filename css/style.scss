@@ -14,6 +14,17 @@ $catalog-items-in-row: 4;
     margin: 0 auto;
 }
 
+@mixin linear-gradient($gradientLine, $colorStops...) {
+  background-image: -webkit-linear-gradient($gradientLine, $colorStops);
+  background-image:    -moz-linear-gradient($gradientLine, $colorStops);
+  background-image:      -o-linear-gradient($gradientLine, $colorStops);
+  @if length($gradientLine) == 2 {
+  background-image:         linear-gradient(to #{inverse-side(nth($gradientLine, 1))} #{inverse-side(nth($gradientLine, 2))}, $colorStops);
+  } @else {
+  background-image:         linear-gradient(to #{inverse-side($gradientLine)}, $colorStops);
+  }
+}
+
 
 * {
     margin: 0;
@@ -170,6 +181,7 @@ button{
 .menu {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     width: 100%;
     background: rgb(241, 241, 241);
     padding: 8px 0;
@@ -197,6 +209,57 @@ button{
         color: rgb(38, 161, 228);
     }
 }
+.menu-search{
+    position: relative;
+    span{
+        position: absolute;
+        background: url(../icon/magnifying-glass.png) center center/contain no-repeat;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        bottom: 0px;
+        right: 7px;
+        margin: auto;
+        cursor: pointer;
+    }
+    input{
+        border: 2px solid rgba(51, 51, 51, 0.6);
+        border-radius: 20px;
+        height: 1.6rem;
+        background: #f9f9f9;
+        outline: none;
+        @include custom_text(15px, 0.8);
+        padding: 2px 27px 2px 10px;
+    }
+    .search-list{
+        position: absolute;
+        width: 90%;
+        right: 0px;
+        left: 0;
+        margin: auto;
+        background: rgba(241, 241, 241, 0.96);
+        z-index: 999;
+        border: 1px solid rgba(0, 0, 0, 0.17);
+        top: 32px;
+        box-sizing: border-box;
+        padding: 3px 0;
+        display: none;
+        border-radius: 5px;
+        p{
+            @include custom_text(14px, 0.8);
+            margin: 4px 7px 4px 8px;
+            cursor: pointer;
+            &:hover{
+                color: rgb(38, 161, 228);
+            }
+        } 
+        .search-hover{
+            color: rgb(38, 161, 228);
+        }
+        
+    }
+   
+}
 .slider-box {
     max-width: 1366px;
     width: 100%;
@@ -207,12 +270,12 @@ button{
 .slider{
     width: 10000px;
     height: 100%;
-}
-.slider div{
-    max-width: 1366px;
-    width: 100%;
-    height: 460px;
-    float: left;
+    div{
+        max-width: 1365px;
+        width: 100%;
+        height: 460px;
+        float: left;
+    }
 }
 .slider-item-1{
     background: url(../pics/1.jpg);
@@ -959,169 +1022,164 @@ button{
         margin-left: 17px;
     }
 }
-.call-back-window{
+.call_back_background{
+    background: rgba(0, 0, 0, 0.2);
     position: fixed;
-    left: 0;
-    right: 0;
     top: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
     margin: auto;
-    max-width: 560px;
-    max-height: 310px;
-    border-radius: 7px;
-    background: green;
-    border: 1px solid rgba(101, 90, 90, 0.12);
-    display: none;
-}
-.call-back-form{
-    position: relative;
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-    padding: 30px 20px 0px 20px;
-    text-align: center;
-    .call-back-zag{
-        display: flex;
-        justify-content: center;
-        flex-flow: column;
-        align-items: center;
+    z-index: 9999;
+    display: none;
+}
+#call_back{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 99999;
+    width: 335px;
+    height: 310px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    .cb_zag{
+        background: rgb(246, 246, 246);
+        letter-spacing: 1px;
         text-align: center;
-        font-size: 19px;
-        font-weight: 400;
-        line-height: 1.3em;
-        margin-bottom: 10px;
-        font-family: 'Roboto Condensed', sans-serif;
-        color: white;
-        p{
-            margin: 10px 0 3px 0;
-        }
+        box-sizing: border-box;
+        padding: 23px 0 15px 0px;
+        @include custom_text(25px, 0.55);
+        position: relative;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #c4e17f;
+            border-radius: 5px 5px 0 0;
+            @include linear-gradient(left,
+                                     #c4e17f, #c4e17f 12.5%,
+                                     #f7fdca 12.5%, #f7fdca 25%,
+                                     #fecf71 25%, #fecf71 37.5%,
+                                     #f0776c 37.5%, #f0776c 50%,
+                                     #db9dbe 50%, #db9dbe 62.5%,
+                                     #c49cde 62.5%, #c49cde 75%,
+                                     #669ae1 75%, #669ae1 87.5%,
+                                     #62c2e4 87.5%, #62c2e4);
+          }
+        
     }
-    .form-input{
+    form{
+        width: 100%;
         display: flex;
         justify-content: center;
         flex-flow: column;
-        align-items: center;
+        box-sizing: border-box;
+        padding: 20px 30px;
         input{
-            width: 220px;
-            @include custom_text(18px, 0.9);
+            height: 48px;
+            margin: 9px 0;
+            border-left: 3px solid rgba(51, 51, 51, 0.15);
+            border-right: 3px solid rgba(51, 51, 51, 0.15);
+            border-top: 3px solid rgba(51, 51, 51, 0.15);
+            border-bottom: 5px solid rgba(51, 51, 51, 0.15);
+            border-radius: 8px;
             box-sizing: border-box;
-            padding: 0 11px;
-            height: 38px;
-            border-radius: 3px;
-            border: 1px solid rgba(51, 51, 51, 0.25);
-            
-            position: relative;
+            padding: 0 15px;
+            outline: none;
+            @include custom_text(16px, 0.7);
+            letter-spacing: 3px;
         }
-    }
-    .form-item{
-        display: flex;
-        align-items: center;
-        margin: 3px 0 20px 0;
-        img{
-            width: 40px;
-            height: 38px;
+        .cb_error{
+            border-left: 3px solid rgba(255, 0, 0, 0.7);
+            border-right: 3px solid rgba(255, 0, 0, 0.7);
+            border-top: 3px solid rgba(255, 0, 0, 0.7);
+            border-bottom: 4px solid rgba(255, 0, 0, 0.75);
+            &::placeholder{
+                color: rgba(255, 0, 0, 0.85);
+            }
+            color: rgba(255, 0, 0, 0.85);
+        }
+        .cb_done{
+            border-left: 3px solid #4CAF50;
+            border-right: 3px solid #4CAF50;
+            border-top: 3px solid #4CAF50;
+            border-bottom: 4px solid #4CAF50;
+        }
+        button{
+            vertical-align: top;
+            width: 100%;
+            height: 54px;
+            margin: 13px auto 0;
+            padding: 0;
+            font-size: 22px;
+            color: white;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(black, .25);
+            background: #f0776c;
+            border: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d76b60;
+            border-radius: 5px;
+            cursor: pointer;
             box-sizing: border-box;
-            background: rgba(91, 91, 91, 0.99);
-            padding: 8px;
+            &:hover{
+                background: rgba(240, 119, 108, 0.9);
+            }
+            &:active{
+                transform: scale(0.99);
+            }
         }
     }
-    .form-close{
-        background: url(../icon/access-denied.png) center center / contain no-repeat;
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        top: 9px;
-        right: 9px;
-        border: none;
-        cursor: pointer;
-        user-select: none;
-        &:hover{
-            transform: scale(1.12);
-        }
-        &:active{
-            transform: scale(0.99);
-        }
+    
+    
+}
+#cb_close{
+    background: url(../icon/cancel-music.png) center center/contain no-repeat;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: -25px;
+    right: -45px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s;
+    &:hover{
+        transform: scale(1.035);
     }
-    .form-icon{
-        width: 95px;
-        height: 95px;
-        position: absolute;
-        left: -10px;
-        top: -45px;
-    }
-    button{
-        border: 1px solid white;
-        width: 180px;
-        height: 40px;
-        background: rgb(65, 199, 250);
-        color: white;
-        font-size: 16px;
-        font-family: 'Roboto Condensed', sans-serif;
-        cursor: pointer;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin-top: 5px;
-        &:hover{
-            transform: scale(1.03);
-        }
-        &:active{
-            transform: scale(0.99);
-        }
+    &:active{
+        transform: scale(0.99);
     }
 }
 
-.form-succes{
-    width: 100%;
-    height: 100%;
-    background: #7adf61;
-    align-items: center;
-    flex-flow: column;
-    box-sizing: border-box;
-    padding: 30px;
+#move_to_top{
+    background: url(../icon/move.png) center center/contain no-repeat;
+    position: fixed;
+    right: 40px;
+    bottom: 50px;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px 0px rgba(51, 51, 51, 0.25);
+    cursor: pointer;
+    user-select: none;
     display: none;
-    img{
-        width: 120px;
-        height: 120px;
-        margin-bottom: 10px;
+    &:hover{
+        transform: scale(1.05, 1.05);
     }
-    h2{
-        color: white;
-        letter-spacing: 2px;
-        margin: 10px 0;
-        font-size: 29px;
-        font-weight: 800;
-        font-family: 'Roboto Condensed', sans-serif;
-    }
-    p{
-        color: white;
-        font-size: 23px;
-        margin: 5px 0;
-        font-weight: 800;
-        font-family: 'Roboto Condensed', sans-serif;
+    &:active{
+        transform: scale(0.99, 0.99);
     }
 }
-.call-back-error{
-    position: relative;
-    &::before{
-        content: "";
-        position: absolute;
-        color: #ec3e3e;
-        bottom: -19px;
-        font-family: Myriad Pro;
-        font-weight: 500;
-        letter-spacing: 1px;
-        font-size: 14px;
-        left: 10px;
-    }
-    &::after{
-        content: "*";
-        position: absolute;
-        color: red;
-        bottom: -21px;
-        font-family: Myriad Pro;
-        font-weight: 500;
-        letter-spacing: 1px;
-        font-size: 15px;
-    }
-}
-

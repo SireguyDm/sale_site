@@ -75,15 +75,22 @@ function getProduct(product_id, count, action){
             window.location = "../controllers/empty_basket.php";
         }
         
-        var summ = 0;
+        //Счетчик корзины
+        var cookie = getCookie('basket_count');
+        if ($('#basket_count').length > 0 && cookie > 0){
+            $('#basket_count').text(cookie);
+        }
         
+        var summ = 0;
         products.forEach(function(product){
             $('.products-list').append(
             '<div class="basket-product" data-id="'+ product[0]['id'] +'">' +
                 '<div class="basket-product-item-left">' +
-                    '<div class="basket-product-img-div">' +
-                        '<img src="../pics/tovar/'+ product[0]['img'] +'/'+ product[0]['img'] +'1.jpg">' +
-                    '</div>' +
+                    '<a href="product.php?product_id='+ product[0]['id'] +'">' +
+                        '<div class="basket-product-img-div">' +
+                            '<img src="../pics/tovar/'+ product[0]['img'] +'/'+ product[0]['img'] +'1.jpg">' +
+                        '</div>' +
+                    '</a>' +
                     '<div class="basket-product-description">' +
                         '<p class="basket-product-name">'+ product[0]['title'] +'</p>' +
                         '<p class="basket-product-article">'+ product['category'] +'</p>' +
@@ -97,28 +104,39 @@ function getProduct(product_id, count, action){
                             '<button class="btn-minus">-</button>' +
                         '</div>' +
                     '</div>' +
-                    '<p class="basket-cutom-text basket_p_cost">'+ product['all_cost'] +' руб.</p>' +
+                    '<p class="basket-cutom-text basket_p_cost" data-productSumm="'+ product['all_cost'] +'">'+ product['all_cost'] +' руб.</p>' +
                     '<button class="basket-btn-delete">&#10006;</button>' +
                 '</div>' +
             '</div>'
             );
             
-            //Вывод итоговой суммы
             var cost = product['all_cost'];
             cost = parseInt(cost);
             summ += cost;
-            $('#basket-itogsumm').text(summ + ' руб.');
-            $('#products_summ').text(summ + ' руб.');
-            $('#products_summ').attr('data-summ', summ);
+        });
+        
+        
+        
+        //Вывод итоговой суммы
+        $('#basket-itogsumm').text(summ + ' руб.');
+        $('#products_summ').text(summ + ' руб.');
+        $('#products_summ').attr('data-summ', summ);
+        
+        if (summ > 5000){
+            $('#form_delivery').attr('data-delivery', '0');
+            $('#form_delivery').text('Бесплатно');
+            
+            $('#itog_summ').text(summ + ' руб.');
+            $('#itog_summ').attr('data-itog', summ);
+        } else {
+            $('#form_delivery').attr('data-delivery', '500');
+            $('#form_delivery').text('500 руб.');
             
             var delivery = $('#form_delivery').data('delivery');
             summ += delivery;
             $('#itog_summ').text(summ + ' руб.');
             $('#itog_summ').attr('data-itog', summ);
-            
-            
-        }); 
-        
+        }
     });
 };
 
@@ -134,3 +152,10 @@ function LockBut(object_1, object_2){
            clearInterval(LockInterval);
         }, 500);
 };
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}

@@ -1,73 +1,61 @@
 $(document).ready(function(){
     
-    $('.form-close').click(function(){
-        $('.call-back-window').css('display', 'none');
-        
-        delError('name', 'name');
-        delError('tel', 'tel');
-        delError('tel', 'small-tel');
+    $('#call-back-activator').click(function(){
+        $('.call_back_background').css('display', 'block');
     });
     
-    $('#form-tel').bind("change keyup input click", function() {
-        if (this.value.match(/[^0-9]/g)) {
-            this.value = this.value.replace(/[^0-9]/g, '');
+    $('#cb_close').click(function(){
+        $('.call_back_background').css('display', 'none');
+    });
+    
+    $('#cb_tel').mask("+7 (999) 999-99-99");
+    
+    $('#cb_send').click(function(){
+        
+        var cb_name = $('#cb_name').val();
+        var cb_tel = $('#cb_tel').val();
+        
+        if (cb_tel != false){
+            cb_tel = cb_tel.replace(/\s+/g, '');
+            cb_tel = cb_tel.replace(/-/g, '');
+            cb_tel = cb_tel.replace('+', '');
+            cb_tel = cb_tel.replace(')', '');
+            cb_tel = cb_tel.replace('(', '');
         }
-    });
-    
-    $('#form-submit').click(function(){
         
-        var user_name = $('#form-name').val();
-        var user_tel = $('#form-tel').val();
-        
-        if (user_tel && user_tel.length >= 7){
-            $.post(
-              "../php/tel_create.php",
-              {
-                user_name: user_name,
-                tel: user_tel
-              }            
-            ).done(function(){
-                $('.call-back-form').css('display', 'none');
-                $('.form-succes').css('display', 'flex');
-                delError('name', 'name');
-                delError('tel', 'tel');
-                delError('tel', 'small-tel');
+        if (cb_name && cb_tel.length > 10){
+            $('#cb_name').removeClass('cb_error');
+            $('#cb_tel').removeClass('cb_error');
                 
-                setTimeout(function(){
-                    $('.call-back-window').css('display', 'none');
-                    $('.form-succes').css('display', 'none');
-                    $('.call-back-form').css('display', 'block');
-                }, 1500);
-            });   
+            $('#cb_name').addClass('cb_done');
+            $('#cb_tel').addClass('cb_done');
+            $.post('../php/create_callBack.php', {
+                cb_name,
+                cb_tel
+            });  
+            
         } else {
-            if(!user_name){
-                addError('name', 'name');
-            } else {
-                delError('name', 'name');
-            }
-            if(!user_tel){
-                addError('tel', 'tel');
-            }
-            else if(user_tel.length < 7){
-                addError('tel', 'small-tel');
-                $('#form-tel').parent('.form-item').removeClass('error-tel');
-            }
-            else {
-                delError('tel', 'tel');
+            if (!cb_name && cb_tel.length > 10){
+                $('#cb_name').removeClass('cb_done');
+                $('#cb_tel').removeClass('cb_error');
+                
+                $('#cb_name').addClass('cb_error');
+                $('#cb_tel').addClass('cb_done');
+            } else if (!cb_name && cb_tel.length < 11){
+                $('#cb_name').removeClass('cb_done');
+                $('#cb_tel').removeClass('cb_done');
+                
+                $('#cb_name').addClass('cb_error');
+                $('#cb_tel').addClass('cb_error');
+            } else if (cb_name.length > 0 && cb_tel.length < 11){
+                $('#cb_name').removeClass('cb_error');
+                $('#cb_tel').removeClass('cb_done');
+                
+                $('#cb_name').addClass('cb_done');
+                $('#cb_tel').addClass('cb_error');
             }
         }
         
         return false;
-    });
-    
+    }); 
 });
-
-
-function addError(target, error){
-    $('#form-'+ target +'').parent('.form-item').addClass('call-back-error');
-    $('#form-'+ target +'').parent('.form-item').addClass('error-'+ error +'');
-};
-function delError(target, error){
-    $('#form-'+ target +'').parent('.form-item').removeClass('call-back-error');
-    $('#form-'+ target +'').parent('.form-item').removeClass('error-'+ error +'');
-};

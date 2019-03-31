@@ -10,13 +10,15 @@ if (isset($_GET['category_id']) && $_GET['category_id'] != "" && $_GET['category
     }
     
     require_once '../models/product.php';
-    $products = Product::getAll($category->id);
+    $data_products = Product::getAll($category->id);
+    $products = $data_products['products'];
     $title = $category->title;
     
 } elseif ($_GET['category_id'] === 'sale'){
     
     require_once '../models/product.php';
-    $products = Product::getAll('sale');
+    $data_products = Product::getAll('sale');
+    $products = $data_products['products'];
     $title = 'Все товары со скидкой';
     
 } else {

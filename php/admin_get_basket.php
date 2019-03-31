@@ -1,7 +1,10 @@
 <?php
-
+$sort = (((isset($_REQUEST['sort'])) && $_REQUEST['sort'] !== "")?$_REQUEST['sort']:false);
+$view_id = (((isset($_REQUEST['view_id'])) && $_REQUEST['view_id'] !== "")?$_REQUEST['view_id']:false);
+$time = (((isset($_REQUEST['time'])) && $_REQUEST['time'] !== "")?$_REQUEST['time']:false);
 $order_id = (((isset($_REQUEST['order_id'])) && $_REQUEST['order_id'] !== "")?$_REQUEST['order_id']:false);
 $status_id = (((isset($_REQUEST['status_id'])) && $_REQUEST['status_id'] !== "")?$_REQUEST['status_id']:false);
+$page = (((isset($_REQUEST['page'])) && $_REQUEST['page'] !== "")?$_REQUEST['page']:false);
 
 require_once '../models/product.php';
 require_once '../models/order.php';
@@ -13,18 +16,24 @@ if ($order_id !== false && $status_id !== false){
 }
 
 $basket_products = Basket::getAllProducts();
-
-//Отбираем активные заказы
-$orders = [];
+$id_array = [];
 foreach ($basket_products as $product){
-    
-    $order_id = $product->order_id;
-    
-    $order = new Order($order_id);
-    array_push($orders, $order);
+    $id_array[] = $product->order_id;
 }
+$id_array = implode(",", $id_array);
+$today = date("Y-m-d");
 
-//
+$orders_data= Order::getAll($sort, "$id_array", $view_id, $time, $page, $today);
+$orders = $orders_data['orders'];
+$orders_count = $orders_data['count'];
+$pages_count = ceil($orders_count / Order::$limit_orders);
+
+$page_info = [];
+$page_info = [
+    'pages_count' => $pages_count,
+    'currect_page' => $page
+];
+    
 $basket = [];
 $basketByOrder = [];
 foreach ($orders as $order){
@@ -33,7 +42,6 @@ foreach ($orders as $order){
     array_push($basketByOrder, $order, $productsByOrder);
     $basket[] = $basketByOrder;
     $basketByOrder = [];
-    
 }
 
 $basket = array_map(function($key) {
@@ -48,7 +56,8 @@ $all_status = Status::getAll();
 $data = 
 [
     'basket_info' => $basket,
-    'status' => $all_status
+    'status' => $all_status,
+    'page' => $page_info
 ];
 
 echo json_encode($data);

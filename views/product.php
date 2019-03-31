@@ -55,7 +55,7 @@
                         <img src="../icon/shopping-basket.png">
                         <span>В корзину</span>
                     </button>
-                    <button class="article-btn-answ">
+                    <button class="article-btn-answ" id="call-back-activator">
                         <span>Остались вопросы? Ответим!</span>
                     </button>
                 </div>

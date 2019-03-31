@@ -15,10 +15,12 @@ if ($action === 'change'){
     
     $_SESSION['cart'][$basket_id]['count'] = $basket_count;
     $_SESSION['cart'][$basket_id]['all_cost'] = $basket_count * $sess_cost;
+    cookieCount('cart', 'count', "basket_count");
 }
 
 if ($action === 'delete'){
     unset($_SESSION['cart'][$basket_id]);
+    cookieCount('cart', 'count', "basket_count");
 }
 
 require_once '../models/product.php';
@@ -43,6 +45,11 @@ foreach ($_SESSION['cart'] as $basket_product){
 $data = $products_info;
 echo json_encode($data);
 
-//echo '<pre>';
-//var_dump($basket_products);
-//var_dump($product_info[0]);
+function cookieCount($session, $count, $cookie_name){
+    $cookie_counter = 0;
+    foreach ($_SESSION[$session] as $session){
+        $session_count = $session[$count];
+        $cookie_counter += $session_count; 
+    }
+    setcookie($cookie_name, "$cookie_counter", time()+60*60*24*7, "/","", 0);
+}
