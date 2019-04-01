@@ -10,6 +10,8 @@ class CallBack
     public $tel;
     public $date;
     
+    public static $limit_cb = 8;
+    
     public function __construct($id)
     {
         global $mysqli;
@@ -25,11 +27,26 @@ class CallBack
         $this->date = $callback_data['date'];
     }
     
-    public static function getAll()
+    public static function getAll($page = false)
     {
         global $mysqli;
         
-        $query = "SELECT call_id FROM call_back";
+        $query = "SELECT COUNT(*) as count FROM `call_back` WHERE 1";
+        $result = $mysqli->query($query);
+        $count_data = $result->fetch_assoc();
+            
+        if ($page !== false){
+            --$page;
+            $limit = " LIMIT " . ($page * self::$limit_cb) . ", " . self::$limit_cb;  
+        } else {
+            $limit = "";
+        }
+        
+        if ($count_data['count'] < ($page * self::$limit_cb)){
+            return false;
+        }
+        
+        $query = "SELECT call_id FROM call_back $limit";
         $result = $mysqli->query($query);
         
         $calls_back = [];

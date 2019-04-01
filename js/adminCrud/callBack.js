@@ -57,6 +57,15 @@ function GetProducts(call_id) {
             '</div>'
             )
         });
+        
+        //Счетчик звонков
+        var cb_cookie = getCookie('cb_count');
+        if ($('.cb_counter').length > 0 && cb_cookie != 0){
+            $('.cb_counter').text(cb_cookie);
+        } else if (cb_cookie == 0){
+            $('.cb_counter').remove();
+        }
+        
     });
 }
 
@@ -69,4 +78,11 @@ function openClose(){
         modal.css('display', 'none');
         modal.css('opacity', '0');
     }
+}
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }

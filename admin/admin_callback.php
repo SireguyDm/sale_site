@@ -25,5 +25,8 @@
   </div>
 </div>
 
+<div class="pagination"></div>
+
 <script src="../js/adminCrud/callBack.js"></script>
+<script src="../js/pagintaion.js"></script>
 <?php include('../templates/admin_footer.php') ?>

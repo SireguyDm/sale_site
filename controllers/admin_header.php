@@ -10,16 +10,18 @@ if ($_SESSION['name'] != null){
     $user_name = 'Инкогнито';
 }
 
-//require_once '../models/order.php';
-//$order_data = Order::getAll(false, false, 'false', false, false, false);
-//$order = $order_data['orders'];
-//$order_count = 0;
-//foreach ($order as $item){
-//    if ($item->status_id == 1){
-//        $order_count += 1;
-//    }
-//}
-//var_dump($order_count);
+if(isset($_COOKIE['orders_count']) ) { 
+    $order_count = $_COOKIE['orders_count'];
+}
+
+require_once('../models/callBack.php');
+$cookie_callBack = CallBack::getAll();
+$cookie_cb = count($cookie_callBack);
+setcookie("cb_count", "$cookie_cb", time()+60*60*24*7, "/","", 0);
+
+if(isset($_COOKIE['cb_count']) ) { 
+    $cookie_cb_html = $_COOKIE['cb_count'];
+}
 
 
 require_once '../templates/admin_header.php';

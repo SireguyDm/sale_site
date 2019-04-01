@@ -273,8 +273,18 @@ function getBasket(status_id, order_id, sort, view_id, time, page){
             )
         }
         
+        //Счетчик заказов
+        var order_cookie = getCookie('orders_count');
+        if ($('.order_counter').length > 0 && order_cookie != 0){
+            $('.order_counter').text(order_cookie);
+        } else if (order_cookie == 0){
+            $$('.order_counter').remove();
+        }
+        
+        
+        //Если ничего не найдено
         if (arr_basket.length == 0){
-            $('.admin_zakazi').append('<h3 class="text-center">Ничего не найдено ...</h3>');
+            $('.admin_menu_orders').append('<h3 class="text-center">Ничего не найдено ...</h3>');
         }
     });
     // Конец запроса
@@ -319,4 +329,11 @@ function clearContent(){
     $('.admin_zakazi').empty();
     $('#status-radio-box').empty();
     $('.pagination').empty();
+}
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }

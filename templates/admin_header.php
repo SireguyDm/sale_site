@@ -28,16 +28,35 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link mr-3" href="../controllers/admin_main_page.php">Главная / Заказы <span class="badge badge-pill badge-success">22</span><span class="sr-only">(current)</span></a>
+                    <a class="nav-link mr-3 admin_menu_orders" href="../controllers/admin_main_page.php">Главная / Заказы 
+                    <?php 
+                        if (isset($_COOKIE['orders_count']) && $order_count != 0){
+                            echo '<span class="badge badge-pill badge-success order_counter">'.$order_count.'</span>';
+                        }    
+                    ?>
+                    <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item dropdown mr-3">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Просмотреть / изменить
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="../controllers/admin_main_page.php">Заказы <span class="badge badge-pill badge-success">22</span></a>
+                        <a class="dropdown-item admin_menu_orders" href="../controllers/admin_main_page.php">Заказы 
+                            <?php 
+                                if (isset($_COOKIE['orders_count']) && $order_count != 0){
+                                    echo '<span class="badge badge-pill badge-success order_counter">'.$order_count.'</span>';
+                                }    
+                            ?>
+                        </a>
                         <a class="dropdown-item" href="../controllers/admin_products.php">Товары</a>
-                        <a class="dropdown-item" href="../controllers/admin_callback.php">Обратные звоноки<span class="badge badge-pill badge-success ml-1">2</span></a>
+                        <a class="dropdown-item" href="../controllers/admin_callback.php">Обратные звоноки
+                        <?php 
+                            if (isset($_COOKIE['cb_count']) && $cookie_cb_html != 0){
+                                echo '<span class="badge badge-pill badge-success ml-1 cb_counter">'.$cookie_cb_html.'</span>';
+                            }    
+                        ?>
+                        </a>
                         <a class="dropdown-item" href="../controllers/admin_users.php">Пользователи</a>
                         <a class="dropdown-item" href="../controllers/admin_category.php">Категории</a>
                         <a class="dropdown-item" href="../controllers/admin_status.php">Статусы</a>

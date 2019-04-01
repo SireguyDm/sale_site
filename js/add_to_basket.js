@@ -12,8 +12,6 @@ $(document).ready(function(){
             } else {
                 $('.bag-item').append('<span id="basket_count">'+ cookie +'</span>')
             }
-
-            console.log(cookie);
         });
     });
     

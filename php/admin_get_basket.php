@@ -23,8 +23,19 @@ foreach ($basket_products as $product){
 $id_array = implode(",", $id_array);
 $today = date("Y-m-d");
 
+$cookie_orders_data = Order::getAll(false, "$id_array", 'false', false, false, false);
+$cookie_orders = $cookie_orders_data['orders'];
+$cookie_cout = 0;
+foreach ($cookie_orders as $order){
+    if ($order->status_id == 1){
+        $cookie_cout += 1;
+    }
+}
+setcookie("orders_count", "$cookie_cout", time()+60*60*24*7, "/","", 0);
+
 $orders_data= Order::getAll($sort, "$id_array", $view_id, $time, $page, $today);
 $orders = $orders_data['orders'];
+
 $orders_count = $orders_data['count'];
 $pages_count = ceil($orders_count / Order::$limit_orders);
 
