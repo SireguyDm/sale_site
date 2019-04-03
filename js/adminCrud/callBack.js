@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
     var call_id = false; 
-    GetProducts(call_id);
+    var page = 1;
+    GetProducts(call_id, page);
     
     $(document).on('click', '.delete', function () {
         
@@ -22,7 +23,8 @@ $(document).ready(function(){
     $(document).on('click', '#modal_send', function () {
         
         var call_id = $('#DeleteModal').data('prodid');
-        GetProducts(call_id);
+        clearContent();
+        GetProducts(call_id, page);
         
         $('#DeleteModal').attr('data-prodid', false);
         openClose();
@@ -35,15 +37,37 @@ $(document).ready(function(){
         $('#DeleteModal').attr('data-prodid', false);
         openClose();
     });
-
+    
+    //Работы пагинации
+    $(document).ajaxStop(function(){
+        //Смена страниц при клике на страницу
+        $('.pag-item').click(function(){
+            page = $(this).data('page');
+            clearContent();
+            GetProducts(call_id, page);
+        });
+        //Смена страниц при клике на слайдер
+        $('.pag_prev, .pag_next').click(function(){
+            setTimeout(function() { 
+                page = $('.active_page').data('page');
+                clearContent();
+                GetProducts(call_id, page);
+            }, 100);
+        });
+    });
+    
 });
 
-function GetProducts(call_id) {
+function GetProducts(call_id, page) {
     $.post('../php/admin_get_callBack.php', {
-        call_id
+        call_id,
+        page
     }, function (data) {
 
-        var callBack = JSON.parse(data);
+        var cb_data = JSON.parse(data);
+        var callBack = cb_data['call_back'];
+        var active_page = cb_data['active_page'];
+        var page_count = cb_data['page_count'];
         
         callBack.forEach(function (call) {
             $('.callback').append(
@@ -57,6 +81,26 @@ function GetProducts(call_id) {
             '</div>'
             )
         });
+        
+        if (page_count > 1){
+            var pages_html = '';
+            var page_html = '';
+            for (i = 1; i <= page_count; i++){
+                if (i == active_page){
+                    one_page = '<button class="pag-item active_page" data-page="' + i + '" id="page'+ i +'">' + i + '</button>';
+                } else {
+                    one_page = '<button class="pag-item" data-page="' + i + '" id="page'+ i +'">' + i + '</button>';
+                }
+                pages_html = pages_html + one_page;              
+            }
+            $('.pagination').append(
+                '<div class="pagintation_box">' +
+                    '<button class="pag_prev"></button>' +
+                    pages_html +
+                    '<button class="pag_next"></button>' +
+                '</div>'
+            )
+        }
         
         //Счетчик звонков
         var cb_cookie = getCookie('cb_count');
@@ -85,4 +129,9 @@ function getCookie(name) {
     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function clearContent(){
+    $('.callback').empty();
+    $('.pagination').empty();
 }

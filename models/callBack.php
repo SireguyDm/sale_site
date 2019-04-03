@@ -54,7 +54,10 @@ class CallBack
             $calls_back[] = new self($callback_data['call_id']);
         }
 
-        return $calls_back;
+        return [
+            'calls_back' => $calls_back,
+            'count' => $count_data['count']
+        ];
     }
     
     public function add($user_name, $tel, $date)
@@ -91,7 +94,7 @@ class CallBack
 //$call_back = new CallBack(1);
 
 //Получение всех звонков
-//$call_back = CallBack::getAll();
+//$call_back = CallBack::getAll(1);
 
 //Добавление звонка
 //$call_back = CallBack::add('Сергей', '89999999999', '2018-01-19');
