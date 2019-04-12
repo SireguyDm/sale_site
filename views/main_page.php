@@ -32,20 +32,6 @@
                         }
                     
                    ?>
-<!--
-                    <div class="catalog-choice-item">
-                        <a href="../controllers/catalog.php?category_id=1" class="watch"><div class="catalog-choice-item-back"></div></a>
-                        <p>Часы</p>
-                    </div>
-                    <div class="catalog-choice-item">
-                        <a href="../controllers/catalog.php?category_id=3" class="backpack"><div class="catalog-choice-item-back"></div></a>
-                        <p>Рюкзаки / Сумки</p>
-                    </div>
-                    <div class="catalog-choice-item">
-                        <a href="../controllers/catalog.php?category_id=2" class="toys"><div class="catalog-choice-item-back"></div></a>
-                        <p>Наушники</p>
-                    </div>
--->
                 </div>
                 
                 <div class="offers" id="sale-offers">
@@ -55,23 +41,7 @@
                     <div class="sale-slider-box">
                         <div class="sale-box">
                             <div class="sale-slider">
-                               
-<!--
-                                <div class="slider-item">
-                                    <a >
-                                        <img src="../pics/tovar/golo/golo1.jpg">
-                                        <div class="slider-i-desc">
-                                            <p>Голо рюкзак</p>
-                                        </div>
-                                        <div class="slider-i-cost">
-                                            <p class="s-i-c-new">2000 руб.</p>
-                                            <p class="s-i-c-old">2500 руб.</p>
-                                        </div>
-                                    </a>
-                                </div>
--->
-
-                                <?php 
+                                <?php
                                 foreach ($products as $product) {
                                     if ($product->old_cost !== '0'){
                                         echo 

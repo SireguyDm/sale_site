@@ -94,6 +94,25 @@
         </div>
       </div>
     </div>
+    
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-orderid="false">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Вы уверены?</h5>
+            <button type="button" class="close delete_close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-success mr-4" id="delete_send">Да</button>
+                <button type="button" class="btn btn-danger ml-4 delete_close">Нет</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 <script src="../js/adminCrud/basket.js"></script>

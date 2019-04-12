@@ -60,6 +60,7 @@
                         <a class="dropdown-item" href="../controllers/admin_users.php">Пользователи</a>
                         <a class="dropdown-item" href="../controllers/admin_category.php">Категории</a>
                         <a class="dropdown-item" href="../controllers/admin_status.php">Статусы</a>
+                        <a class="dropdown-item" href="../controllers/admin_brand.php">Бренды</a>
                     </div>
                 </li>
             </ul>

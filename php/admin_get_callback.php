@@ -5,20 +5,20 @@ $page = (((isset($_REQUEST['page'])) && $_REQUEST['page'] !== "")?$_REQUEST['pag
 
 require_once '../models/callBack.php';
 
-$data_cb = CallBack::getAll($page);
-$cb_count = $data_cb['count'];
-
-$page_count = ceil($cb_count / CallBack::$limit_cb);
-
-if ($call_id != false ){
-    if ($call_id === 'all'){
-        foreach ($data as $call){
-            $call_back = CallBack::delete($call->id);
+if ($call_id !== false ){
+    if (gettype ($call_id) == 'array'){
+        foreach ($call_id as $call){
+            $call_back = CallBack::delete($call);
         }
     } else {
         $call_back = CallBack::delete($call_id);
     }
 }
+
+$data_cb = CallBack::getAll($page);
+$cb_count = $data_cb['count'];
+
+$page_count = ceil($cb_count / CallBack::$limit_cb);
 
 $data = [
     'call_back' => $data_cb['calls_back'],

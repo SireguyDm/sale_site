@@ -2,39 +2,43 @@ $(document).ready(function(){
 
     var call_id = false; 
     var page = 1;
-    GetProducts(call_id, page);
+    GetCallBack(call_id, page);
     
     $(document).on('click', '.delete', function () {
         
         openClose();
         
         var id = $(this).parent('.btn-box').parent('#admin_basket').data('id');
-        $('#DeleteModal').attr('data-prodid', id);
+        $('#DeleteModal').attr('data-callid', id);
     });
     
     $('#deleteAll').click(function(){
         
         openClose();
-        
-        var id = $(this).data('all');
-        $('#DeleteModal').attr('data-prodid', id);
+        $('#DeleteModal').attr('data-callid', 'all');
     });
     
     $(document).on('click', '#modal_send', function () {
         
-        var call_id = $('#DeleteModal').data('prodid');
+        var call_id = $('#DeleteModal').data('callid');
+        
+        if (call_id == 'all'){
+            var call_id = [];
+            $('.call-back-item').each(function(){
+                var target_id = $(this).attr('data-id');
+                call_id.push(target_id);
+            });
+        }
         clearContent();
-        GetProducts(call_id, page);
+        GetCallBack(call_id, page);
         
-        $('#DeleteModal').attr('data-prodid', false);
+        $('#DeleteModal').attr('data-callid', false);
         openClose();
-        
-        location.reload();
     });
     
     $(document).on('click', '.modal_close', function () {
         
-        $('#DeleteModal').attr('data-prodid', false);
+        $('#DeleteModal').attr('data-callid', false);
         openClose();
     });
     
@@ -44,21 +48,21 @@ $(document).ready(function(){
         $('.pag-item').click(function(){
             page = $(this).data('page');
             clearContent();
-            GetProducts(call_id, page);
+            GetCallBack(call_id, page);
         });
         //Смена страниц при клике на слайдер
         $('.pag_prev, .pag_next').click(function(){
             setTimeout(function() { 
                 page = $('.active_page').data('page');
                 clearContent();
-                GetProducts(call_id, page);
+                GetCallBack(call_id, page);
             }, 100);
         });
     });
     
 });
 
-function GetProducts(call_id, page) {
+function GetCallBack(call_id, page) {
     $.post('../php/admin_get_callBack.php', {
         call_id,
         page
@@ -71,7 +75,7 @@ function GetProducts(call_id, page) {
         
         callBack.forEach(function (call) {
             $('.callback').append(
-            '<div class="alert mb-3 alert-success" role="alert" id="admin_basket" data-id="'+ call['id'] +'">' +
+            '<div class="alert mb-3 alert-success call-back-item" role="alert" id="admin_basket" data-id="'+ call['id'] +'">' +
                 '<h4 class="alert-heading admin_time text-center">'+ call['date'] +'</h4>'+
                 '<p class="text-center h4" id="user_name">'+ call['user_name'] +'</p>'+
                 '<p class="h5 admin_basket_row mt-3 text-center">Телефон: <span>'+ call['tel'] +'</span></p>' +

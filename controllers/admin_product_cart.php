@@ -22,6 +22,9 @@ if ($descriptions->id === null && $descriptions->product_id === null){
 }
 
 require_once '../models/category.php';
+require_once '../models/brand.php';
 $categories = Category::getAll();
+$brand_data = Brand::getAll();
+$brands = $brand_data['brands'];
 
 require_once '../admin/admin_product_cart.php';

@@ -3,13 +3,14 @@ $(document).ready(function(){
     var action = false;
     var add_count = 1;
     var page = 1;
-    var sort = false;
-    var view = '';
+    var cost_action = false;
+    var category_id = '';
     var search_text = '';
     var product_id_arr = [];
+    var brand = '';
     
     //Получение списка товаров
-    getProduct(action, add_count, view, sort, page, search_text, product_id_arr)
+    getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
     
     //Открытие формы
     $('#Add').click(function(){
@@ -66,7 +67,7 @@ $(document).ready(function(){
         add_count = $('#addCount').val();
         
         clearContent();
-        getProduct(action, add_count, view, sort, page, search_text, product_id_arr)
+        getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
         
         openClose('#AddModal');
         action = false;
@@ -106,7 +107,6 @@ $(document).ready(function(){
             
             $(this).addClass('del_active');
         }
-        console.log(product_id_arr);
     });
     
     //Действия при нажатии на кнопку удалить выбранные
@@ -114,9 +114,14 @@ $(document).ready(function(){
         if(product_id_arr.length !== 0){
             //Отправляем массив id товаров и значение action
             action = 'delete';
-
+            
+            var cost_action = $('.sort-zag').attr('data-display'); 
+            var category_id = $('.view-zag').attr('data-categoryid');
+            search_text = $('#search').val();
+            search_text = search_text.replace(/\s/g, '');
+            
             clearContent();
-            getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+            getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
 
             action = false;
         }
@@ -145,15 +150,19 @@ $(document).ready(function(){
         //Смена страниц при клике на страницу
         $('.pag-item').click(function(){
             page = $(this).data('page');
+            var category_id = $('.view-zag').attr('data-categoryid');
+            var cost_action = $('.sort-zag').attr('data-display');
             clearContent();
-            getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+            getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
         });
         //Смена страниц при клике на слайдер
         $('.pag_prev, .pag_next').click(function(){
             setTimeout(function() { 
                 page = $('.active_page').data('page');
+                var category_id = $('.view-zag').attr('data-categoryid');
+                var cost_action = $('.sort-zag').attr('data-display');
                 clearContent();
-                getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+                getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
             }, 100);
         });
     });
@@ -162,27 +171,32 @@ $(document).ready(function(){
     //Выпадающие списки
     $('.sort-zag').click(function(){
         actionMenu('sort');
-    })
+    });
     $('.view-zag').click(function(){
         actionMenu('view');
+    });
+    $('.brand-zag').click(function(){
+        actionMenu('brand');
     })
     clickAway('view');
     clickAway('sort');
+    clickAway('brand');
     
     $('.sort-item').click(function(){
         
         var sort_select = $(this).html();
-        var sort = $(this).data('display');
+        var cost_action = $(this).data('display');
         
         $('.sort-select').empty();
         $('.sort-select').append(sort_select);
-        $('.sort-zag').attr('data-display', sort);
+        $('.sort-zag').attr('data-display', cost_action);
         
-        var view = $('.view-zag').attr('data-categoryid');
+        var category_id = $('.view-zag').attr('data-categoryid');
         search_text = $('#search').val();
+        var brand = $('.brand-zag').attr('data-brandid');
     
         clearContent();
-        getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+        getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
         
         actionMenu('sort');
     });
@@ -190,25 +204,54 @@ $(document).ready(function(){
     $('.view-item').click(function(){
         
         var category_tilte = $(this).text();
-        var view = $(this).data('categoryid');
+        var category_id = $(this).data('categoryid');
         
-        if (view == false){
+        if (category_id == false){
             $('#view-zag-title').text('Категория');
-            $('.view-zag').attr('data-categoryid', view);
+            $('.view-zag').attr('data-categoryid', category_id);
         } else {
             $('#view-zag-title').text(category_tilte);
-            $('.view-zag').attr('data-categoryid', view);
+            $('.view-zag').attr('data-categoryid', category_id);
         }
         
-        var sort = $('.sort-zag').attr('data-display');
+        var cost_action = $('.sort-zag').attr('data-display');
+        var brand = '';
+        search_text = $('#search').val();
+        page = 1;
+        
+        clearContent();
+        getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
+        
+        
+        getBrandList(category_id);
+        
+        actionMenu('view');
+    });
+    
+    $(document).on('click', '.brand-item', function(){
+        
+        var brand_tilte = $(this).text();
+        var brand = $(this).data('brandid');
+        
+        if (brand == false){
+            $('#brand-zag-title').text('Бренд');
+            $('.brand-zag').attr('data-brandid', brand);
+        } else {
+            $('#brand-zag-title').text(brand_tilte);
+            $('.brand-zag').attr('data-brandid', brand);
+        }
+        
+        var cost_action = $('.sort-zag').attr('data-display');
+        var category_id = $('.view-zag').attr('data-categoryid');
+        
         search_text = $('#search').val();
         page = 1;
         
         clearContent();
         
-        getProduct(action, add_count, view, sort, page, search_text, product_id_arr)
+        getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
         
-        actionMenu('view');
+        actionMenu('brand');
     });
     
     //Живой поиск
@@ -222,21 +265,23 @@ $(document).ready(function(){
             default:
                 if ($(this).val().length > 2){
                     
-                    var sort = $('.sort-zag').attr('data-display'); 
-                    var view = $('.view-zag').attr('data-categoryid');
+                    var cost_action = $('.sort-zag').attr('data-display'); 
+                    var category_id = $('.view-zag').attr('data-categoryid');
+                    var brand = $('.brand-zag').attr('data-brandid');
                     
                     var search_text = $(this).val().toLowerCase();
                     search_text = search_text.replace(/\s/g, '');
                     
                     clearContent();
-                    getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+                    getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
                 } else if ($(this).val().length === 0){
                     search_text = '';
-                    var sort = $('.sort-zag').attr('data-display'); 
-                    var view = $('.view-zag').attr('data-categoryid');
+                    var cost_action = $('.sort-zag').attr('data-display'); 
+                    var category_id = $('.view-zag').attr('data-categoryid');
+                    var brand = $('.brand-zag').attr('data-brandid');
                     
                     clearContent();
-                    getProduct(action, add_count, view, sort, page, search_text, product_id_arr);
+                    getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand);
                 }
             break;
         }
@@ -245,15 +290,16 @@ $(document).ready(function(){
     
 });
 
-function getProduct(action, add_count, view, sort, page, search_text, product_id_arr){
+function getProduct(action, add_count, category_id, cost_action, page, search_text, product_id_arr, brand){
     $.post('../php/admin_get_productlist.php', {
         action,
         add_count,
-        view,
-        sort,
+        category_id,
+        cost_action,
         page,
         search_text, 
-        product_id_arr
+        product_id_arr,
+        brand
     }, function (data) {
         var data = JSON.parse(data);
         
@@ -276,10 +322,11 @@ function getProduct(action, add_count, view, sort, page, search_text, product_id
             }
             $('.row').append(
             '<div class="col-lg-3 col-md-4 col-6 product-item text-center" data-productId="'+ product['id'] +'">' +
-                '<a href="../controllers/admin_product_cart.php?product_id='+ product['id'] +'" class="container">' +
-                    '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="img-fluid"></img>' +
+                '<a href="../controllers/admin_product_cart.php?product_id='+ product['id'] +'" class="container" target="_blank">' +
+                '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="img-fluid"></img>' +
                 '</a>'+
-                '<h3>'+ product['title'] +'</h3>'+
+                '<h3>'+ product['brand_title'] +'</h3>'+
+                '<p class="product-title">'+ product['title'] +'</p>'+
                 '<p class="product-cost">'+ product['cost'] +' руб.</p>'+
                 ' '+ old_cost +' '+
                 ' '+ button_del_html +' ' +
@@ -311,7 +358,6 @@ function getProduct(action, add_count, view, sort, page, search_text, product_id
         $('#productCount').text(product_count);
         
         if (id_arr.length > 0){
-            console.log(id_arr);
             
             id_arr.forEach(function(id){
                 $('[data-productid='+ id +']').children('.add_to_del').addClass('del_active');
@@ -319,6 +365,30 @@ function getProduct(action, add_count, view, sort, page, search_text, product_id
         }
     });
     
+};
+
+function getBrandList(category_id){
+    $.post('../php/admin_get_brand_list.php', {
+        category_id
+    }, function (data) {
+        
+        var data = JSON.parse(data);
+        
+        $('#brand-zag-title').text('Бренд');
+        $('.brand-zag').attr('data-brandid', '');
+        
+        if (data.length > 0){
+            $('.brand-item-menu').empty();
+            
+            data.forEach(function(brand){
+                $('.brand-item-menu').append(
+                    '<div class="brand-item" data-brandId="'+ brand['id'] +'">'+ brand['brand_title'] +'</div>'
+                );
+            });
+        } else {
+            $('.brand-item-menu').empty();
+        }
+    });
 };
 
 function actionMenu(target){

@@ -15,7 +15,7 @@
         <div class="sort">
             <div class="sort-zag" data-display="false">
                 <div class="sort-select">
-                    Показать все
+                    Сортировка
                 </div>
                 <img src="../icon/sort-down-arrow.png" id="menu-arrow">
             </div>
@@ -24,7 +24,7 @@
                     <img src="../icon/sort_down.png">
                     По цене
                 </div>
-                <div class="sort-item" id="date-avc" data-display="avc"> 
+                <div class="sort-item" id="date-avc" data-display="asc"> 
                    <img src="../icon/sort_up.png">
                     По цене
                 </div>
@@ -45,6 +45,23 @@
                         echo '<div class="view-item" data-categoryId="'.$category->id.'">'.$category->title.'</div>';
                     } 
                 ?>
+           </div>
+        </div>
+        <div class="brand">
+           <div class="brand-zag" data-brandId="">
+               <span id="brand-zag-title">Бренд</span>
+               <img src="../icon/sort-down-arrow.png" id="menu-arrow">
+           </div>
+           <div class="brand-menu">
+                <div class="brand-item" data-brandId="">Показать все</div>
+                <div class="brand-item-menu">
+                    <?php 
+                        foreach($brands as $brand){
+                            echo '<div class="brand-item" data-brandId="'.$brand->id.'">'.$brand->brand_title.'</div>';
+                        } 
+                    ?>
+                </div>
+                
            </div>
         </div>
         <div class="search">

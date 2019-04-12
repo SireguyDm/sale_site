@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    
     $('#order-tel').mask("+7 (999) 999-99-99");
     
     $('#order').click(function(){
@@ -96,9 +95,11 @@ function createOrder(name, secondName, adress, city, domofon, email, tel, basket
         basket,
         itog
     }, function (data) {
-        var answer = JSON.parse(data);
+        var status = JSON.parse(data);
         
-        $('#order').text(answer);
+        if (status == 'complete'){
+            location.reload();
+        }
     });
 };
 

@@ -195,6 +195,13 @@
   .status-item button {
     cursor: pointer; }
 
+.brand-item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .brand-item button {
+    cursor: pointer; }
+
 .product .product-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -240,7 +247,8 @@
   .product .product-item .product-oldcost {
     margin: 0;
     font-size: 16px;
-    color: red; }
+    color: red;
+    text-decoration: line-through; }
 
 #ProductChange {
   -webkit-box-sizing: border-box;
@@ -266,7 +274,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  .filter .sort-zag, .filter .view-zag, .filter .time-zag {
+  .filter .sort-zag, .filter .view-zag, .filter .time-zag, .filter .brand-zag {
     border: 1px rgba(51, 51, 51, 0.25) solid;
     border-radius: 3px;
     display: -webkit-box;
@@ -398,6 +406,39 @@
       -webkit-box-shadow: 0px 0px 20px 0px rgba(51, 51, 51, 0.1);
       box-shadow: 0px 0px 20px 0px rgba(51, 51, 51, 0.1);
       z-index: 3; }
+  .filter .brand {
+    position: relative;
+    margin: 5px 10px 5px; }
+    .filter .brand .brand-zag, .filter .brand .brand-item {
+      font-size: 15px;
+      color: rgba(51, 51, 51, 0.9);
+      font-weight: 600;
+      line-height: 1.3em;
+      width: 210px;
+      height: 30px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 0 0 10px; }
+      .filter .brand .brand-zag:hover, .filter .brand .brand-item:hover {
+        background: #f6f6f6; }
+      .filter .brand .brand-zag #menu-arrow, .filter .brand .brand-item #menu-arrow {
+        margin-right: 6px; }
+      .filter .brand .brand-zag img, .filter .brand .brand-item img {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 2px;
+        width: 18px;
+        height: 22px; }
   .filter .search {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -425,7 +466,7 @@
       border-radius: 7px;
       padding: 5px;
       outline: none; }
-  .filter .sort-menu, .filter .view-menu {
+  .filter .sort-menu, .filter .view-menu, .filter .brand-menu {
     position: absolute;
     top: 30px;
     display: none;
@@ -541,3 +582,27 @@
 #delete-box {
   margin: 40px 0;
   display: none; }
+
+.order_item {
+  position: relative; }
+
+.order_delete {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: url(../icon/rubbish-bin.png) center center/contain no-repeat;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .order_delete:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05); }
+  .order_delete:active {
+    -webkit-transform: scale(0.99);
+    -ms-transform: scale(0.99);
+    transform: scale(0.99); }

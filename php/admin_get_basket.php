@@ -5,6 +5,7 @@ $time = (((isset($_REQUEST['time'])) && $_REQUEST['time'] !== "")?$_REQUEST['tim
 $order_id = (((isset($_REQUEST['order_id'])) && $_REQUEST['order_id'] !== "")?$_REQUEST['order_id']:false);
 $status_id = (((isset($_REQUEST['status_id'])) && $_REQUEST['status_id'] !== "")?$_REQUEST['status_id']:false);
 $page = (((isset($_REQUEST['page'])) && $_REQUEST['page'] !== "")?$_REQUEST['page']:false);
+$action = (((isset($_REQUEST['action'])) && $_REQUEST['action'] !== "")?$_REQUEST['action']:false);
 
 require_once '../models/product.php';
 require_once '../models/order.php';
@@ -13,6 +14,11 @@ require_once '../models/status.php';
 
 if ($order_id !== false && $status_id !== false){
     $change_status = Order::update($order_id, $status_id, false, false, false, false, false, false, false);
+}
+
+if ($action !== false && $action == 'delete'){
+    $delete_basket_products = Basket::delete_all($order_id);
+    $delete_order = Order::delete($order_id);
 }
 
 $basket_products = Basket::getAllProducts();

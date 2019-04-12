@@ -126,7 +126,10 @@
 
 .basket-product-img-div img {
   width: 150px;
-  height: 150px; }
+  height: 150px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 20px; }
 
 .basket-product-description {
   display: -webkit-box;
@@ -159,9 +162,9 @@
   margin-top: 2px; }
 
 .basket-product-item-right > p {
-  -ms-flex-preferred-size: 22%;
-  flex-basis: 22%;
-  margin: 0px 40px;
+  -ms-flex-preferred-size: 27%;
+  flex-basis: 27%;
+  margin: 0px 22px;
   text-align: center; }
 
 .basket-product-item-right > div {

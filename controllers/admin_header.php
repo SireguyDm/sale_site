@@ -15,7 +15,8 @@ if(isset($_COOKIE['orders_count']) ) {
 }
 
 require_once('../models/callBack.php');
-$cookie_callBack = CallBack::getAll();
+$call_back_data = CallBack::getAll();
+$cookie_callBack = $call_back_data['calls_back'];
 $cookie_cb = count($cookie_callBack);
 setcookie("cb_count", "$cookie_cb", time()+60*60*24*7, "/","", 0);
 

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $name = (((isset($_REQUEST['name'])) && $_REQUEST['name'] !== "")?$_REQUEST['name']:false);
 $secondName = (((isset($_REQUEST['secondName'])) && $_REQUEST['secondName'] !== "")?$_REQUEST['secondName']:false);
 $adress = (((isset($_REQUEST['adress'])) && $_REQUEST['adress'] !== "")?$_REQUEST['adress']:false);
@@ -30,11 +32,16 @@ if ($name != false && $adress != false && $adress != false && $tel != false){
         foreach ($basket as $product){
             $basket = Basket::add($order_id, $product['id'], $product['count'], $product['p_summ'], $itog);
         }
+        
+        unset($_SESSION['cart']);
+        setcookie("basket_count", "0", time()+60*60*24*7, "/","", 0);
+        
+        $data = 'complete';
+        echo json_encode($data);
     }
     
     
-    $data = 'Заказ создан';
-    echo json_encode($data);
+    
 }
 
 

@@ -26,6 +26,20 @@ if ($search_text !== false && $search_text !== ''){
             $products []= $product;
         }
     }
+    
+    if (count($products) == 0){
+        foreach ($product_arr as $product){
+            $target = $product->brand_title;
+            $target = mb_strtolower($target);
+            preg_replace('/\s/', '', $target);
+
+            if ($search_text == $target){
+                $products []= $product;
+            }
+                
+        }
+    }
+    
 } else {
    $products = [];
 }

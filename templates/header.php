@@ -72,7 +72,7 @@
                 </div>
                 <div class="menu-other">
                     <a href id="menu-delivery">Доставка</a>
-                    <a href="../controllers/catalog.php?category_id=sale">Акции</a>
+                    <a href="../controllers/catalog.php?category_id=sale">Скидки</a>
                     <a href id="menu-contacts">Контакты</a>
                 </div>
                 <div class="menu-search">

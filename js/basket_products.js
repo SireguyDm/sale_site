@@ -93,7 +93,7 @@ function getProduct(product_id, count, action){
                     '</a>' +
                     '<div class="basket-product-description">' +
                         '<p class="basket-product-name">'+ product[0]['title'] +'</p>' +
-                        '<p class="basket-product-article">'+ product['category'] +'</p>' +
+                        '<p class="basket-product-article">'+ product[0]['brand_title'] +' / '+ product['category'] +'</p>' +
                     '</div>' +
                 '</div>' +
                 '<div class="basket-product-item-right">' +

@@ -161,6 +161,12 @@
         cursor: pointer;
     }
 }
+.brand-item{
+    align-items: center;
+    button{
+        cursor: pointer;
+    }
+}
 .product{
     .product-item{
         display: flex;
@@ -199,6 +205,7 @@
             margin: 0;
             font-size: 16px;
             color: red;
+            text-decoration: line-through;
         }
     }
 }
@@ -216,7 +223,7 @@
     justify-content: center;
     align-items: center;
     user-select: none;
-    .sort-zag, .view-zag, .time-zag{
+    .sort-zag, .view-zag, .time-zag, .brand-zag{
         border: 1px rgba(51, 51, 51, 0.25) solid;
         border-radius: 3px;
         display: flex;
@@ -320,6 +327,33 @@
             z-index: 3;
         }
     }
+    .brand{
+        position: relative;
+        margin: 5px 10px 5px;
+        .brand-zag, .brand-item{
+            @include custom_text(15px, 0.9);
+            width: 210px;
+            height: 30px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0 0 0 10px;
+            &:hover{
+                background: rgb(246, 246, 246);
+            }
+            #menu-arrow{
+                margin-right: 6px;
+            }
+            img{
+                box-sizing: border-box;
+                padding: 2px;
+                width: 18px;
+                height: 22px;
+            }
+        }
+    }
     .search{
         display: flex;
         align-items: center;
@@ -339,7 +373,7 @@
             outline: none;
         }
     }
-    .sort-menu, .view-menu{
+    .sort-menu, .view-menu, .brand-menu{
         position: absolute;
         top: 30px;
         display: none;
@@ -447,4 +481,23 @@
 #delete-box{
     margin: 40px 0;
     display: none;
+}
+.order_item{
+    position: relative;
+}
+.order_delete{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url(../icon/rubbish-bin.png) center center/contain no-repeat;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    user-select: none;
+    &:hover{
+        transform: scale(1.05);
+    }
+    &:active{
+        transform: scale(0.99);
+    }
 }

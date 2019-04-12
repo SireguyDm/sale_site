@@ -23,24 +23,39 @@
       <label for="inputCost">Цена товара</label>
       <input type="text" class="form-control" id="inputCost" placeholder="">
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label for="inputOldCost">Старая цента товара</label>
       <input type="text" class="form-control" id="inputOldCost" placeholder="">
     </div>
-    <div class="form-group col-md-3 text-center">
+    <div class="form-group col-md-2 text-center">
       <label for="inputImg">Категория</label>
-      <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="CategoryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-categoryId="false">
-            Категория
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <?php 
-                    foreach($categories as $category){
-                        echo '<button class="dropdown-item categoryMenu-item" type="button" data-categoryId="'.$category->id.'">'.$category->title.'</button>';
-                    }
-              ?>
-          </div>
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="CategoryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-categoryId="false">
+                Категория
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <?php 
+                        foreach($categories as $category){
+                            echo '<button class="dropdown-item categoryMenu-item" type="button" data-categoryId="'.$category->id.'">'.$category->title.'</button>';
+                        }
+                  ?>
+              </div>
+        </div>
     </div>
+    <div class="form-group col-md-2 text-center">
+      <label for="inputImg">Бренд</label>
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="BrandMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-brandId="false">
+                Бренд
+              </button>
+              <div class="dropdown-menu brand-menu" aria-labelledby="dropdownMenu2">
+                  <?php 
+                        foreach($brands as $brand){
+                            echo '<button class="dropdown-item brandMenu-item" type="button" data-brandId="'.$brand->id.'">'.$brand->brand_title.'</button>';
+                        }
+                  ?>
+              </div>
+        </div>
     </div>
     <div class="form-group col-md-3">
       <label for="inputImg">Название папки c img</label>
@@ -80,7 +95,7 @@
 
 <div class="article-section">
     <div class="middle-zag">
-        <span id="data-id" data-id="<?php echo $product ?>" data-target="false"></span>
+        <span id="data-id" data-id="<?php echo $product ?>" data-target="false" data-productTitle=""></span>
     </div>
     <div class="article-section-item">
         <div class="article-photos"></div>

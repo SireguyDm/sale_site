@@ -1,13 +1,4 @@
-<?php 
-
-    if ($products->old_cost == '0'){
-        $old_cost = '';
-    } else {
-        $old_cost = '<p class="old-cost">'.$products->old_cost.' руб.</p>';
-    }
-
-    include('../controllers/header.php')
-?>
+<?php include('../controllers/header.php') ?>
 
 <div class="article-section">
     <div class="middle-zag">
@@ -18,11 +9,15 @@
     <div class="article-section-item">
         <div class="article-photos">
             <div class="article-photo-div">
-                <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>1.jpg" class="article-main-photo">
+                <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>1.jpg" class="article-main-photo first_img">
             </div>
-            <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>1.jpg" class="article-btn-active">
-            <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>2.jpg" class="article-btn-active">
-            <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>3.jpg" class="article-btn-active">
+            <img src="../pics/tovar/<?php echo $products->img ?>/<?php echo $products->img ?>1.jpg" class="article-btn-active first_img">
+            <?php
+                echo (file_exists('../pics/tovar/'.$products->img.'/'.$products->img.'2.jpg') ? '<img src="../pics/tovar/'.$products->img.'/'.$products->img.'2.jpg" class="article-btn-active">' : false);
+            ?>
+            <?php
+                echo (file_exists('../pics/tovar/'.$products->img.'/'.$products->img.'3.jpg') ? '<img src="../pics/tovar/'.$products->img.'/'.$products->img.'3.jpg" class="article-btn-active">' : false);
+            ?>
         </div>
         <div class="article-left-panel">
             <div class="aritcle-wrapper">
@@ -31,7 +26,9 @@
                         <p class="cost">
                             <?php echo $products->cost ?> руб.
                         </p>
-                        <?php echo $old_cost ?>
+                        <?php 
+                            echo ($products->old_cost !== '0' ? '<p class="old-cost">'.$products->old_cost.' руб.</p>' : false); 
+                        ?>
                     </div>
                 </div>
                 <div class="panel-advant">
@@ -62,18 +59,31 @@
 
                 <div class="article-text">
                     <div class="article-text-description">
-                        <p class="description-zag"><?php echo $descriptions->zag ?></p>
-                        <p><?php echo $descriptions->p1 ?></p>
-                        <p><?php echo $descriptions->p2 ?></p>
+                        <?php 
+                            echo ($descriptions->zag !== 'null' && $descriptions->zag !== 'false' ? '<p class="description-zag">'.$descriptions->zag.'</p>' : false); 
+                        ?>
+                        <?php 
+                            echo ($descriptions->p1 !== 'null' && $descriptions->p1 !== 'false' ? '<p>'.$descriptions->p1.'</p>' : false); 
+                        ?>
+                        <?php 
+                            echo ($descriptions->p2 !== 'null' && $descriptions->p2 !== 'false' ? '<p>'.$descriptions->p2.'</p>' : false); 
+                        ?>
                     </div>
                     <div class="article-text-property">
-                        <p>Цвет: <span  id="color"><?php echo $descriptions->color ?></span></p>
-                        <p>Размер: <span id="size"><?php echo $descriptions->size ?></span></p>
-                        <p>Состав: <span id="material"><?php echo $descriptions->material ?></span></p>
-                        <p>Производство: <span id="country"><?php echo $descriptions->country ?></span></p>
+                        <?php 
+                            echo ($descriptions->color !== 'null' && $descriptions->color !== 'false'? '<p>Цвет: <span  id="color">'.$descriptions->color.'</span></p>' : false); 
+                        ?>
+                        <?php 
+                            echo ($descriptions->size !== 'null' && $descriptions->size !== 'false' ? '<p>Размер: <span id="size">'.$descriptions->size.'</span></p>' : false); 
+                        ?>
+                        <?php 
+                            echo ($descriptions->material !== 'null' && $descriptions->material !== 'false'? '<p>Состав: <span id="material">'.$descriptions->material.'</span></p>' : false); 
+                        ?>
+                        <?php 
+                            echo ($descriptions->country !== 'null' && $descriptions->country !== 'false' ? '<p>Производство: <span id="country">'.$descriptions->country.'</span></p>' : false); 
+                        ?>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ $(document).ready(function(){
     var old_cost = false;
     var img = false;
     var category_id = false;
+    var brand_id = false;
     
     //Description
     var zag = false;
@@ -23,7 +24,7 @@ $(document).ready(function(){
     var action = false;
     
     //Получение товара
-    getProduct(product_id, false, false, false, false, false, false, false, false, false, false, false, false, false); 
+    getProduct(product_id, false, false, false, false, false, false, false, false, false, false, false, false, false, false); 
     
     //Работа изображений
     slider_images();
@@ -36,7 +37,7 @@ $(document).ready(function(){
             
             $('#ProductChange').css('display', 'block');
             
-            var title = $('#data-id').text();
+            var title = $('#data-id').attr('data-producttitle');
             var zag = $('#zag').text();
 
             var cost = $('#cost').text();
@@ -81,6 +82,18 @@ $(document).ready(function(){
         
         $('#CategoryMenu').attr('data-categoryId', category_id);
         $('#CategoryMenu').text(category_title);
+        
+        getBrandList(category_id);
+    });
+    
+    //Действия при смене бренда
+    $(document).on('click', '.brandMenu-item', function(){
+        
+        var brand_id = $(this).attr('data-brandId');
+        var brand_title = $(this).text();
+        
+        $('#BrandMenu').attr('data-brandId', brand_id);
+        $('#BrandMenu').text(brand_title);
     });
     
     //Действия при нажатии на кнопку сохранить
@@ -98,11 +111,12 @@ $(document).ready(function(){
         $('#inputMaterial').val() !== '' ? material = $('#inputMaterial').val() : material = false;
         $('#inputCountry').val() !== '' ? country = $('#inputCountry').val() : country = false;
         category_id = $('#CategoryMenu').attr('data-categoryId');
+        brand_id = $('#BrandMenu').attr('data-brandId');
         
         action = 'change';
         
         clearProduct();
-        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id)
+        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id);
         
         return false;
     });
@@ -125,14 +139,14 @@ $(document).ready(function(){
         action = 'delete';
         
         clearProduct();
-        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id)
+        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id);
         
         window.location.href = "../controllers/admin_products.php";
     });
     
 });
 
-function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id){
+function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id){
     
     $.post('../php/admin_get_productcart.php', {
         product_id,
@@ -148,7 +162,8 @@ function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, 
         material,
         country,
         action,
-        category_id
+        category_id,
+        brand_id
     }, function (data) {
         var data = JSON.parse(data);
         
@@ -164,14 +179,24 @@ function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, 
         });
         $('#CategoryMenu').text(category);
         
-        $('#data-id').text(product['title']);
+        $('#BrandMenu').attr('data-brandId', product['brand_id']);
+        var brand = false;
+        $('.brandMenu-item').each(function(){
+            if ($(this).attr('data-brandId') == product['brand_id']){
+                brand = $(this).text();
+            }
+        });
+        $('#BrandMenu').text(brand);
+        
+        $('#data-id').attr('data-producttitle', product['title']);
+        $('#data-id').text(product['title'] + ' / ' + product['brand_title']);
         $('#data-id').data('target', 'title');
             
         $('.article-photos').append(
             '<div class="article-photo-div" id="img" data-img="'+ product['img'] +'">' +
-                '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="article-main-photo">' +
+                '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="article-main-photo first_img">' +
             '</div>' +
-            '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="article-btn-active">'+
+            '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'1.jpg" class="article-btn-active first_img">'+
             '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'2.jpg" class="article-btn-active">'+
             '<img src="../pics/tovar/'+ product['img'] +'/'+ product['img'] +'3.jpg" class="article-btn-active">'
         );
@@ -196,6 +221,30 @@ function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, 
         )
     });
     // Конец запроса
+};
+
+function getBrandList(category_id){
+    $.post('../php/admin_get_brand_list.php', {
+        category_id
+    }, function (data) {
+        
+        var data = JSON.parse(data);
+        
+        $('#BrandMenu').text('Бренд');
+        $('#BrandMenu').attr('data-brandid', false);
+        
+        if (data.length > 0){
+            $('.brand-menu').empty();
+            
+            data.forEach(function(brand){
+                $('.brand-menu').append(
+                    '<button class="dropdown-item brandMenu-item" type="button" data-brandId="'+ brand['id'] +'">'+ brand['brand_title'] +'</button>'
+                );
+            });
+        } else {
+            $('.brand-item-menu').empty();
+        }
+    });
 };
 
 function openClose(target){

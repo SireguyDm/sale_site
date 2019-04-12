@@ -10,6 +10,8 @@ class Product
     public $old_cost;
     public $img;
     public $category_id;
+    public $brand_id;
+    public $brand_title;
     
     public static $limit_products = 12;
     
@@ -17,7 +19,20 @@ class Product
     {
         global $mysqli;
 
-        $query = "SELECT product_id, title, cost, old_cost, img, category_id FROM products WHERE product_id=$id";
+        $query = 
+        "SELECT
+            p.product_id,
+            p.title,
+            p.brand_id,
+            p.cost,
+            p.old_cost,
+            p.img,
+            p.category_id,
+            p.brand_id,
+            b.brand_title
+        FROM products p
+        LEFT JOIN brand b ON p.brand_id = b.brand_id
+        WHERE p.product_id = $id";
         $result = $mysqli->query($query);
 
         if ($result->num_rows > 0) {
@@ -29,10 +44,12 @@ class Product
             $this->old_cost = $product_data['old_cost'];
             $this->img = $product_data['img'];
             $this->category_id = $product_data['category_id'];
+            $this->brand_id = $product_data['brand_id'];
+            $this->brand_title = $product_data['brand_title'];
         }
     }
 
-    public static function getAll($category_id = false, $sort = false, $page = false)
+    public static function getAll($category_id = false, $type = false, $action = false, $brand_id = false, $page = false)
     {
         global $mysqli;
 
@@ -46,12 +63,21 @@ class Product
             $conditions .= " AND p.category_id=$category_id";
         }
         
-        if($sort !== false){
-            if($sort == 'desc'){
+        if($brand_id !== false) {
+            $conditions .= " AND p.brand_id='$brand_id'";
+        }
+        
+        if ($type !== false && $type == 'cost'){
+            if ($action !== false && $action == 'desc'){
                 $conditions .= " ORDER BY cost DESC";
-            }
-            if($sort == 'avc'){
+            } else if ($action !== false && $action == 'asc'){
                 $conditions .= " ORDER BY cost";
+            }
+        } else if ($type !== false && $type == 'name'){
+            if ($action !== false && $action == 'desc'){
+                $conditions .= " ORDER BY title DESC";
+            } else if ($action !== false && $action == 'asc'){
+                $conditions .= " ORDER BY title";
             }
         }
         
@@ -85,11 +111,11 @@ class Product
         ];
     }
     
-    public function add($title, $cost, $old_cost, $img, $category_id)
+    public function add($title, $cost, $old_cost, $img, $category_id, $brand_id)
     {
         global $mysqli;
 
-        $query = "INSERT INTO products (title, cost, old_cost, img, category_id) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id')";
+        $query = "INSERT INTO products (title, cost, old_cost, img, category_id, brand_id) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id', '$brand_id')";
         
         $result = $mysqli->query($query);
 
@@ -100,7 +126,7 @@ class Product
         }
     }
     
-    public function update($id, $title=false, $cost=false, $old_cost=false, $img=false, $category_id=false)
+    public function update($id, $title=false, $cost=false, $old_cost=false, $img=false, $category_id=false, $brand_id=false)
     {   
         $condition = [];
         if($title != false) {
@@ -117,6 +143,9 @@ class Product
         }
         if($category_id != false) {
             $condition[] = "category_id='$category_id'";
+        }
+        if($brand_id != false) {
+            $condition[] = "brand_id='$brand_id'";
         }
 
         $condition = implode(",", $condition);
@@ -154,16 +183,16 @@ class Product
 // $products = new Product(1);
 
 //Вывести все товары
-// $products = Product::getAll(false, false, 1);
+// $products = Product::getAll(2, 'cost', 'asc', 3, 1);
 
 // Добавление товара
-//$products = Product::add('Avei85', '3500', '4500', 'avei7', '1');
+//$products = Product::add('null', 'null', 'null', 'null', '1', '1');
 
 //Обновление товара
-//$products = Product::update('2', 'avei-0', '1000', '3500', 'avei7', '2');
+//$products = Product::update(60, 'Casion', 1000, 3500, 'avei7', 2, 8);
 
 //Удаление товара
-//$products = Product::delete(2);
+//$products = Product::delete(86);
 
 // echo '<pre>';
 // var_dump($products);

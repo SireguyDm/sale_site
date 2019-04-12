@@ -259,7 +259,6 @@ class Order
 
 //Удаление заказа
 //$order = Order::delete(3);
-//(не удаляет связанные с корзиной)
 
 //Поиск order_id по индификатору
 //$order = Order::searchByIndificator(123);

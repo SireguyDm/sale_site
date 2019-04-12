@@ -129,7 +129,6 @@ function goToTarget(start, target){
     $(start).click(function(){
         if ($(target).length > 0){
             var height = $(target).offset().top;
-            console.log(height);
             
             $('html, body').animate({
                 scrollTop: height - 50

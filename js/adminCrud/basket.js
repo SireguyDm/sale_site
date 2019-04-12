@@ -6,19 +6,28 @@ $(document).ready(function(){
     var status_id = false;
     var order_id = false;
     var page = 1;
+    var action = false;
     
-    getBasket(status_id, order_id, sort, view_id, time, page);
+    getBasket(status_id, order_id, sort, view_id, time, page, action);
     
     $(document).on('click', '#openModal', function(){
-        openClose()
+        openClose('#ChangeModal')
         
         var order_id = $(this).parent().parent('#admin_basket').data('orderid');
         
         $('#ChangeModal').attr('data-orderid', order_id);
     });
     
+    //Действия при нажатии на кнопку корзины
+    $(document).on('click', '.order_delete', function () {
+        
+        openClose('#DeleteModal');
+        
+        var id = $(this).parent('.order_item').attr('data-orderid');
+        $('#DeleteModal').attr('data-orderid', id);
+    });
     
-    //Закрытие при нажатии на кнопку сохранить
+    //Действия при нажатии на кнопку сохранить
     $('#save').click(function(){
     
         var status_id = $('input[name=status-radio]:checked').val();
@@ -31,15 +40,39 @@ $(document).ready(function(){
     
         $('#ChangeModal').attr('data-orderid', false);
         clearContent();
-        getBasket(status_id, order_id, sort, view_id, time, page);
-        openClose();
+        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        openClose('#ChangeModal');
+    });
+    
+    //Действия при нажатии на кнопку удалить
+    $('#delete_send').click(function(){
+    
+        var action = 'delete';
+        var order_id = $('#DeleteModal').attr('data-orderid');
+        
+        page = $('.active_page').data('page');
+        sort = $('.sort-zag').attr('data-action');
+        view_id = $('.view-zag').attr('data-statusid');
+        time = $('.time-zag').attr('data-time');
+    
+        $('#DeleteModal').attr('data-orderid', false);
+        clearContent();
+        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        openClose('#DeleteModal');
     });
     
     //Закрытие формы изменения
     $(document).on('click', '.modal_close', function () {
         
         $('#ChangeModal').attr('data-orderid', false);
-        openClose();
+        openClose('#ChangeModal');
+    });
+    
+    //Закрытие формы удаления
+    $('.delete_close').click(function () {
+        
+        $('#DeleteModal').attr('data-orderid', false);
+        openClose('#DeleteModal');
     });
     
     // Фильтр
@@ -69,7 +102,7 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page);
+        getBasket(status_id, order_id, sort, view_id, time, page, action);
         
         actionMenu('sort');
     });
@@ -93,7 +126,7 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page);
+        getBasket(status_id, order_id, sort, view_id, time, page, action);
         
         actionMenu('view');
     });
@@ -113,7 +146,7 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page);
+        getBasket(status_id, order_id, sort, view_id, time, page, action);
         
         actionMenu('time');
     });
@@ -126,7 +159,7 @@ $(document).ready(function(){
             var view_id = $('.view-zag').attr('data-statusid');
             var time = $('.time-zag').attr('data-time');
             clearContent();
-            getBasket(status_id, order_id, sort, view_id, time, page);
+            getBasket(status_id, order_id, sort, view_id, time, page, action);
         });
         //Смена страниц при клике на слайдер
         $('.pag_prev, .pag_next').click(function(){
@@ -136,7 +169,7 @@ $(document).ready(function(){
                 var view_id = $('.view-zag').attr('data-statusid');
                 var time = $('.time-zag').attr('data-time');
                 clearContent();
-                getBasket(status_id, order_id, sort, view_id, time, page);
+                getBasket(status_id, order_id, sort, view_id, time, page, action);
             }, 100);
         });
     });
@@ -147,7 +180,7 @@ $(document).ready(function(){
     
 });
 
-function getBasket(status_id, order_id, sort, view_id, time, page){
+function getBasket(status_id, order_id, sort, view_id, time, page, action){
     
     $.post('../php/admin_get_basket.php', {
         status_id,
@@ -155,7 +188,8 @@ function getBasket(status_id, order_id, sort, view_id, time, page){
         sort,
         view_id,
         time,
-        page
+        page,
+        action
     }, function (data) {
         var data = JSON.parse(data);
         
@@ -216,7 +250,7 @@ function getBasket(status_id, order_id, sort, view_id, time, page){
             }
             
             $('.admin_zakazi').append(
-                '<div class="alert '+ status_class +' mb-4" role="alert" id="admin_basket" data-orderId="'+ user['id'] +'">' +
+                '<div class="alert '+ status_class +' mb-4 order_item" role="alert" id="admin_basket" data-orderId="'+ user['id'] +'">' +
                     '<div class="user-info">' +
                         '<h3 id="order-status">'+ user['status_title'] +'</h3>' +
                         '<h4 class="alert-heading admin_time text-center">'+ user['date_created'] +'</h4>' +
@@ -240,6 +274,7 @@ function getBasket(status_id, order_id, sort, view_id, time, page){
                         '<p>Изменить статус: </p>' +
                         '<button id="openModal">Изменить</button>' +
                     '</div>' +
+                     '<div class="order_delete"></div>'+
                 '</div>'
             )
         });
@@ -284,14 +319,14 @@ function getBasket(status_id, order_id, sort, view_id, time, page){
         
         //Если ничего не найдено
         if (arr_basket.length == 0){
-            $('.admin_menu_orders').append('<h3 class="text-center">Ничего не найдено ...</h3>');
+            $('.admin_zakazi').append('<h3 class="text-center">Ничего не найдено ...</h3>');
         }
     });
     // Конец запроса
 };
 
-function openClose(){
-    var modal = $('#ChangeModal');
+function openClose(target){
+    var modal = $(target);
     if (modal.css('display') == 'none' && modal.css('opacity') == '0'){
         modal.css('display', 'block');
         modal.css('opacity', '1');
