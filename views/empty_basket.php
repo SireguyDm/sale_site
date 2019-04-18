@@ -39,8 +39,8 @@
                 <div class="sale-box">
                     <div class="sale-slider">
                         <?php 
-                            foreach ($products as $product) {
-                                if ($product->old_cost !== '0'){
+                            foreach ($randomProducts as $product) {
+                                
                                     echo 
                                     '
                                     <div class="slider-item">
@@ -57,7 +57,7 @@
                                     </div>
                                     ';
                                 }
-                            }   
+                              
                         ?>
                 </div>
             </div>

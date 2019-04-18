@@ -36,14 +36,13 @@
                 
                 <div class="offers" id="sale-offers">
                     <div class="middle-zag">
-                        <span>ВЕЩИ СО СКИДКОЙ</span>
+                        <span>ТОВАР СО СКИДКОЙ</span>
                     </div>
                     <div class="sale-slider-box">
                         <div class="sale-box">
                             <div class="sale-slider">
                                 <?php
-                                foreach ($products as $product) {
-                                    if ($product->old_cost !== '0'){
+                                foreach ($randomProducts as $product) {
                                         echo 
                                         '
                                         <div class="slider-item">
@@ -59,8 +58,7 @@
                                             </a>
                                         </div>
                                         ';
-                                    }
-                                }   
+                                    }  
                                 ?>
                                 
                             </div>

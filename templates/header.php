@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="panel-info">
-                    <p>8(495) 372-45-95 </p>
+                    <p>8(495) 372-68-11 </p>
                     <p>8(495) 372-45-95 </p>
                     <p class="panel-info-time">с 9 до 21 без выходных</p>
                 </div>

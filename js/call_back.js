@@ -32,7 +32,13 @@ $(document).ready(function(){
             $.post('../php/create_callBack.php', {
                 cb_name,
                 cb_tel
-            });  
+            });
+            
+            $('.call_back_background').css('display', 'none');
+            $('#cb_name').val('');
+            $('#cb_tel').val('');
+            $('#cb_name').removeClass('cb_done');
+            $('#cb_tel').removeClass('cb_done');
             
         } else {
             if (!cb_name && cb_tel.length > 10){

@@ -5,7 +5,7 @@ session_start();
 $product_id = (((isset($_REQUEST['product_id'])) && $_REQUEST['product_id'] !== "")?$_REQUEST['product_id']:false);
 
 //Если товар был добавлен
-if ($product_id !== false){
+if ($product_id !== false && $_SESSION['cart'][$product_id]['count'] < 10){
     
     //В сессию записывается id товара
     $_SESSION['cart'][$product_id]['product_id'] = $product_id;

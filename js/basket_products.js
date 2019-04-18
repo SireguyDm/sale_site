@@ -13,7 +13,7 @@ $(document).ready(function(){
         var counter = $(this).parent().prev('.basket-cutom-text');
         var count = counter.text();
         count = parseInt(count);
-        if (count < 15){
+        if (count < 10){
             count += 1;
         }
         counter.text(count);

@@ -1213,7 +1213,7 @@ button {
     background: url(../icon/a-r.png) center center/contain no-repeat;
     display: none; }
   .sale-slider-box #slider-prev {
-    left: -30px;
+    left: -35px;
     background: url(../icon/a-l.png) center center/contain no-repeat;
     display: none; }
 
@@ -1268,7 +1268,7 @@ button {
     user-select: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 0 20px; }
+    padding: 0 18px; }
   .slider-item .slider-i-desc {
     margin: 10px 0 15px; }
     .slider-item .slider-i-desc p {

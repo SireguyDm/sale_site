@@ -3,7 +3,7 @@
 <div class="article-section">
     <div class="middle-zag">
         <span id="data-id" data-id="<?php echo $products->id ?>">
-            <?php echo $products->title ?>  
+            <?php echo $products->brand_title.' / '.$products->title ?>
         </span>
     </div>
     <div class="article-section-item">
