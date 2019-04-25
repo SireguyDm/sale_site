@@ -31,7 +31,7 @@ class CallBack
     {
         global $mysqli;
         
-        $query = "SELECT COUNT(*) as count FROM `call_back` WHERE 1";
+        $query = "SELECT COUNT(*) as count FROM call_back WHERE 1";
         $result = $mysqli->query($query);
         $count_data = $result->fetch_assoc();
             
@@ -46,7 +46,7 @@ class CallBack
             return false;
         }
         
-        $query = "SELECT call_id FROM call_back $limit";
+        $query = "SELECT call_id FROM call_back ORDER BY date DESC $limit";
         $result = $mysqli->query($query);
         
         $calls_back = [];

@@ -2,7 +2,7 @@
     <div class="communicate" id="communicate-target">
         <div class="communicate-wrapper">
             <p>ОСТАЛИСЬ ВОПРОСЫ? МЫ ПЕРЕЗВОНИМ ВАМ!</p>
-            <button id="call-back-activator">Связаться</button>
+            <button class="call-back-activator">Связаться</button>
         </div>
     </div>
     

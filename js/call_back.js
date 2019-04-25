@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-    $('#call-back-activator').click(function(){
+    $('.call-back-activator').click(function(){
         $('.call_back_background').css('display', 'block');
     });
     

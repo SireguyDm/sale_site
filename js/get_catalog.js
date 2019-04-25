@@ -94,12 +94,12 @@ function getCatalog(category_id, type, action, brand, page){
         var page_count = data['count'];
         var active_page = data['active_page'];
         
-        $(document).ajaxStart(function () {
-            $('.catalog-product').append('<div class="catalog-ajax"></div>');
-        });
+//        $(document).ajaxStart(function () {
+//            $('.catalog-product').append('<div class="catalog-ajax"></div>');
+//        });
         
         $(document).ajaxStop(function () {
-            $('.catalog-product').empty();
+//            $('.catalog-product').empty();
             if (catalog.length > 0){
                 catalog.forEach(function(product){
                     if (product['old_cost'] !== '0'){
