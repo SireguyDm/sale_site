@@ -6,6 +6,7 @@ $order_id = (((isset($_REQUEST['order_id'])) && $_REQUEST['order_id'] !== "")?$_
 $status_id = (((isset($_REQUEST['status_id'])) && $_REQUEST['status_id'] !== "")?$_REQUEST['status_id']:false);
 $page = (((isset($_REQUEST['page'])) && $_REQUEST['page'] !== "")?$_REQUEST['page']:false);
 $action = (((isset($_REQUEST['action'])) && $_REQUEST['action'] !== "")?$_REQUEST['action']:false);
+$search_text = (((isset($_REQUEST['search_text'])) && $_REQUEST['search_text'] !== "")?$_REQUEST['search_text']:false);
 
 require_once '../models/product.php';
 require_once '../models/order.php';
@@ -45,7 +46,24 @@ $orders = $orders_data['orders'];
 $orders_count = $orders_data['count'];
 $pages_count = ceil($orders_count / Order::$limit_orders);
 
-$page_info = [];
+if ($search_text !== false){
+    
+    $search_orders = $orders;
+    $orders = [];
+    foreach ($search_orders as $order){
+        
+        $search_ind = $order->indificator;
+        $search_ind = mb_strtolower($search_ind);
+        preg_replace('/\s/', '', $search_ind);
+        
+        if ($search_text == $search_ind){
+            $orders[] = $order;
+        }
+        $pages_count = 1;
+        $pages_count = 1;
+    }
+}
+
 $page_info = [
     'pages_count' => $pages_count,
     'currect_page' => $page

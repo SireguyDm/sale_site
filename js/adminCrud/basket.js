@@ -7,8 +7,9 @@ $(document).ready(function(){
     var order_id = false;
     var page = 1;
     var action = false;
+    var search_text = '';
     
-    getBasket(status_id, order_id, sort, view_id, time, page, action);
+    getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
     
     $(document).on('click', '#openModal', function(){
         openClose('#ChangeModal')
@@ -40,7 +41,7 @@ $(document).ready(function(){
     
         $('#ChangeModal').attr('data-orderid', false);
         clearContent();
-        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         openClose('#ChangeModal');
     });
     
@@ -57,7 +58,7 @@ $(document).ready(function(){
     
         $('#DeleteModal').attr('data-orderid', false);
         clearContent();
-        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         openClose('#DeleteModal');
     });
     
@@ -102,7 +103,7 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         
         actionMenu('sort');
     });
@@ -126,7 +127,7 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         
         actionMenu('view');
     });
@@ -146,10 +147,47 @@ $(document).ready(function(){
         
         clearContent();
         
-        getBasket(status_id, order_id, sort, view_id, time, page, action);
+        getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         
         actionMenu('time');
     });
+    
+    //Живой поиск
+    $("#search").keyup(function(i){
+        switch(i.keyCode) {
+            case 27:  // escape
+            case 32:  // пробел
+            case 123: // F12
+            break;
+                
+            default:
+                if ($(this).val().length > 9){
+                    var search_text = $(this).val().toLowerCase();
+                    search_text = search_text.replace(/\s/g, '');
+                    
+                    var sort = 'desc';
+                    var view_id = 'false';
+                    var time = false;
+                    var page = 1;
+                    
+                    clearContent();
+                    getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
+                    
+                } else if ($(this).val().length > 0 && $(this).val().length <= 9){
+                    $('.admin_zakazi').empty();
+                    
+                } else {
+                    var sort = 'desc';
+                    var view_id = 'false';
+                    var time = false;
+                    var page = 1;
+               
+                    clearContent();
+                    getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
+                }
+            break;
+        }
+    });   
     
     $(document).ajaxStop(function(){
         //Смена страниц при клике на страницу
@@ -159,7 +197,7 @@ $(document).ready(function(){
             var view_id = $('.view-zag').attr('data-statusid');
             var time = $('.time-zag').attr('data-time');
             clearContent();
-            getBasket(status_id, order_id, sort, view_id, time, page, action);
+            getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
         });
         //Смена страниц при клике на слайдер
         $('.pag_prev, .pag_next').click(function(){
@@ -169,7 +207,7 @@ $(document).ready(function(){
                 var view_id = $('.view-zag').attr('data-statusid');
                 var time = $('.time-zag').attr('data-time');
                 clearContent();
-                getBasket(status_id, order_id, sort, view_id, time, page, action);
+                getBasket(status_id, order_id, sort, view_id, time, page, action, search_text);
             }, 100);
         });
     });
@@ -180,7 +218,7 @@ $(document).ready(function(){
     
 });
 
-function getBasket(status_id, order_id, sort, view_id, time, page, action){
+function getBasket(status_id, order_id, sort, view_id, time, page, action, search_text){
     
     $.post('../php/admin_get_basket.php', {
         status_id,
@@ -189,7 +227,8 @@ function getBasket(status_id, order_id, sort, view_id, time, page, action){
         view_id,
         time,
         page,
-        action
+        action,
+        search_text
     }, function (data) {
         var data = JSON.parse(data);
         
@@ -254,6 +293,7 @@ function getBasket(status_id, order_id, sort, view_id, time, page, action){
                     '<div class="user-info">' +
                         '<h3 id="order-status">'+ user['status_title'] +'</h3>' +
                         '<h4 class="alert-heading admin_time text-center">'+ user['date_created'] +'</h4>' +
+                        '<h4 class="text-center">Номер заказа : '+ user['indificator'] +'</h4>' +
                         '<p class="text-center h4" id="user_name">'+ user['first_name'] +'<span id="user-f"> '+ user_secondName +'</span></p>' +
                         '<p class="h5 admin_basket_row mt-4">Телефон: <span>'+ user['tel'] +'</span></p>' +
                         '<p class="h5 admin_basket_row">E-mail: <span>'+ user_email +'</span></p>' +

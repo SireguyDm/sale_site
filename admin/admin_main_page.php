@@ -61,6 +61,10 @@
                 </div>
             </div>
         </div>
+        <div class="search">
+            <label for="search">Поиск</label>
+            <input type="text" id="search" placeholder="Введите индификатор">
+        </div>
     </div>
    
     <h1 class="text-center mt-4 mb-4">Заказы</h1>
