@@ -606,3 +606,13 @@
     -webkit-transform: scale(0.99);
     -ms-transform: scale(0.99);
     transform: scale(0.99); }
+
+.prodCountZag {
+  margin: 0;
+  font-size: 24px;
+  margin-right: 10px; }
+
+#ProdCount {
+  font-size: 27px;
+  font-weight: 600;
+  margin: 0; }

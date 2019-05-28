@@ -1,5 +1,20 @@
 <?php include('../controllers/header.php') ?>
 
+<?php
+  
+    if ($products->prod_count > 0){
+        if ($products->old_cost !== '0'){
+            $old_cost = '<p class="old-cost">'.$products->old_cost.' руб.</p>';
+        } else {
+            $old_cost = '';
+        }
+        $html_cost = '<p class="cost">'.$products->cost.' руб.</p>'.$old_cost;
+    } else {
+        $html_cost = '<p class="product-stock">Нет в наличии</p>';
+    }
+    
+?>
+
 <div class="article-section">
     <div class="middle-zag">
         <span id="data-id" data-id="<?php echo $products->id ?>">
@@ -23,11 +38,8 @@
             <div class="aritcle-wrapper">
                 <div class="article-cost">
                     <div class="article-cost-item">
-                        <p class="cost">
-                            <?php echo $products->cost ?> руб.
-                        </p>
                         <?php 
-                            echo ($products->old_cost !== '0' ? '<p class="old-cost">'.$products->old_cost.' руб.</p>' : false); 
+                            echo $html_cost;
                         ?>
                     </div>
                 </div>
@@ -47,15 +59,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="article-buttons">
-                    <button id="add_article">
-                        <img src="../icon/shopping-basket.png">
-                        <span>В корзину</span>
-                    </button>
-                    <button class="article-btn-answ call-back-activator">
-                        <span>Остались вопросы? Ответим!</span>
-                    </button>
-                </div>
+                <?php 
+                    if ($products->prod_count > 0){
+                        echo '
+                        <div class="article-buttons">
+                            <button id="add_article">
+                                <img src="../icon/shopping-basket.png">
+                                <span>В корзину</span>
+                            </button>
+                            <button class="article-btn-answ call-back-activator">
+                                <span>Остались вопросы? Ответим!</span>
+                            </button>
+                        </div>';
+                    }
+                ?>
+                
 
                 <div class="article-text">
                     <div class="article-text-description">

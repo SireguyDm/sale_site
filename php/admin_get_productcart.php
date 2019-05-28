@@ -15,6 +15,7 @@ $country = (((isset($_REQUEST['country'])) && $_REQUEST['country'] !== "")?$_REQ
 $category_id = (((isset($_REQUEST['category_id'])) && $_REQUEST['category_id'] !== "")?$_REQUEST['category_id']:false);
 $brand_id = (((isset($_REQUEST['brand_id'])) && $_REQUEST['brand_id'] !== "")?$_REQUEST['brand_id']:false);
 $action = (((isset($_REQUEST['action'])) && $_REQUEST['action'] !== "")?$_REQUEST['action']:false);
+$product_count = (((isset($_REQUEST['product_count'])) && $_REQUEST['product_count'] !== "")?$_REQUEST['product_count']:false);
 
 if ($product_id !== false){
     require_once '../models/product.php';
@@ -22,7 +23,7 @@ if ($product_id !== false){
     
     if ($action == 'change'){
         
-        $products = Product::update($product_id, $title, $cost, $old_cost, $img, $category_id, $brand_id);
+        $products = Product::update($product_id, $title, $cost, $old_cost, $img, $category_id, $brand_id, $product_count);
         
         $description_update = Description::update($product_id, $zag, $p1, $p2, $color, $size, $material, $country);
     }

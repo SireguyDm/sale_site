@@ -10,6 +10,7 @@ $(document).ready(function(){
     var img = false;
     var category_id = false;
     var brand_id = false;
+    var product_count = false;
     
     //Description
     var zag = false;
@@ -24,10 +25,12 @@ $(document).ready(function(){
     var action = false;
     
     //Получение товара
-    getProduct(product_id, false, false, false, false, false, false, false, false, false, false, false, false, false, false); 
+    getProduct(product_id, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false); 
     
     //Работа изображений
     slider_images();
+    //Работа счетчика
+    prodCounter();
     
     //Действия при нажатии на кнопку изменить
     $('#change').click(function(){
@@ -110,26 +113,25 @@ $(document).ready(function(){
         $('#inputSize').val() !== '' ? size = $('#inputSize').val() : size = false;
         $('#inputMaterial').val() !== '' ? material = $('#inputMaterial').val() : material = false;
         $('#inputCountry').val() !== '' ? country = $('#inputCountry').val() : country = false;
+        $('#ProductCounter').val() !== '' ? product_count = $('#ProductCounter').val() : product_count = false;
         category_id = $('#CategoryMenu').attr('data-categoryId');
         brand_id = $('#BrandMenu').attr('data-brandId');
         
         action = 'change';
         
         clearProduct();
-        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id);
+        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id, product_count);
         
         return false;
     });
     
     //Действия при нажатии на кнопку Удалить
     $('#delete').click(function(){
-        
         openClose('#DeleteModal');
     });
     
     //Закрытие формы удаления
     $('.modal_close').click(function(){
-        
         openClose('#DeleteModal');
     });
     
@@ -139,14 +141,14 @@ $(document).ready(function(){
         action = 'delete';
         
         clearProduct();
-        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id);
+        getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id, product_count);
         
         window.location.href = "../controllers/admin_products.php";
     });
     
 });
 
-function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id){
+function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, size, material, country, action, category_id, brand_id, product_count){
     
     $.post('../php/admin_get_productcart.php', {
         product_id,
@@ -163,12 +165,17 @@ function getProduct(product_id, title, cost, old_cost, img, zag, p1, p2, color, 
         country,
         action,
         category_id,
-        brand_id
+        brand_id,
+        product_count
     }, function (data) {
         var data = JSON.parse(data);
         
         var product = data['product_data'];
         var description = data['description_data'];
+        
+        $('#ProdCount').text(product['prod_count']);
+        $('#ProductCounter').val(product['prod_count']);
+        
         
         $('#CategoryMenu').attr('data-categoryId', product['category_id']);
         var category = false;
@@ -272,3 +279,21 @@ function clearProduct(){
     $('.article-text').empty();
 }
 
+function prodCounter(){
+    //Действия при нажатии на плюс
+    $('#plus').click(function(){
+        var count = $('#ProductCounter').val();
+        if (count < 999){
+            count++;
+        }
+        $('#ProductCounter').val(count);
+    });
+    //Действия при нажатии на минус
+    $('#minus').click(function(){
+        var count = $('#ProductCounter').val();
+        if (count > 1){
+            count--;
+        }
+        $('#ProductCounter').val(count);
+    });
+}

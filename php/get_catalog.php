@@ -6,10 +6,11 @@ $action = (((isset($_REQUEST['action'])) && $_REQUEST['action'] !== "")?$_REQUES
 $type = (((isset($_REQUEST['type'])) && $_REQUEST['type'] !== "")?$_REQUEST['type']:false);
 $brand = (((isset($_REQUEST['brand'])) && $_REQUEST['brand'] !== "")?$_REQUEST['brand']:false);
 $active_page = (((isset($_REQUEST['active_page'])) && $_REQUEST['active_page'] !== "")?$_REQUEST['active_page']:false);
+$stock  = (((isset($_REQUEST['stock'])) && $_REQUEST['stock'] !== "")?$_REQUEST['stock']:false);
 
 if ($category_id !== false){
     require_once '../models/product.php';
-    $data_products = Product::getAll($category_id, $type, $action, $brand, $page);
+    $data_products = Product::getAll($category_id, $type, $action, $brand, $page, $stock);
     $products = $data_products['products'];
     $products_count = $data_products['count'];
     

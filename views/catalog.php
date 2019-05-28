@@ -21,14 +21,21 @@
         </div>
         <div class="catalog-section">
             <div class="catalog-filter">
-                <p>Сортировать: </p>
-                <div class="catalog-filter-item filter-cost" data-action="none" data-type="cost">
-                    По цене
-                    <div class="filter-img"></div>
+                <div class="catalog-left-panel">
+                    <p>Сортировать: </p>
+                    <div class="catalog-filter-item filter-cost" data-action="none" data-type="cost">
+                        По цене
+                        <div class="filter-img"></div>
+                    </div>
+                    <div class="catalog-filter-item filter-name" data-action="none" data-type="name">
+                        По имени
+                        <div class="filter-img"></div>
+                    </div>
                 </div>
-                <div class="catalog-filter-item filter-name" data-action="none" data-type="name">
-                    По имени
-                    <div class="filter-img"></div>
+                
+                <div id="stock" data-stock="false">
+                    Только в наличии
+                    <div class="stock-img"></div>
                 </div>
             </div>
             <div class="catalog-product"></div>

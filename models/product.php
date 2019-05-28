@@ -12,6 +12,7 @@ class Product
     public $category_id;
     public $brand_id;
     public $brand_title;
+    public $prod_count;
     
     public static $limit_products = 12;
     
@@ -29,6 +30,7 @@ class Product
             p.img,
             p.category_id,
             p.brand_id,
+            p.p_count,
             b.brand_title
         FROM products p
         LEFT JOIN brand b ON p.brand_id = b.brand_id
@@ -46,10 +48,11 @@ class Product
             $this->category_id = $product_data['category_id'];
             $this->brand_id = $product_data['brand_id'];
             $this->brand_title = $product_data['brand_title'];
+            $this->prod_count = $product_data['p_count'];
         }
     }
 
-    public static function getAll($category_id = false, $type = false, $action = false, $brand_id = false, $page = false)
+    public static function getAll($category_id = false, $type = false, $action = false, $brand_id = false, $page = false, $stock = false)
     {
         global $mysqli;
 
@@ -67,6 +70,10 @@ class Product
             $conditions .= " AND p.brand_id='$brand_id'";
         }
         
+        if($stock == 'true'){
+            $conditions .= " AND p.p_count > 0";
+        }
+        
         if ($type !== false && $type == 'cost'){
             if ($action !== false && $action == 'desc'){
                 $conditions .= " ORDER BY cost DESC";
@@ -80,6 +87,8 @@ class Product
                 $conditions .= " ORDER BY title";
             }
         }
+        
+        
         
         $query = "SELECT COUNT(*) as count FROM $tables WHERE 1 $conditions";
         $result = $mysqli->query($query);
@@ -111,11 +120,11 @@ class Product
         ];
     }
     
-    public function add($title, $cost, $old_cost, $img, $category_id, $brand_id)
+    public function add($title, $cost, $old_cost, $img, $category_id, $brand_id, $prod_count)
     {
         global $mysqli;
 
-        $query = "INSERT INTO products (title, cost, old_cost, img, category_id, brand_id) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id', '$brand_id')";
+        $query = "INSERT INTO products (title, cost, old_cost, img, category_id, brand_id, count) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id', '$brand_id', '$prod_count')";
         
         $result = $mysqli->query($query);
 
@@ -126,7 +135,7 @@ class Product
         }
     }
     
-    public function update($id, $title=false, $cost=false, $old_cost=false, $img=false, $category_id=false, $brand_id=false)
+    public function update($id, $title=false, $cost=false, $old_cost=false, $img=false, $category_id=false, $brand_id=false, $prod_count=false)
     {   
         $condition = [];
         if($title != false) {
@@ -146,6 +155,9 @@ class Product
         }
         if($brand_id != false) {
             $condition[] = "brand_id='$brand_id'";
+        }
+        if($prod_count != false) {
+            $condition[] = "count='$prod_count'";
         }
 
         $condition = implode(",", $condition);
@@ -183,13 +195,13 @@ class Product
 // $products = new Product(1);
 
 //Вывести все товары
-// $products = Product::getAll(2, 'cost', 'asc', 3, 1);
+// $products = Product::getAll(false, 'cost', 'asc', false, 1);
 
 // Добавление товара
-//$products = Product::add('null', 'null', 'null', 'null', '1', '1');
+//$products = Product::add('null', 'null', 'null', 'null', '1', '1', false);
 
 //Обновление товара
-//$products = Product::update(60, 'Casion', 1000, 3500, 'avei7', 2, 8);
+//$products = Product::update(60, 'Casion', 1000, 3500, 'avei7', 2, 8, false);
 
 //Удаление товара
 //$products = Product::delete(86);

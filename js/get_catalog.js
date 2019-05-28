@@ -4,8 +4,9 @@ $(document).ready(function(){
     var type = false;
     var action = false;
     var brand = '';
+    var stock = false;
     var page = 1;
-    getCatalog(category_id, type, action, brand, page);
+    getCatalog(category_id, type, action, brand, stock, page);
     
     $('.brand-item').click(function(){
         if ($('.brand-active').length > 0){
@@ -22,9 +23,10 @@ $(document).ready(function(){
             }
         });
         
+        stock = $('#stock').attr('data-stock');
         page = 1;
         
-        getCatalog(category_id, type, action, brand, page);
+        getCatalog(category_id, type, action, brand, stock, page);
     });
     
     $('.catalog-filter-item').click(function(){
@@ -52,8 +54,9 @@ $(document).ready(function(){
             action = $(this).attr('data-action');
             type = $(this).attr('data-type');
             page = $('.active_page').data('page');
+            stock = $('#stock').attr('data-stock');
             
-            getCatalog(category_id, type, action, brand, page);
+            getCatalog(category_id, type, action, brand, stock, page);
         }
     });
     
@@ -64,7 +67,7 @@ $(document).ready(function(){
             page = $(this).data('page');
             
             var target_height = $('.middle-zag').scrollTop();
-                
+            
             catalogScroll();
             getCatalog(category_id, type, action, brand, page);
         });
@@ -74,18 +77,45 @@ $(document).ready(function(){
                 page = $('.active_page').data('page');
                 
                 catalogScroll();
-                getCatalog(category_id, type, action, brand, page);
+                getCatalog(category_id, type, action, brand, stock, page);
             }, 100);
         });
     });
+    
+    //Только в наличие
+    $('#stock').mouseenter(function(){
+        $('.stock-img').addClass('stock-hover');
+    });
+    $('#stock').mouseleave(function(){
+        $('.stock-img').removeClass('stock-hover');
+    });
+    
+    $('#stock').click(function(){
+        if ($('.stock-img').hasClass('stock-active')){
+            $('.stock-img').removeClass('stock-active');
+            $('#stock').attr('data-stock', 'false');
+        } else {
+            $('.stock-img').addClass('stock-active');
+            $('#stock').attr('data-stock', 'true');
+        }
+        stock = $(this).attr('data-stock');
+        brand = $('.brand-active').attr('data-brand');
+        action = $('.catalog-filter-item').attr('data-action');
+        type = $('.catalog-filter-item').attr('data-type');
+        page = 1;
+        
+        getCatalog(category_id, type, action, brand, stock, page)
+    });
+    
 });
 
-function getCatalog(category_id, type, action, brand, page){
+function getCatalog(category_id, type, action, brand, stock, page){
     $.post('../php/get_catalog.php', {
         category_id,
         type,
         action,
-        brand, 
+        brand,
+        stock,
         page
     }, function (data) {
         var data = JSON.parse(data);
@@ -94,18 +124,19 @@ function getCatalog(category_id, type, action, brand, page){
         var page_count = data['count'];
         var active_page = data['active_page'];
         
-//        $(document).ajaxStart(function () {
-//            $('.catalog-product').append('<div class="catalog-ajax"></div>');
-//        });
-        
         $(document).ajaxStop(function () {
-//            $('.catalog-product').empty();
+            $('.catalog-product').empty();
             if (catalog.length > 0){
                 catalog.forEach(function(product){
                     if (product['old_cost'] !== '0'){
                         var product_old_cost = product['old_cost'] + ' руб.'
                     } else {
                         var product_old_cost = '';
+                    }
+                    if (product['prod_count'] !== '0'){
+                        var html_cost = '<p class="cost">'+ product['cost'] +' руб.</p>'+'<p class="old-cost">'+ product_old_cost +'</p>';
+                    } else {
+                        var html_cost = '<p class="sold">Нет в наличии</p>'
                     }
                     $('.catalog-product').append(
                         '<div class="offers-item">' +
@@ -117,10 +148,7 @@ function getCatalog(category_id, type, action, brand, page){
                                     '<p class="product-title">'+ product['brand_title'] +'</p>'+
                                     '<p>'+ product['title'] +'</p>' +
                                 '</div>' +
-                                '<div class="offers-cost">' +
-                                    '<p class="cost">'+ product['cost'] +' руб.</p>' +
-                                    '<p class="old-cost">'+ product_old_cost +'</p>' +
-                                '</div>' +
+                                '<div class="offers-cost">'+ html_cost +'</div>' +
                             '</a>' +
                         '</div>'
                     );
