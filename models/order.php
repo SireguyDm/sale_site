@@ -98,7 +98,7 @@ class Order
                 $daysago = strtotime($daysago);
                 $daysago = strtotime("-3 day", $daysago);
                 $daysago = date('Y-m-d', $daysago);
-                $condition[] = "AND `date_created`> '$daysago' AND `date_created`< '$today'";
+                $condition[] = "AND `date_created`> '$daysago'";
             }
         }
         
@@ -140,7 +140,7 @@ class Order
 
         return [
             'orders' => $orders,
-            'count' => $count_data['count']
+            'count' => $count_data['count'],
         ]; 
     }
     
@@ -248,8 +248,8 @@ class Order
 //$order = new Order(1);
 
 //Получение всех заказов
-//$order = Order::getAll('avc', '1,2,3,10,11,12,13', 'false', '3days', 1, '2019-03-14');
-//$order = Order::getAll(false, false, 'false', false, false, false);
+//$order = Order::getAll('avc', '1,2,3,10,11,12,13', 'false', '3days', 1, '2019-05-29');
+//$order = Order::getAll(false, false, 'false', '3days', false, '2019-05-29');
 
 //Обновление заказа
 //$order = Order::update(1, 2, false, false, false, false, false, false, false);

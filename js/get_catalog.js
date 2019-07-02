@@ -69,7 +69,7 @@ $(document).ready(function(){
             var target_height = $('.middle-zag').scrollTop();
             
             catalogScroll();
-            getCatalog(category_id, type, action, brand, page);
+            getCatalog(category_id, type, action, brand, stock, page);
         });
         //Смена страниц при клике на слайдер
         $('.pag_prev, .pag_next').click(function(){
