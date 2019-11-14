@@ -1,9 +1,9 @@
 <?php 
 
 $product_id = (((isset($_REQUEST['product_id'])) && $_REQUEST['product_id'] !== "")?$_REQUEST['product_id']:false);
-$title = (((isset($_REQUEST['title'])) && $_REQUEST['title'] !== "")?$_REQUEST['title']:null);
+$title = (((isset($_REQUEST['title'])) && $_REQUEST['title'] !== "")?$_REQUEST['title']:false);
 $zag = (((isset($_REQUEST['zag'])) && $_REQUEST['zag'] !== "")?$_REQUEST['zag']:null);
-$cost = (((isset($_REQUEST['cost'])) && $_REQUEST['cost'] !== "")?$_REQUEST['cost']:null);
+$cost = (((isset($_REQUEST['cost'])) && $_REQUEST['cost'] !== "")?$_REQUEST['cost']:false);
 $old_cost = (((isset($_REQUEST['old_cost'])) && $_REQUEST['old_cost'] !== "")?$_REQUEST['old_cost']:null);
 $p1 = (((isset($_REQUEST['p1'])) && $_REQUEST['p1'] !== "")?$_REQUEST['p1']:null);
 $p2 = (((isset($_REQUEST['p2'])) && $_REQUEST['p2'] !== "")?$_REQUEST['p2']:null);
@@ -23,6 +23,7 @@ if ($product_id !== false){
     
     if ($action == 'change'){
         
+//        $products = Product::update($product_id, $title, $cost, $old_cost, $img, $category_id, $brand_id, $product_count);
         $products = Product::update($product_id, $title, $cost, $old_cost, $img, $category_id, $brand_id, $product_count);
         
         $description_update = Description::update($product_id, $zag, $p1, $p2, $color, $size, $material, $country);
@@ -37,7 +38,18 @@ if ($product_id !== false){
     $product_data = new Product($product_id);
     $description_data = new Description($product_id);
     
-    $data = ['product_data' => $product_data, 'description_data' => $description_data];
+    $test = [
+        $product_id, 
+        $title, 
+        $cost, 
+        $old_cost, 
+        $img, 
+        $category_id, 
+        $brand_id, 
+        $product_count
+    ];
+    
+    $data = ['product_data' => $product_data, 'description_data' => $description_data, 'test'=> $test];
     echo json_encode($data);
 }
 

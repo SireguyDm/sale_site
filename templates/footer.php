@@ -30,7 +30,7 @@
                     <h3>О нас</h3>
                     <p>Интернет-магазин "ShopSer"<br>
                     <div class="group">
-                        <a href="https://vk.com/podarokshopser" target="_blank"></a>
+                        <a href="https://vk.com/sireguy" target="_blank"></a>
                         <p>Наша группа ВКонтакте</p>
                     </div>
                 </div>

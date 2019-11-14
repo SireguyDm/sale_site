@@ -124,7 +124,7 @@ class Product
     {
         global $mysqli;
 
-        $query = "INSERT INTO products (title, cost, old_cost, img, category_id, brand_id, count) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id', '$brand_id', '$prod_count')";
+        $query = "INSERT INTO products (title, cost, old_cost, img, category_id, brand_id, p_count) VALUES ('$title', '$cost', '$old_cost', '$img', '$category_id', '$brand_id', '$prod_count')";
         
         $result = $mysqli->query($query);
 
@@ -157,7 +157,7 @@ class Product
             $condition[] = "brand_id='$brand_id'";
         }
         if($prod_count != false) {
-            $condition[] = "count='$prod_count'";
+            $condition[] = "p_count='$prod_count'";
         }
 
         $condition = implode(",", $condition);
@@ -192,7 +192,7 @@ class Product
 }
 
 //Вывести определенный 
-// $products = new Product(1);
+// $products = new Product(6);
 
 //Вывести все товары
 // $products = Product::getAll(false, 'cost', 'asc', false, 1);
@@ -202,6 +202,7 @@ class Product
 
 //Обновление товара
 //$products = Product::update(60, 'Casion', 1000, 3500, 'avei7', 2, 8, false);
+//$products = Product::update(6, false, false, false, false, false, false, 14);
 
 //Удаление товара
 //$products = Product::delete(86);
